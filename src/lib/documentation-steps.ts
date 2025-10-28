@@ -84,7 +84,7 @@ export const documentationSteps: DocumentationStep[] = [
           codeBlocks: [
             {
               language: "bash",
-              code: `# 1. Clone the repository\n${getGitHubCloneCommand()}\ncd boiler\n\n# 2. Install dependencies\nnpm install\n\n# 3. Set up environment variables\ncp .env.example .env.local\n\n# 4. Start the development server\nnpm run dev`,
+              code: `# 1. Clone the repository\n${getGitHubCloneCommand()}\ncd boiler\n\n# 2. Install dependencies\nnpm install\n\n# 3. Set up environment variables\ncp .env.example .env\n\n# 4. Start the development server\nnpm run dev`,
               description: "Complete installation process",
             },
           ],
@@ -92,11 +92,11 @@ export const documentationSteps: DocumentationStep[] = [
         {
           title: "Environment Variables",
           content:
-            "Copy the .env.example file to .env.local and configure your environment variables including database URL, authentication secrets, and API keys.",
+            "Copy the .env.example file to .env and configure your environment variables including database URL, authentication secrets, and API keys.",
           codeBlocks: [
             {
               language: "bash",
-              code: "# Copy environment file\ncp .env.example .env.local",
+              code: "# Copy environment file\ncp .env.example .env",
               description: "Create your local environment configuration",
             },
             {

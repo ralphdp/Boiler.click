@@ -8,9 +8,18 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Navigation } from "@/components/Navigation";
 import { getGitHubUrl } from "@/lib/github";
+import QuickStart from "@/components/QuickStart";
+import { MatrixEffect } from "@/components/MatrixEffect";
+import { useMatrixEasterEgg } from "@/hooks/useMatrixEasterEgg";
 
 // Lazy load non-critical components
 const Footer = dynamic(() => import("@/components/Footer"), {
@@ -34,6 +43,18 @@ export default function Home() {
   const { t } = useLanguage();
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [hasImageError, setHasImageError] = useState(false);
+  const [isMatrixActive, setIsMatrixActive] = useState(false);
+  const [isEddieHovered, setIsEddieHovered] = useState(false);
+
+  // Matrix easter egg hook
+  useMatrixEasterEgg({
+    isHovered: isEddieHovered,
+    onActivate: () => setIsMatrixActive(true),
+  });
+
+  const handleMatrixClose = () => {
+    setIsMatrixActive(false);
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 font-sans relative overflow-hidden">
@@ -137,12 +158,12 @@ export default function Home() {
               {t("homepage.description")}
             </p>
 
-            {/* Quick Start Section
-          <div className="w-full mb-4">
-            <QuickStart />
-          </div> */}
+            {/* Quick Start Section */}
+            <div className="w-full mb-4">
+              <QuickStart />
+            </div>
 
-            {/* Coming soon section */}
+            {/* Coming soon section
             <div className="w-full mb-4">
               <div className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 <Badge
@@ -152,7 +173,7 @@ export default function Home() {
                   {t("homepage.comingSoon")}
                 </Badge>
               </div>
-            </div>
+            </div> */}
 
             <div
               className="flex flex-row gap-4 w-full justify-center md:justify-start"
@@ -187,43 +208,67 @@ export default function Home() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
         >
-          <div className="relative w-64 h-64 lg:w-80 lg:h-80">
-            {isImageLoading && !hasImageError && (
-              <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg flex items-center justify-center">
-                <div className="text-gray-400 text-sm">Loading...</div>
-              </div>
-            )}
-            {hasImageError && (
-              <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-                <div className="text-gray-400 text-sm">Image unavailable</div>
-              </div>
-            )}
-            <Image
-              src="/assets/uploads/eddie-the-elephant.webp"
-              alt="Eddie the Elephant - Boiler.click mascot"
-              width={320}
-              height={320}
-              className={`object-contain w-full h-full transition-opacity duration-300 ${
-                !isImageLoading ? "opacity-100" : "opacity-0"
-              }`}
-              priority
-              quality={90}
-              placeholder="blur"
-              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-              onLoad={() => {
-                setIsImageLoading(false);
-                console.log("Eddie image loaded successfully");
-              }}
-              onError={(e) => {
-                setHasImageError(true);
-                console.error("Eddie image failed to load:", e);
-              }}
-            />
-          </div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  className="relative w-64 h-64 lg:w-80 lg:h-80 cursor-pointer"
+                  onMouseEnter={() => setIsEddieHovered(true)}
+                  onMouseLeave={() => setIsEddieHovered(false)}
+                >
+                  {isImageLoading && !hasImageError && (
+                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg flex items-center justify-center">
+                      <div className="text-gray-400 text-sm">Loading...</div>
+                    </div>
+                  )}
+                  {hasImageError && (
+                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+                      <div className="text-gray-400 text-sm">
+                        Image unavailable
+                      </div>
+                    </div>
+                  )}
+                  <Image
+                    src="/assets/uploads/eddie-the-elephant.webp"
+                    alt="Eddie the Elephant - Boiler.click mascot"
+                    width={320}
+                    height={320}
+                    className={`object-contain w-full h-full transition-opacity duration-300 ${
+                      !isImageLoading ? "opacity-100" : "opacity-0"
+                    }`}
+                    priority
+                    quality={90}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    onLoad={() => {
+                      setIsImageLoading(false);
+                      console.log("Eddie image loaded successfully");
+                    }}
+                    onError={(e) => {
+                      setHasImageError(true);
+                      console.error("Eddie image failed to load:", e);
+                    }}
+                  />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="text-xs">
+                <p>
+                  "Follow the white rabbit... 🐰 But first, tell me: What movie
+                  <br />
+                  made falling green code famous? Type your answer while
+                  <br />
+                  hovering over me."
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </motion.div>
       </main>
       <Footer />
       <TechnologyShowcase />
+
+      {/* Matrix Easter Egg */}
+      <MatrixEffect isActive={isMatrixActive} onClose={handleMatrixClose} />
     </div>
   );
 }

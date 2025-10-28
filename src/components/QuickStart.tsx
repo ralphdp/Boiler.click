@@ -18,7 +18,7 @@ ${getGitHubCloneCommand()}
 npm install
 
 # ${t("homepage.quickStart.codeComments.env")}
-cp .env.example .env.local
+cp .env.example .env
 
 # ${t("homepage.quickStart.codeComments.dev")}
 npm run dev
@@ -83,7 +83,7 @@ npm run build`;
                 # {t("homepage.quickStart.codeComments.env")}
               </span>
               <br />
-              <span className="text-zinc-100">cp .env.example .env.local</span>
+              <span className="text-zinc-100">cp .env.example .env</span>
               <br />
               <br />
               <span className="text-zinc-400">

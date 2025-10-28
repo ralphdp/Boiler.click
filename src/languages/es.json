@@ -89,7 +89,7 @@
       "description": "Configura tus variables de entorno y conexión de base de datos para comenzar.",
       "environment": {
         "title": "Variables de Entorno",
-        "description": "Copia el archivo .env.example a .env.local y configura tus variables de entorno incluyendo URL de base de datos, secretos de autenticación y claves API."
+        "description": "Copia el archivo .env.example a .env y configura tus variables de entorno incluyendo URL de base de datos, secretos de autenticación y claves API."
       },
       "database": {
         "title": "Configuración de Base de Datos",

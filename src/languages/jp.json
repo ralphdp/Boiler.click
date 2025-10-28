@@ -89,7 +89,7 @@
       "description": "環境変数とデータベース接続を設定して開始します。",
       "environment": {
         "title": "環境変数",
-        "description": ".env.exampleファイルを.env.localにコピーし、データベースURL、認証シークレット、APIキーを含む環境変数を設定します。"
+        "description": ".env.exampleファイルを.envにコピーし、データベースURL、認証シークレット、APIキーを含む環境変数を設定します。"
       },
       "database": {
         "title": "データベース設定",

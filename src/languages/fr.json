@@ -89,7 +89,7 @@
       "description": "Configurez vos variables d'environnement et connexion de base de données pour commencer.",
       "environment": {
         "title": "Variables d'Environnement",
-        "description": "Copiez le fichier .env.example vers .env.local et configurez vos variables d'environnement incluant l'URL de base de données, les secrets d'authentification et les clés API."
+        "description": "Copiez le fichier .env.example vers .env et configurez vos variables d'environnement incluant l'URL de base de données, les secrets d'authentification et les clés API."
       },
       "database": {
         "title": "Configuration de la Base de Données",
