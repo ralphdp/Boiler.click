@@ -548,7 +548,7 @@ export function InteractiveTerminal({
     [currentCommand, commandHistory, historyIndex, suggestions, executeCommand]
   );
 
-  // Add global keyboard listener (desktop only)
+  // Add global keyboard listener (desktop only - mobile uses input field)
   useEffect(() => {
     const isMobile =
       /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -641,28 +641,66 @@ export function InteractiveTerminal({
               }}
             />
           )}
+          
+          {/* Mobile typing indicator */}
+          {currentCommand === "" && (
+            <span className="text-gray-500 text-sm ml-2">
+              Tap to type...
+            </span>
+          )}
 
-          {/* Mobile Input Area - Hidden input for mobile keyboards */}
+          {/* Mobile Input Area - Visible input for mobile typing */}
           <input
             type="text"
             value={currentCommand}
-            onChange={(e) => setCurrentCommand(e.target.value)}
-            className="absolute inset-0 opacity-0 w-full h-full cursor-default"
+            onChange={(e) => {
+              setCurrentCommand(e.target.value);
+              updateSuggestions(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                executeCommand(currentCommand);
+              } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                if (commandHistory.length > 0) {
+                  const newIndex =
+                    historyIndex === -1
+                      ? commandHistory.length - 1
+                      : Math.max(0, historyIndex - 1);
+                  setHistoryIndex(newIndex);
+                  setCurrentCommand(commandHistory[newIndex]);
+                  setShowHistory(true);
+                }
+              } else if (e.key === "ArrowDown") {
+                e.preventDefault();
+                if (historyIndex !== -1) {
+                  const newIndex = historyIndex + 1;
+                  if (newIndex >= commandHistory.length) {
+                    setHistoryIndex(-1);
+                    setCurrentCommand("");
+                  } else {
+                    setHistoryIndex(newIndex);
+                    setCurrentCommand(commandHistory[newIndex]);
+                  }
+                }
+              } else if (e.key === "Tab") {
+                e.preventDefault();
+                if (suggestions.length > 0) {
+                  setCurrentCommand(suggestions[0]);
+                  setShowSuggestions(false);
+                }
+              } else if (e.key === "Escape") {
+                setShowSuggestions(false);
+                setShowHistory(false);
+              }
+            }}
+            className="absolute inset-0 w-full h-full bg-transparent text-transparent caret-transparent border-none outline-none"
             style={{ fontSize: "inherit", fontFamily: "inherit" }}
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck="false"
-            onFocus={(e) => {
-              // Prevent focus on mobile to avoid keyboard popup
-              const isMobile =
-                /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                  navigator.userAgent
-                );
-              if (isMobile) {
-                e.target.blur();
-              }
-            }}
+            placeholder=""
           />
 
           {/* Suggestions Panel - Mobile responsive */}
