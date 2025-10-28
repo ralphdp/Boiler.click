@@ -8,7 +8,8 @@ import { AuthFormContainer } from "@/components/auth/AuthFormContainer";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SimpleLanguageSwitcher } from "@/components/SimpleLanguageSwitcher";
 import { ThemeToggle } from "@/components/theme-toggle";
-
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 function VerifyEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -63,6 +64,12 @@ function VerifyEmailContent() {
   if (status === "verifying") {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 relative">
+        {/* Animated Gradient Background */}
+        <HeroBackground />
+
+        {/* Dark Overlay */}
+        <DarkOverlay />
+
         {/* Language Selector - Responsive to RTL */}
         <div className={`absolute top-4 ${isRTL ? "left-4" : "right-4"} z-10`}>
           <SimpleLanguageSwitcher />

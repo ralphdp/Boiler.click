@@ -18,7 +18,8 @@ import Link from "next/link";
 import { Navigation } from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
-
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 interface User {
   id: string;
   email: string;
@@ -126,7 +127,13 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="min-h-screen font-sans dark:bg-gradient-to-br dark:from-gray-900 dark:to-black">
+    <div className="min-h-screen font-sans relative overflow-hidden">
+      {/* Animated Gradient Background */}
+      <HeroBackground />
+
+      {/* Dark Overlay */}
+      <DarkOverlay />
+
       <Navigation />
       <main className="flex min-h-screen w-full max-w-3xl mx-auto flex-col items-center justify-center py-32 px-16 sm:items-start relative z-10">
         <div className="prose prose-lg dark:prose-invert max-w-none w-full">

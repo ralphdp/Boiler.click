@@ -92,8 +92,28 @@ const characterSets = {
     "ﾝ",
   ],
   binary: ["0", "1"],
-  hex: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"],
-  custom: 'ｱｲｳｴｵカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:",.<>?/`~'.split(""),
+  hex: [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+  ],
+  custom:
+    'ｱｲｳｴｵカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:",.<>?/`~'.split(
+      ""
+    ),
 };
 
 export function MatrixEffect({ isActive, onClose }: MatrixEffectProps) {
@@ -150,53 +170,63 @@ export function MatrixEffect({ isActive, onClose }: MatrixEffectProps) {
 
   const drawRef = useRef<(currentTime: number) => void | undefined>(undefined);
 
-  const draw = useCallback((currentTime: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas || !isActive) return;
+  const draw = useCallback(
+    (currentTime: number) => {
+      const canvas = canvasRef.current;
+      if (!canvas || !isActive) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
-    // If paused, don't draw but continue the animation loop
-    if (isPausedRef.current) {
-      animationRef.current = requestAnimationFrame(drawRef.current!);
-      return;
-    }
-
-    // Frame rate control
-    if (currentTime - lastFrameTimeRef.current < config.frameInterval) {
-      animationRef.current = requestAnimationFrame(drawRef.current!);
-      return;
-    }
-
-    lastFrameTimeRef.current = currentTime;
-
-    // Create trail effect
-    ctx.fillStyle = `rgba(0, 0, 0, ${config.backgroundOpacity})`;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Set font
-    ctx.font = `${config.fontSize}px monospace`;
-    ctx.fillStyle = config.matrixColor;
-
-    // Draw characters
-    for (let i = 0; i < dropsRef.current.length; i++) {
-      const text = getRandomCharacter();
-      const x = i * config.fontSize;
-      const y = dropsRef.current[i] * config.fontSize;
-
-      ctx.fillText(text, x, y);
-
-      // Reset drop if it's off screen
-      if (y > canvas.height && Math.random() > 0.975) {
-        dropsRef.current[i] = 0;
+      // If paused, don't draw but continue the animation loop
+      if (isPausedRef.current) {
+        animationRef.current = requestAnimationFrame(drawRef.current!);
+        return;
       }
 
-      dropsRef.current[i]++;
-    }
+      // Frame rate control
+      if (currentTime - lastFrameTimeRef.current < config.frameInterval) {
+        animationRef.current = requestAnimationFrame(drawRef.current!);
+        return;
+      }
 
-    animationRef.current = requestAnimationFrame(drawRef.current!);
-  }, [isActive, config.fontSize, config.backgroundOpacity, config.matrixColor, config.frameInterval, getRandomCharacter]);
+      lastFrameTimeRef.current = currentTime;
+
+      // Create trail effect
+      ctx.fillStyle = `rgba(0, 0, 0, ${config.backgroundOpacity})`;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Set font
+      ctx.font = `${config.fontSize}px monospace`;
+      ctx.fillStyle = config.matrixColor;
+
+      // Draw characters
+      for (let i = 0; i < dropsRef.current.length; i++) {
+        const text = getRandomCharacter();
+        const x = i * config.fontSize;
+        const y = dropsRef.current[i] * config.fontSize;
+
+        ctx.fillText(text, x, y);
+
+        // Reset drop if it's off screen
+        if (y > canvas.height && Math.random() > 0.975) {
+          dropsRef.current[i] = 0;
+        }
+
+        dropsRef.current[i]++;
+      }
+
+      animationRef.current = requestAnimationFrame(drawRef.current!);
+    },
+    [
+      isActive,
+      config.fontSize,
+      config.backgroundOpacity,
+      config.matrixColor,
+      config.frameInterval,
+      getRandomCharacter,
+    ]
+  );
 
   // Set the draw function reference
   useEffect(() => {

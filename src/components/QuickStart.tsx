@@ -20,6 +20,9 @@ npm install
 # ${t("homepage.quickStart.codeComments.env")}
 cp .env.example .env
 
+# ${t("homepage.quickStart.codeComments.migrateDatabase")}
+npx prisma migrate dev
+
 # ${t("homepage.quickStart.codeComments.dev")}
 npm run dev
 
@@ -84,6 +87,13 @@ npm run build`;
               </span>
               <br />
               <span className="text-zinc-100">cp .env.example .env</span>
+              <br />
+              <br />
+              <span className="text-zinc-400">
+                # {t("homepage.quickStart.codeComments.migrateDatabase")}
+              </span>
+              <br />
+              <span className="text-zinc-100">npx prisma migrate dev</span>
               <br />
               <br />
               <span className="text-zinc-400">

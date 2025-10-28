@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DocumentationSidebar } from "@/components/DocumentationSidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 
 interface StepPageProps {
   params: Promise<{
@@ -32,7 +34,13 @@ export default function StepPage({ params }: StepPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans dark:bg-gradient-to-br dark:from-gray-900 dark:to-black">
+    <div className="min-h-screen bg-gray-50 font-sans dark:bg-gradient-to-br dark:from-gray-900 dark:to-black relative">
+      {/* Animated Gradient Background */}
+      <HeroBackground />
+
+      {/* Dark Overlay */}
+      <DarkOverlay />
+
       {/* Theme Toggle - Responsive to RTL */}
       <div className={`fixed top-4 z-50 ${isRTL ? "left-4" : "right-4"}`}>
         <ThemeToggle />

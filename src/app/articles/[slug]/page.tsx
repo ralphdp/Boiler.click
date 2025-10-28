@@ -10,6 +10,8 @@ import { Calendar, Clock, User, Tag, ArrowLeft, Share2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { notFound } from "next/navigation";
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 import {
   getArticleBySlug,
   getRelatedArticles,
@@ -101,6 +103,12 @@ export default function ArticlePage({ params }: ArticlePageProps) {
         />
       </Head>
       <div className="min-h-screen font-sans dark:bg-gradient-to-br dark:from-gray-900 dark:to-black">
+        {/* Animated Gradient Background */}
+        <HeroBackground />
+
+        {/* Dark Overlay */}
+        <DarkOverlay />
+
         <Navigation />
         <main
           className="flex min-h-screen w-full max-w-3xl mx-auto flex-col items-center justify-center py-32 px-16 sm:items-start relative z-10"

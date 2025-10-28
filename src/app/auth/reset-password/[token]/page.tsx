@@ -12,6 +12,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 import { AuthFormContainer } from "@/components/auth/AuthFormContainer";
 import { PasswordConfirmInput } from "@/components/auth/PasswordConfirmInput";
 import { resetPasswordSchema } from "@/lib/validation/auth";
@@ -116,6 +118,12 @@ export default function ResetPasswordPage() {
   if (success) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 relative">
+        {/* Animated Gradient Background */}
+        <HeroBackground />
+
+        {/* Dark Overlay */}
+        <DarkOverlay />
+
         {/* Language Selector - Responsive to RTL */}
         <div className={`absolute top-4 ${isRTL ? "left-4" : "right-4"} z-10`}>
           <SimpleLanguageSwitcher />

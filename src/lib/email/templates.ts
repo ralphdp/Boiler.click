@@ -17,6 +17,8 @@ export interface EmailTemplateOptions {
 /**
  * Base email template with consistent styling
  */
+// In src/lib/email/templates.ts, update the getBaseTemplate function:
+
 function getBaseTemplate(content: string): string {
   return `
 <!DOCTYPE html>
@@ -26,186 +28,228 @@ function getBaseTemplate(content: string): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boiler.click</title>
   <style>
-    /* Reset styles */
-    body, table, td, p, a, li, blockquote {
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
-    table, td {
-      mso-table-lspace: 0pt;
-      mso-table-rspace: 0pt;
-    }
-    img {
-      -ms-interpolation-mode: bicubic;
-    }
-    
-    /* Base styles */
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100% !important;
-      min-width: 100%;
-      height: 100%;
-      background-color: #f8fafc;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: #374151;
-    }
-    
+  /* Reset styles */
+  body, table, td, p, a, li, blockquote {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  table, td {
+    mso-table-lspace: 0pt;
+    mso-table-rspace: 0pt;
+  }
+  img {
+    -ms-interpolation-mode: bicubic;
+  }
+  
+  /* Base styles */
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+    min-width: 100%;
+    height: 100%;
+    background-color: #f8fafc;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #374151 !important; /* Force text color */
+  }
+  
+  .email-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px; /* Show rounded corners in browser */
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Show shadow in browser */
+    border: 1px solid #e5e7eb;
+  }
+  
+  .header {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  
+  .header h1 {
+    margin: 0;
+    color: #ffffff !important; /* Force white text */
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  
+  .header .subtitle {
+    margin: 8px 0 0 0;
+    color: #e0e7ff !important; /* Force light text */
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  .content {
+    padding: 40px 32px;
+  }
+  
+  .content h2 {
+    margin: 0 0 16px 0;
+    color: #1f2937 !important; /* Force dark text */
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  .content p {
+    margin: 0 0 16px 0;
+    color: #4b5563 !important; /* Force text color */
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .button-container {
+    text-align: center;
+    margin: 32px 0;
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: #ffffff !important;
+    text-decoration: none;
+    border-radius: 8px; /* Show rounded corners in browser */
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3); /* Show shadow in browser */
+    border: 2px solid #7c3aed;
+  }
+
+  .button:hover {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    color: #ffffff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(139, 92, 246, 0.4);
+    border-color: #6d28d9;
+  }
+  
+  .divider {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 32px 0;
+  }
+  
+  .footer {
+    background-color: #f9fafb;
+    padding: 24px 32px;
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .footer p {
+    margin: 0 0 8px 0;
+    color: #6b7280 !important; /* Force text color */
+    font-size: 14px;
+  }
+  
+  .footer p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .footer a {
+    color: #8b5cf6 !important; /* Force link color */
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .social-links {
+    margin: 16px 0 0 0;
+  }
+  
+  .social-links a {
+    display: inline-block;
+    margin: 0 8px;
+    color: #6b7280 !important; /* Force text color */
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .social-links a:hover {
+    color: #8b5cf6 !important;
+  }
+  
+  /* iOS Mail compatibility overrides - more specific targeting */
+@supports (-webkit-appearance: none) and (not (display: -webkit-box)) {
+  .email-container {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  .button {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+/* iOS Mail specific fixes - only for actual iOS devices */
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (max-device-width: 1024px) and (-webkit-touch-callout: none) {
+  .email-container {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  .button {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Alternative iOS Mail detection using user agent targeting */
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (max-width: 768px) and (orientation: portrait) {
+  .email-container {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  .button {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}
+  
+  /* Responsive styles */
+  @media only screen and (max-width: 600px) {
     .email-container {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      margin: 0;
+      border-radius: 0;
     }
     
     .header {
-      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-      padding: 32px 24px;
-      text-align: center;
+      padding: 24px 16px;
     }
     
     .header h1 {
-      margin: 0;
-      color: #ffffff;
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-    }
-    
-    .header .subtitle {
-      margin: 8px 0 0 0;
-      color: #e0e7ff;
-      font-size: 16px;
-      font-weight: 400;
+      font-size: 24px;
     }
     
     .content {
-      padding: 40px 32px;
+      padding: 24px 16px;
     }
     
     .content h2 {
-      margin: 0 0 16px 0;
-      color: #1f2937;
-      font-size: 24px;
-      font-weight: 600;
-      line-height: 1.3;
-    }
-    
-    .content p {
-      margin: 0 0 16px 0;
-      color: #4b5563;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-    
-    .content p:last-child {
-      margin-bottom: 0;
-    }
-    
-    .button-container {
-      text-align: center;
-      margin: 32px 0;
-    }
-    
-    .button {
-      display: inline-block;
-      padding: 14px 28px;
-      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-      color: #ffffff !important;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 16px;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);
-    }
-    
-    .button:hover {
-      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-      color: #ffffff !important;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 8px -1px rgba(139, 92, 246, 0.4);
-    }
-    
-    .divider {
-      height: 1px;
-      background-color: #e5e7eb;
-      margin: 32px 0;
+      font-size: 20px;
     }
     
     .footer {
-      background-color: #f9fafb;
-      padding: 24px 32px;
-      text-align: center;
-      border-top: 1px solid #e5e7eb;
+      padding: 16px;
     }
-    
-    .footer p {
-      margin: 0 0 8px 0;
-      color: #6b7280;
-      font-size: 14px;
-    }
-    
-    .footer p:last-child {
-      margin-bottom: 0;
-    }
-    
-    .footer a {
-      color: #8b5cf6;
-      text-decoration: none;
-    }
-    
-    .footer a:hover {
-      text-decoration: underline;
-    }
-    
-    .social-links {
-      margin: 16px 0 0 0;
-    }
-    
-    .social-links a {
-      display: inline-block;
-      margin: 0 8px;
-      color: #6b7280;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    
-    .social-links a:hover {
-      color: #8b5cf6;
-    }
-    
-    /* Responsive styles */
-    @media only screen and (max-width: 600px) {
-      .email-container {
-        margin: 0;
-        border-radius: 0;
-      }
-      
-      .header {
-        padding: 24px 16px;
-      }
-      
-      .header h1 {
-        font-size: 24px;
-      }
-      
-      .content {
-        padding: 24px 16px;
-      }
-      
-      .content h2 {
-        font-size: 20px;
-      }
-      
-      .footer {
-        padding: 16px;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
   <div style="padding: 20px 0;">

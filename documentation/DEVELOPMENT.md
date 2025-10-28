@@ -23,9 +23,6 @@ npm install
 # Copy environment variables
 cp .env.example .env
 
-# Setup environment variables
-npm run setup:env
-
 # Run Prisma migrations
 npx prisma migrate dev
 

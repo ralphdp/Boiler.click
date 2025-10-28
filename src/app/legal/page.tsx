@@ -4,7 +4,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Navigation } from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 export default function LegalPage() {
   const { t } = useLanguage();
 
@@ -15,7 +16,13 @@ export default function LegalPage() {
     process.env.NEXT_PUBLIC_SITE_PHYSICAL_ADDRESS || "123 Oak St.";
 
   return (
-    <div className="min-h-screen font-sans dark:bg-gradient-to-br dark:from-gray-900 dark:to-black">
+    <div className="min-h-screen font-sans dark:bg-gradient-to-br dark:from-gray-900 dark:to-black relative">
+      {/* Animated Gradient Background */}
+      <HeroBackground />
+
+      {/* Dark Overlay */}
+      <DarkOverlay />
+
       <Navigation />
       <main
         className="flex min-h-screen w-full max-w-3xl mx-auto flex-col items-center justify-center py-32 px-16 sm:items-start relative z-10"

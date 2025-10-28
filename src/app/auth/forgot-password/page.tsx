@@ -17,7 +17,8 @@ import { forgotPasswordSchema } from "@/lib/validation/auth";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SimpleLanguageSwitcher } from "@/components/SimpleLanguageSwitcher";
 import { ThemeToggle } from "@/components/theme-toggle";
-
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 export default function ForgotPasswordPage() {
   const { t, isRTL } = useLanguage();
   const [email, setEmail] = useState("");
@@ -72,6 +73,12 @@ export default function ForgotPasswordPage() {
   if (success) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 relative">
+        {/* Animated Gradient Background */}
+        <HeroBackground />
+
+        {/* Dark Overlay */}
+        <DarkOverlay />
+
         {/* Language Selector - Responsive to RTL */}
         <div className={`absolute top-4 ${isRTL ? "left-4" : "right-4"} z-10`}>
           <SimpleLanguageSwitcher />
@@ -137,6 +144,12 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 relative">
+      {/* Animated Gradient Background */}
+      <HeroBackground />
+
+      {/* Dark Overlay */}
+      <DarkOverlay />
+
       {/* Language Selector - Responsive to RTL */}
       <div className={`absolute top-4 ${isRTL ? "left-4" : "right-4"} z-10`}>
         <SimpleLanguageSwitcher />

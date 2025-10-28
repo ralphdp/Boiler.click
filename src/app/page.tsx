@@ -20,6 +20,8 @@ import { getGitHubUrl } from "@/lib/github";
 import QuickStart from "@/components/QuickStart";
 import { MatrixEffect } from "@/components/MatrixEffect";
 import { useMatrixEasterEgg } from "@/hooks/useMatrixEasterEgg";
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 
 // Lazy load non-critical components
 const Footer = dynamic(() => import("@/components/Footer"), {
@@ -59,48 +61,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 font-sans relative overflow-hidden">
       {/* Animated Gradient Background */}
-      <div
-        className="absolute inset-0 z-0 opacity-20 dark:opacity-30 overflow-hidden"
-        aria-hidden="true"
-      >
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400"
-          animate={{
-            background: [
-              "linear-gradient(45deg, #8b5cf6, #ec4899, #3b82f6)",
-              "linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899)",
-              "linear-gradient(225deg, #ec4899, #3b82f6, #8b5cf6)",
-              "linear-gradient(315deg, #8b5cf6, #ec4899, #3b82f6)",
-            ],
-            scale: [1, 1.1, 1],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-l from-blue-400 via-green-400 to-purple-400"
-          animate={{
-            background: [
-              "linear-gradient(225deg, #3b82f6, #10b981, #8b5cf6)",
-              "linear-gradient(315deg, #8b5cf6, #3b82f6, #10b981)",
-              "linear-gradient(45deg, #10b981, #8b5cf6, #3b82f6)",
-              "linear-gradient(135deg, #3b82f6, #10b981, #8b5cf6)",
-            ],
-            scale: [1.1, 1, 1.1],
-            opacity: [0.1, 0.4, 0.1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
-      </div>
+      <HeroBackground />
+
+      {/* Dark Overlay */}
+      <DarkOverlay />
 
       <Navigation />
       <main

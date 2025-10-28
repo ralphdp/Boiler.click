@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 import {
   Shield,
   Search,
@@ -26,6 +28,11 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen font-sans dark:bg-gradient-to-br dark:from-gray-900 dark:to-black">
+      {/* Animated Gradient Background */}
+      <HeroBackground />
+
+      {/* Dark Overlay */}
+      <DarkOverlay />
       <Navigation />
       <main
         className="flex min-h-screen w-full max-w-4xl mx-auto flex-col items-center justify-center py-32 px-16 sm:items-start relative z-10"

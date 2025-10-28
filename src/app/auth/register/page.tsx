@@ -15,6 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 import { PasswordConfirmInput } from "@/components/auth/PasswordConfirmInput";
 import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { registerSchema } from "@/lib/validation/auth";
@@ -164,6 +166,12 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex overflow-hidden">
+      {/* Animated Gradient Background */}
+      <HeroBackground />
+
+      {/* Dark Overlay */}
+      <DarkOverlay />
+
       {/* Language Toggle - Responsive to RTL */}
       <div className={`fixed top-4 z-50 ${isRTL ? "left-4" : "right-4"}`}>
         <SimpleLanguageSwitcher />
