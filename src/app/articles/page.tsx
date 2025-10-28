@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { Calendar, User, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useState, useMemo } from "react";
 import {
   getLiveArticles,
@@ -209,7 +210,7 @@ export default function ArticlesPage() {
                   className={`px-4 py-2 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                     selectedTag === null
                       ? "bg-black dark:bg-white text-white dark:text-black"
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                      : "bg-purple-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                   }`}
                 >
                   {t("articles.all")}
@@ -274,12 +275,14 @@ export default function ArticlesPage() {
                         </div>
                         <div className="flex flex-wrap gap-2 mb-4">
                           {featuredArticle.tags.map((tag) => (
-                            <span
+                            <Badge
+                              variant="outline"
+                              role="listitem"
                               key={tag}
-                              className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-full"
+                              className="bg-transparent border-purple-500 text-purple-600 dark:text-purple-400 px-2 py-1 text-xs font-small"
                             >
                               {tag}
-                            </span>
+                            </Badge>
                           ))}
                         </div>
                         <Link href={getArticleUrl(featuredArticle.slug)}>

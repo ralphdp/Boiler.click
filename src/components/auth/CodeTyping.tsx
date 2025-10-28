@@ -145,6 +145,117 @@ export async function updateUserProfile(
   },
 ];
 
+// Syntax highlighting function
+const highlightCode = (code: string, language: string) => {
+  if (language === "typescript" || language === "tsx") {
+    return code
+      .split("\n")
+      .map((line) => {
+        // Skip empty lines
+        if (!line.trim()) return line;
+
+        // Handle comments first
+        if (line.trim().startsWith("//")) {
+          return `<span class="text-gray-500 dark:text-gray-400">${line}</span>`;
+        }
+
+        // Handle strings (protect them first)
+        let processedLine = line;
+        const stringMatches: string[] = [];
+
+        processedLine = processedLine.replace(
+          /(['"`][^'"`]*['"`])/g,
+          (match) => {
+            const index = stringMatches.length;
+            stringMatches.push(match);
+            return `__STRING_${index}__`;
+          }
+        );
+
+        // Handle keywords
+        processedLine = processedLine.replace(
+          /\b(import|export|from|const|let|var|function|async|await|return|if|else|for|while|class|interface|type|extends|implements|public|private|protected|static|readonly|abstract|enum|namespace|module|declare|as|is|in|of|typeof|instanceof|new|this|super|void|null|undefined|true|false|break|continue|switch|case|default|try|catch|finally|throw|with|debugger)\b/g,
+          '<span class="text-blue-500 dark:text-blue-400">$1</span>'
+        );
+
+        // Handle numbers
+        processedLine = processedLine.replace(
+          /\b(\d+)\b/g,
+          '<span class="text-orange-500 dark:text-orange-400">$1</span>'
+        );
+
+        // Handle decorators
+        processedLine = processedLine.replace(
+          /@(\w+)/g,
+          '<span class="text-purple-500 dark:text-purple-400">@$1</span>'
+        );
+
+        // Restore strings
+        stringMatches.forEach((match, index) => {
+          processedLine = processedLine.replace(
+            `__STRING_${index}__`,
+            `<span class="text-green-500 dark:text-green-400">${match}</span>`
+          );
+        });
+
+        return processedLine;
+      })
+      .join("\n");
+  }
+
+  if (language === "prisma") {
+    return code
+      .split("\n")
+      .map((line) => {
+        // Skip empty lines
+        if (!line.trim()) return line;
+
+        // Handle comments first
+        if (line.trim().startsWith("//")) {
+          return `<span class="text-gray-500 dark:text-gray-400">${line}</span>`;
+        }
+
+        // Handle strings (protect them first)
+        let processedLine = line;
+        const stringMatches: string[] = [];
+
+        processedLine = processedLine.replace(
+          /(['"`][^'"`]*['"`])/g,
+          (match) => {
+            const index = stringMatches.length;
+            stringMatches.push(match);
+            return `__STRING_${index}__`;
+          }
+        );
+
+        // Handle keywords
+        processedLine = processedLine.replace(
+          /\b(model|enum|String|Int|Float|Boolean|DateTime|Json|Bytes|Decimal|BigInt|Unsupported|@id|@default|@unique|@map|@relation|@index|@@map|@@index|@@unique)\b/g,
+          '<span class="text-blue-500 dark:text-blue-400">$1</span>'
+        );
+
+        // Handle field names
+        processedLine = processedLine.replace(
+          /(\w+)(?=\s*:)/g,
+          '<span class="text-yellow-500 dark:text-yellow-400">$1</span>'
+        );
+
+        // Restore strings
+        stringMatches.forEach((match, index) => {
+          processedLine = processedLine.replace(
+            `__STRING_${index}__`,
+            `<span class="text-green-500 dark:text-green-400">${match}</span>`
+          );
+        });
+
+        return processedLine;
+      })
+      .join("\n");
+  }
+
+  return code;
+};
+
 export function CodeTyping() {
   const [currentSnippetIndex, setCurrentSnippetIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -174,9 +285,9 @@ export function CodeTyping() {
         // Wait before switching to next snippet
         setTimeout(() => {
           setCurrentSnippetIndex((prev) => (prev + 1) % codeSnippets.length);
-        }, 3000);
+        }, 10000);
       }
-    }, 15);
+    }, 10);
 
     return () => clearInterval(typingInterval);
   }, [currentSnippetIndex, isTyping]);
@@ -186,21 +297,42 @@ export function CodeTyping() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="absolute top-8 left-8 z-20"
+      className="p-4"
     >
-      <pre className="text-sm font-mono leading-relaxed text-gray-400/50 dark:text-green-300/30">
-        <code>
-          {displayedCode}
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ repeat: Infinity, duration: 0.8 }}
-            className="inline-block w-2 h-5 bg-gray-400/80 dark:bg-green-400/80 ml-1"
-          >
-            |
-          </motion.span>
-        </code>
-      </pre>
+      <div className="flex border-l border-purple-300/40 dark:border-purple-300/40 pl-4">
+        {/* Line Numbers */}
+        <div className="text-sm font-mono leading-relaxed text-gray-400/30 dark:text-gray-300/30 pr-4 select-none w-12 text-left">
+          {displayedCode.split("\n").map((_, index) => (
+            <div key={index}>{index + 1}</div>
+          ))}
+        </div>
+
+        {/* Code Content */}
+        <pre className="text-sm font-mono leading-relaxed text-purple-800 dark:text-purple-100">
+          <code>
+            {displayedCode.split("\n").map((line, index) => (
+              <span key={index}>
+                {line.trim().startsWith("//") ? (
+                  <span className="text-gray-500 dark:text-gray-400">
+                    {line}
+                  </span>
+                ) : (
+                  line
+                )}
+                {index < displayedCode.split("\n").length - 1 && "\n"}
+              </span>
+            ))}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ repeat: Infinity, duration: 0.8 }}
+              className="inline-block w-2 h-5 bg-purple-900 dark:bg-purple-100 text-purple-900 dark:text-purple-100 ml-1"
+            >
+              |
+            </motion.span>
+          </code>
+        </pre>
+      </div>
     </motion.div>
   );
 }

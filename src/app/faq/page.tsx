@@ -41,7 +41,7 @@ function FAQItem({
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2, ease: "easeInOut" }}
         >
-          <ChevronDown className="h-5 w-5 text-gray-500" />
+          <ChevronDown className="h-5 w-5 text-purple-600 dark:text-purple-400" />
         </motion.div>
       </button>
       <AnimatePresence>

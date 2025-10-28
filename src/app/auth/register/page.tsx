@@ -17,6 +17,14 @@ import {
 } from "@/components/ui/card";
 import { HeroBackground } from "@/components/HeroBackground";
 import { DarkOverlay } from "@/components/DarkOverlay";
+import { TerminalModal } from "@/components/TerminalModal";
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import Image from "next/image";
 import { PasswordConfirmInput } from "@/components/auth/PasswordConfirmInput";
 import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { registerSchema } from "@/lib/validation/auth";
@@ -39,6 +47,9 @@ export default function RegisterPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [hasImageError, setHasImageError] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
   // Scroll to top when page loads
   useEffect(() => {
@@ -180,6 +191,57 @@ export default function RegisterPage() {
       {/* Theme Toggle - Responsive to RTL */}
       <div className={`fixed bottom-4 z-50 ${isRTL ? "left-4" : "right-4"}`}>
         <ThemeToggle />
+      </div>
+
+      {/* Eddie the Elephant - Bottom Right */}
+      <div className="fixed bottom-10 right-10 z-50">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                className="relative w-64 h-64 lg:w-80 lg:h-80 cursor-pointer"
+                onClick={() => setIsTerminalOpen(true)}
+              >
+                {isImageLoading && !hasImageError && (
+                  <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg flex items-center justify-center">
+                    <div className="text-gray-400 text-sm">Loading...</div>
+                  </div>
+                )}
+                {hasImageError && (
+                  <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+                    <div className="text-gray-400 text-sm">
+                      Image unavailable
+                    </div>
+                  </div>
+                )}
+                <Image
+                  src="/assets/uploads/eddie-the-elephant.webp"
+                  alt="Eddie the Elephant - Boiler.click mascot"
+                  width={320}
+                  height={320}
+                  className={`object-contain w-full h-full transition-opacity duration-300 ${
+                    !isImageLoading ? "opacity-100" : "opacity-0"
+                  }`}
+                  priority
+                  quality={90}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                  onLoad={() => {
+                    setIsImageLoading(false);
+                    console.log("Eddie image loaded successfully");
+                  }}
+                  onError={(e) => {
+                    setHasImageError(true);
+                    console.error("Eddie image failed to load:", e);
+                  }}
+                />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" className="text-xs">
+              <p>Click me to open the terminal! 🖥️</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
 
       {/* Left Side - Register Form */}
@@ -421,6 +483,12 @@ export default function RegisterPage() {
           />
         </div>
       </div>
+
+      {/* Terminal Modal */}
+      <TerminalModal
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+      />
     </div>
   );
 }

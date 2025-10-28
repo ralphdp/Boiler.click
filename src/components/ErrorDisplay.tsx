@@ -4,7 +4,16 @@ import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SimpleLanguageSwitcher } from "@/components/SimpleLanguageSwitcher";
 import { ThemeToggle } from "@/components/theme-toggle";
-
+import { HeroBackground } from "./HeroBackground";
+import { DarkOverlay } from "./DarkOverlay";
+import { AuthFormContainer } from "./auth/AuthFormContainer";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "./ui/card";
 interface ErrorDisplayProps {
   statusCode?: number;
   title?: string;
@@ -66,41 +75,50 @@ export function ErrorDisplay({
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 relative">
+      {/* Animated Gradient Background */}
+      <HeroBackground />
+
+      {/* Dark Overlay */}
+      <DarkOverlay />
+
       {/* Language Selector - Responsive to RTL */}
-      <div className={`absolute top-4 ${isRTL ? "left-4" : "right-4"}`}>
+      <div className={`absolute top-4 ${isRTL ? "left-4" : "right-4"} z-20`}>
         <SimpleLanguageSwitcher />
       </div>
 
-      {/* Main Error Content */}
-      <div className="text-center">
-        <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-4">
-          {errorInfo.title}
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-          {errorInfo.message}
-        </p>
-        <div className="space-x-4">
-          {showRetry && onRetry && (
-            <button
-              onClick={onRetry}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              {t("error.actions.tryAgain")}
-            </button>
-          )}
-          <Link
-            href="/"
-            className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-          >
-            {t("error.actions.goHome")}
-          </Link>
-        </div>
-      </div>
-
       {/* Dark Mode Toggle - Responsive to RTL */}
-      <div className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"}`}>
+      <div className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"} z-20`}>
         <ThemeToggle />
       </div>
+
+      {/* Main Error Content */}
+
+      <Card>
+        <CardHeader>
+          <CardTitle>{errorInfo.title}</CardTitle>
+          <CardDescription>{errorInfo.message}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center">
+            <div className="space-x-4">
+              {showRetry && onRetry && (
+                <button
+                  onClick={onRetry}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  {t("error.actions.tryAgain")}
+                </button>
+              )}
+              <Link
+                href="/"
+                className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                {t("error.actions.goHome")}
+              </Link>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

@@ -7,7 +7,6 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
@@ -18,8 +17,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Navigation } from "@/components/Navigation";
 import { getGitHubUrl } from "@/lib/github";
 import QuickStart from "@/components/QuickStart";
-import { MatrixEffect } from "@/components/MatrixEffect";
-import { useMatrixEasterEgg } from "@/hooks/useMatrixEasterEgg";
+import { TerminalModal } from "@/components/TerminalModal";
 import { HeroBackground } from "@/components/HeroBackground";
 import { DarkOverlay } from "@/components/DarkOverlay";
 
@@ -45,18 +43,7 @@ export default function Home() {
   const { t } = useLanguage();
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [hasImageError, setHasImageError] = useState(false);
-  const [isMatrixActive, setIsMatrixActive] = useState(false);
-  const [isEddieHovered, setIsEddieHovered] = useState(false);
-
-  // Matrix easter egg hook
-  useMatrixEasterEgg({
-    isHovered: isEddieHovered,
-    onActivate: () => setIsMatrixActive(true),
-  });
-
-  const handleMatrixClose = () => {
-    setIsMatrixActive(false);
-  };
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 font-sans relative overflow-hidden">
@@ -177,8 +164,7 @@ export default function Home() {
               <TooltipTrigger asChild>
                 <div
                   className="relative w-64 h-64 lg:w-80 lg:h-80 cursor-pointer"
-                  onMouseEnter={() => setIsEddieHovered(true)}
-                  onMouseLeave={() => setIsEddieHovered(false)}
+                  onClick={() => setIsTerminalOpen(true)}
                 >
                   {isImageLoading && !hasImageError && (
                     <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg flex items-center justify-center">
@@ -216,13 +202,7 @@ export default function Home() {
                 </div>
               </TooltipTrigger>
               <TooltipContent side="bottom" className="text-xs">
-                <p>
-                  "Follow the white rabbit... 🐰 But first, tell me: What movie
-                  <br />
-                  made falling green code famous? Type your answer while
-                  <br />
-                  hovering over me."
-                </p>
+                <p>Click me to open the terminal! 🖥️</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -231,8 +211,11 @@ export default function Home() {
       <Footer />
       <TechnologyShowcase />
 
-      {/* Matrix Easter Egg */}
-      <MatrixEffect isActive={isMatrixActive} onClose={handleMatrixClose} />
+      {/* Terminal Modal */}
+      <TerminalModal
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+      />
     </div>
   );
 }

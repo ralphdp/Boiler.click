@@ -104,7 +104,7 @@ export function FloatingSocialIcons({
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, delay: 0.8 }}
-      className={`fixed right-4 top-1/2 transform -translate-y-1/2 z-10 ${className}`}
+      className={`fixed right-4 top-1/2 transform -translate-y-1/2 z-20 ${className}`}
       role="complementary"
       aria-label="Social sharing links"
     >

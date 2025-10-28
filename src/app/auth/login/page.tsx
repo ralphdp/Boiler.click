@@ -9,8 +9,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import Image from "next/image";
 import { HeroBackground } from "@/components/HeroBackground";
 import { DarkOverlay } from "@/components/DarkOverlay";
+import { TerminalModal } from "@/components/TerminalModal";
 import { CodeTyping } from "@/components/auth/CodeTyping";
 import {
   Card,
@@ -133,6 +141,10 @@ function LoginForm() {
     }
   };
 
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [hasImageError, setHasImageError] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+
   return (
     <div className="min-h-screen flex overflow-hidden">
       {/* Animated Gradient Background */}
@@ -149,6 +161,65 @@ function LoginForm() {
       {/* Theme Toggle - Responsive to RTL */}
       <div className={`fixed bottom-4 z-50 ${isRTL ? "left-4" : "right-4"}`}>
         <ThemeToggle />
+      </div>
+
+      {/* Eddie the Elephant - Bottom Right */}
+      <div className="fixed bottom-10 right-10 z-50">
+        {/* Right Content - Eddie the Elephant */}
+        <motion.div
+          className="flex-1 flex justify-center lg:justify-end"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+        >
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  className="relative w-64 h-64 lg:w-80 lg:h-80 cursor-pointer"
+                  onClick={() => setIsTerminalOpen(true)}
+                >
+                  {isImageLoading && !hasImageError && (
+                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg flex items-center justify-center">
+                      <div className="text-gray-400 text-sm">Loading...</div>
+                    </div>
+                  )}
+                  {hasImageError && (
+                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+                      <div className="text-gray-400 text-sm">
+                        Image unavailable
+                      </div>
+                    </div>
+                  )}
+                  <Image
+                    src="/assets/uploads/eddie-the-elephant.webp"
+                    alt="Eddie the Elephant - Boiler.click mascot"
+                    width={320}
+                    height={320}
+                    className={`object-contain w-full h-full transition-opacity duration-300 ${
+                      !isImageLoading ? "opacity-100" : "opacity-0"
+                    }`}
+                    priority
+                    quality={90}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    onLoad={() => {
+                      setIsImageLoading(false);
+                      console.log("Eddie image loaded successfully");
+                    }}
+                    onError={(e) => {
+                      setHasImageError(true);
+                      console.error("Eddie image failed to load:", e);
+                    }}
+                  />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="text-xs">
+                <p>Click me to open the terminal! 🖥️</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </motion.div>
       </div>
 
       {/* Left Side - Login Form */}
@@ -331,6 +402,12 @@ function LoginForm() {
           <CodeTyping />
         </div>
       </div>
+
+      {/* Terminal Modal */}
+      <TerminalModal
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+      />
     </div>
   );
 }

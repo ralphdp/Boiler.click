@@ -151,12 +151,12 @@ export default function ForgotPasswordPage() {
       <DarkOverlay />
 
       {/* Language Selector - Responsive to RTL */}
-      <div className={`absolute top-4 ${isRTL ? "left-4" : "right-4"} z-10`}>
+      <div className={`absolute top-4 ${isRTL ? "left-4" : "right-4"} z-30`}>
         <SimpleLanguageSwitcher />
       </div>
 
       {/* Theme Toggle - Responsive to RTL */}
-      <div className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"} z-10`}>
+      <div className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"} z-30`}>
         <ThemeToggle />
       </div>
 

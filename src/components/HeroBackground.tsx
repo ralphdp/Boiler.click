@@ -15,7 +15,7 @@ export function HeroBackground({
 }: HeroBackgroundProps) {
   return (
     <div
-      className={`absolute inset-0 z-0 overflow-hidden ${className}`}
+      className={`fixed inset-0 z-0 overflow-hidden ${className}`}
       style={{
         opacity: `${opacity}%`,
       }}
