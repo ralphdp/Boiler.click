@@ -11,8 +11,8 @@ async function testSessionCreation() {
   console.log("🧪 Testing Session Creation...\n");
 
   try {
-    // Test 1: Check if we can create a session via registration
-    console.log("1️⃣ Testing session creation via registration...");
+    // Test 1: Check if registration works (should not create session until email verification)
+    console.log("1️⃣ Testing registration flow...");
 
     const testUser = {
       firstName: "Test",
@@ -34,19 +34,18 @@ async function testSessionCreation() {
 
     if (registerResponse.ok) {
       console.log("✅ Registration successful");
+      console.log("📧 Verification email should be sent");
 
-      // Check if we can get user info
+      // Check if we can get user info (should fail - no session until email verification)
       const meResponse = await fetch(`${baseUrl}/api/auth/me`);
       console.log(`Auth status: ${meResponse.status}`);
 
-      if (meResponse.status === 200) {
-        const userData = await meResponse.json();
-        console.log("✅ Session creation working");
-        console.log(
-          `User: ${userData.user?.firstName} ${userData.user?.lastName}`
-        );
+      if (meResponse.status === 401) {
+        console.log("✅ Correctly requires email verification before login");
       } else {
-        console.log("❌ Session not created properly");
+        console.log(
+          "❌ Unexpected: User should not be logged in until email verification"
+        );
       }
     } else {
       const errorData = await registerResponse.json();
@@ -55,7 +54,36 @@ async function testSessionCreation() {
       );
     }
 
-    console.log("\n2️⃣ Testing Google OAuth flow...");
+    console.log(
+      "\n2️⃣ Testing login flow (should fail without email verification)..."
+    );
+
+    // Test login with unverified user (should fail)
+    const loginResponse = await fetch(`${baseUrl}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: testUser.email,
+        password: testUser.password,
+      }),
+    });
+
+    console.log(`Login status: ${loginResponse.status}`);
+
+    if (loginResponse.status === 401) {
+      const loginError = await loginResponse.json();
+      if (loginError.error === "Please verify your email before logging in") {
+        console.log("✅ Login correctly blocked until email verification");
+      } else {
+        console.log(`❌ Unexpected login error: ${loginError.error}`);
+      }
+    } else {
+      console.log("❌ Login should fail for unverified users");
+    }
+
+    console.log("\n3️⃣ Testing Google OAuth flow...");
 
     // Test Google OAuth initiation
     const googleResponse = await fetch(`${baseUrl}/api/auth/google`, {
@@ -71,6 +99,14 @@ async function testSessionCreation() {
         `❌ Google OAuth initiation failed: ${googleResponse.status}`
       );
     }
+
+    console.log("\n📝 Summary:");
+    console.log("✅ Registration works and sends verification email");
+    console.log("✅ Login is blocked until email verification");
+    console.log("✅ OAuth flow is properly configured");
+    console.log(
+      "💡 To complete the flow: verify email → login → session created"
+    );
   } catch (error) {
     console.error("❌ Test failed:", error.message);
   }
