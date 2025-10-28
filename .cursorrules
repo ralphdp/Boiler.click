@@ -1,0 +1,294 @@
+# Boiler.click - Production-Ready Next.js Boilerplate
+
+## Project Overview
+
+A comprehensive, production-ready boilerplate built with modern technologies. Perfect for launching your next SaaS application with authentication, database management, and beautiful UI components out of the box.
+
+## Tech Stack
+
+- **Framework**: Next.js 16.0.0 with App Router
+- **Language**: TypeScript with strict type checking
+- **Styling**: Tailwind CSS with custom design system
+- **Components**: Shadcn/ui component library
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: Passport.js (planned)
+- **Animations**: Framer Motion
+- **Code Quality**: ESLint + Prettier
+- **Deployment**: Vercel-optimized
+
+## Core Features
+
+- **Authentication System**: Passport.js integration (planned)
+- **Database Management**: Prisma ORM with PostgreSQL
+- **UI Components**: Shadcn/ui with custom styling
+- **Internationalization**: 5 languages (EN, ES, FR, AR, JP)
+- **Responsive Design**: Mobile-first approach
+- **Accessibility**: WCAG 2.1 AA compliant
+- **Security**: BotID, CSP headers, rate limiting
+- **SEO**: Meta tags, sitemap, structured data
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── (routes)/          # Route groups
+│   ├── api/               # API routes
+│   └── globals.css        # Global styles
+├── components/            # Reusable UI components
+│   ├── ui/               # Shadcn/ui components
+│   └── [feature].tsx     # Feature-specific components
+├── contexts/             # React contexts
+├── lib/                  # Utility functions
+├── languages/            # i18n translation files
+├── types/                # TypeScript type definitions
+└── data/                 # Static data files
+```
+
+## Coding Standards
+
+### TypeScript
+
+- Use strict type checking
+- Define interfaces for all data structures
+- Use proper type annotations for functions
+- Prefer type over interface for simple objects
+
+### React Patterns
+
+- Use functional components with hooks
+- Implement proper error boundaries
+- Use React.memo for performance optimization
+- Follow compound component patterns
+
+### Styling
+
+- Use Tailwind CSS utility classes
+- Follow mobile-first responsive design
+- Use CSS variables for theming
+- Implement proper focus states
+
+### File Naming
+
+- Use kebab-case for files: `user-profile.tsx`
+- Use PascalCase for components: `UserProfile`
+- Use camelCase for utilities: `formatDate`
+- Use UPPER_CASE for constants: `API_ENDPOINTS`
+
+## Component Guidelines
+
+### Component Structure
+
+```typescript
+// 1. Imports (external, internal, types)
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { User } from "@/types/user";
+
+// 2. Interface definitions
+interface ComponentProps {
+  user: User;
+  onUpdate: (user: User) => void;
+}
+
+// 3. Component implementation
+export const Component: React.FC<ComponentProps> = ({ user, onUpdate }) => {
+  // 4. Hooks
+  const [isLoading, setIsLoading] = useState(false);
+
+  // 5. Event handlers
+  const handleUpdate = useCallback(() => {
+    // Implementation
+  }, [user, onUpdate]);
+
+  // 6. Render
+  return <div className="space-y-4">{/* JSX */}</div>;
+};
+```
+
+### Error Handling
+
+- Use try-catch blocks for async operations
+- Implement proper error boundaries
+- Provide fallback UI for errors
+- Log errors to console in development
+
+### Performance
+
+- Use React.memo for expensive components
+- Implement proper loading states
+- Use Next.js Image component for images
+- Implement code splitting for large components
+
+## Database Patterns
+
+### Prisma Schema
+
+- Use descriptive model names
+- Implement proper relationships
+- Add indexes for performance
+- Use enums for fixed values
+
+### Database Operations
+
+- Use transactions for related operations
+- Implement proper error handling
+- Use connection pooling
+- Implement proper migrations
+
+## Security Guidelines
+
+### Authentication
+
+- Use secure session management
+- Implement proper password hashing
+- Use HTTPS in production
+- Implement rate limiting
+
+### Data Validation
+
+- Use Zod for input validation
+- Sanitize user inputs
+- Implement CSRF protection
+- Use proper SQL injection prevention
+
+## Internationalization
+
+### Translation Keys
+
+- Use descriptive, hierarchical keys
+- Group related translations
+- Use interpolation for dynamic content
+- Maintain consistency across languages
+
+### Language Files
+
+- Keep all language files synchronized
+- Use proper RTL support for Arabic
+- Implement proper date/number formatting
+- Use appropriate cultural adaptations
+
+## Testing Strategy
+
+### Unit Tests
+
+- Test individual functions and components
+- Use Jest and React Testing Library
+- Mock external dependencies
+- Test edge cases and error conditions
+
+### Integration Tests
+
+- Test API endpoints
+- Test database operations
+- Test authentication flows
+- Test user interactions
+
+## Deployment
+
+### Vercel Optimization
+
+- Use Edge Runtime where appropriate
+- Implement proper caching strategies
+- Use Vercel's built-in analytics
+- Optimize bundle size
+
+### Environment Variables
+
+- Use proper environment separation
+- Implement secure secret management
+- Use database connection pooling
+- Configure proper CORS settings
+
+## Code Quality
+
+### ESLint Rules
+
+- Follow Next.js recommended rules
+- Use TypeScript-specific rules
+- Implement accessibility rules
+- Use performance rules
+
+### Prettier Configuration
+
+- Use consistent formatting
+- Use proper line breaks
+- Use consistent quotes
+- Use proper indentation
+
+## Performance Optimization
+
+### Bundle Optimization
+
+- Use dynamic imports for large components
+- Implement proper code splitting
+- Use tree shaking effectively
+- Optimize third-party libraries
+
+### Runtime Performance
+
+- Use React.memo appropriately
+- Implement proper state management
+- Use efficient data structures
+- Optimize re-renders
+
+## Accessibility
+
+### ARIA Guidelines
+
+- Use proper ARIA labels
+- Implement keyboard navigation
+- Use semantic HTML elements
+- Provide proper focus management
+
+### Screen Reader Support
+
+- Use descriptive alt text
+- Implement proper headings
+- Use proper form labels
+- Provide skip links
+
+## Future Features (Planned)
+
+- Admin panel implementation
+- OAuth integration (Google, GitHub, etc.)
+- Advanced user management
+- Real-time features with WebSockets
+- Advanced analytics dashboard
+- Payment integration (Stripe)
+- Email system integration
+- Advanced caching strategies
+
+## Development Workflow
+
+### Git Workflow
+
+- Use feature branches
+- Write descriptive commit messages
+- Use conventional commits
+- Implement proper PR reviews
+
+### Code Review
+
+- Check for security vulnerabilities
+- Verify accessibility compliance
+- Test responsive design
+- Validate TypeScript types
+
+## Documentation
+
+### Code Documentation
+
+- Use JSDoc for functions
+- Document complex algorithms
+- Provide usage examples
+- Keep documentation updated
+
+### API Documentation
+
+- Document all endpoints
+- Provide request/response examples
+- Document error codes
+- Use OpenAPI specifications
+
+Remember: This is a production-ready boilerplate. Always prioritize security, performance, and user experience in your implementations.

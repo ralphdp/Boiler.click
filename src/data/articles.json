@@ -1,0 +1,34 @@
+{
+  "articles": [
+    {
+      "id": "boiler-release-announcement",
+      "slug": "boiler-release-announcement",
+      "title": "Boiler.click is Now Live!",
+      "description": "We're excited to announce the official launch of Boiler.click - the next generation SaaS boilerplate that's ready for production.",
+      "content": "## We're Live!\nAfter months of development and testing, we're thrilled to announce that **Boiler.click is now officially live** and ready for developers worldwide!\n### What This Means for You\nBoiler.click represents a new era in SaaS development - a comprehensive, production-ready boilerplate that eliminates the repetitive setup work and gets you straight to building your product.\n### Key Features Now Available\n- **Next.js 16**: Latest App Router with server components for optimal performance\n- **TypeScript**: Full type safety throughout the entire stack\n- **Modern UI**: Beautiful Shadcn/ui components with Tailwind CSS\n- **Authentication**: Built-in NextAuth.js integration ready to go\n- **Database**: Prisma ORM with PostgreSQL for robust data management\n- **Multi-language**: Support for English, Spanish, French, Japanese, and Arabic\n- **PWA Ready**: Progressive Web App capabilities built-in\n- **SEO Optimized**: Complete SEO setup with sitemaps and meta tags\n### Getting Started\nReady to dive in? Here's how you can get started:\n1. **Read the Documentation**: Check out our comprehensive [documentation](/documentation) for detailed setup instructions\n2. **Quick Start Guide**: Follow our [step-by-step guide](/documentation/1/welcome) to get up and running in minutes\n3. **Learn More**: Discover our [mission](/mission) and what makes Boiler.click different\n4. **Need Help?**: Visit our [support page](/support) or [FAQ](/faq) for assistance\n### What's Next?\nThis is just the beginning! We have exciting updates planned:\n- **Admin Panel**: Analytics and management dashboard\n- **Payment Integration**: Stripe and other payment processors\n- **Email Services**: Transactional email setup\n- **Templates**: Industry-specific starter templates\n- **One-Click Deploy**: Streamlined deployment options\n### Join Our Community\nWe're building more than just a boilerplate - we're building a community of developers who believe in efficient, modern development practices.\n- **Star us on GitHub**: Show your support and stay updated\n- **Report Issues**: Help us improve by reporting bugs or suggesting features\n- **Share Feedback**: We'd love to hear about your experience\n### Stay Updated\nDon't miss out on future updates and releases. Keep an eye on our [Articles section](/articles) for the latest news, tutorials, and feature announcements.\n---\n*Ready to build something amazing? [Get started with Boiler.click today](/documentation) and experience the future of SaaS development!*\n*Have questions? [Contact our support team](/support) - we're here to help you succeed.*",
+      "featuredImage": "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress",
+      "tags": ["announcement", "release", "launch", "saas", "boilerplate"],
+      "publishedAt": "2025-10-25 09:00:00",
+      "author": "Boiler.click Team",
+      "featured": true,
+      "readTime": "4 min read",
+      "excerpt": "We're excited to announce the official launch of Boiler.click - the next generation SaaS boilerplate that's ready for production.",
+      "status": "live"
+    },
+    {
+      "id": "v-0-0-1-alpha",
+      "slug": "v-0-0-1-alpha",
+      "title": "Boiler v0.0.1",
+      "description": "Learn about our development process, mission, and why we're building the next generation of SaaS boilerplates.",
+      "content": "## Why We're Building Boiler\nBoiler represents our vision for the future of SaaS development. We believe that launching a successful SaaS application shouldn't require months of setup, configuration, and boilerplate code.\n### Our Mission\nOur mission is to provide developers with a **production-ready, full-stack SaaS boilerplate** that includes everything needed to launch a modern web application. We're eliminating the repetitive setup work so you can focus on what matters most: building your product.\n### What Makes Us Different\n- **Next.js 16**: Latest App Router with server components\n- **TypeScript**: Full type safety throughout the stack\n- **Modern UI**: Shadcn/ui components with Tailwind CSS\n- **Authentication**: Built-in NextAuth.js integration\n- **Database**: Prisma ORM with PostgreSQL\n- **Performance**: Optimized for speed and SEO\n- **Developer Experience**: Hot reload, linting, and best practices\n### Our Development Process\nWe follow a rigorous development process to ensure quality:\n1. **Research**: We study the latest trends and technologies\n2. **Architecture**: We design scalable, maintainable solutions\n3. **Implementation**: We build with best practices in mind\n4. **Testing**: We thoroughly test every feature\n5. **Documentation**: We provide comprehensive guides\n6. **Community**: We listen to feedback and iterate\n### What's Coming Next\n- **Admin Panel**: Analytics and management dashboard\n- **More Integrations**: Payment processors, email services\n- **Templates**: Industry-specific starter templates\n- **Deployment**: One-click deployment options\n- **Monitoring**: Built-in performance monitoring\n### Stay Updated\nTo follow our progress and get notified of new releases, keep up with the latest Boiler.click articles in our [Articles section](/articles).\n---\n*This article will be updated as we continue developing Boiler.click. Check back regularly for the latest updates and features.*",
+      "featuredImage": "https://images.pexels.com/photos/3861963/pexels-photo-3861963.jpeg?auto=compress",
+      "tags": ["development", "mission", "updates", "boilerplate", "saas"],
+      "publishedAt": "2025-10-26 12:00:00",
+      "author": "Boiler.click Team",
+      "featured": false,
+      "readTime": "30 seconds read",
+      "excerpt": "Learn about our development process, mission, and why we're building the next generation of SaaS boilerplates.",
+      "status": "draft"
+    }
+  ]
+}

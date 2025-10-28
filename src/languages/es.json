@@ -1,0 +1,878 @@
+{
+  "navigation": {
+    "title": "Boiler.click",
+    "mission": "Misión",
+    "support": "Soporte",
+    "about": "Acerca de",
+    "documentation": "Documentación",
+    "articles": "Artículos",
+    "faq": "Preguntas Frecuentes",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "account": "Cuenta",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+  "quickStart": {
+    "title": "Inicio Rápido",
+    "copyButton": "Copiar",
+    "copiedButton": "¡Copiado!",
+    "codeComments": {
+      "clone": "Clonar el repositorio",
+      "install": "Instalar dependencias",
+      "env": "Configurar variables de entorno",
+      "dev": "Iniciar servidor de desarrollo",
+      "build": "Construir para producción"
+    }
+  },
+  "githubButton": "GitHub",
+  "tooltips": {
+    "themeToggle": "Cambiar tema",
+    "languageSwitcher": "Cambiar idioma"
+  },
+  "cookies": {
+    "title": "Usamos cookies",
+    "description": "Utilizamos cookies para mejorar tu experiencia, analizar el tráfico del sitio y personalizar el contenido. Puedes gestionar tus preferencias en cualquier momento.",
+    "accept": "Aceptar Todo",
+    "decline": "Rechazar",
+    "settings": "Configuración",
+    "settingsTitle": "Preferencias de Cookies",
+    "savePreferences": "Guardar Preferencias",
+    "acceptAll": "Aceptar Todo",
+    "rejectAll": "Rechazar Todo",
+    "alwaysActive": "Siempre Activo",
+    "openSettings": "Abrir configuración de cookies",
+    "status": {
+      "accepted": "Aceptado",
+      "declined": "Rechazado",
+      "custom": "Personalizado",
+      "notSet": "No Establecido"
+    },
+    "necessary": {
+      "title": "Cookies Necesarias",
+      "description": "Estas cookies son esenciales para que el sitio web funcione correctamente. No se pueden desactivar."
+    },
+    "analytics": {
+      "title": "Cookies de Análisis",
+      "description": "Estas cookies nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web recopilando y reportando información de forma anónima."
+    },
+    "marketing": {
+      "title": "Cookies de Marketing",
+      "description": "Estas cookies se utilizan para rastrear visitantes a través de sitios web para mostrar anuncios relevantes y atractivos."
+    }
+  },
+  "documentation": {
+    "title": "Documentación",
+    "lastUpdated": "Última actualización: Diciembre 2024",
+    "quickStart": {
+      "title": "Inicio Rápido",
+      "description": "Ponte en marcha con Boiler.click en minutos. Sigue estos simples pasos para configurar tu entorno de desarrollo."
+    },
+    "gettingStarted": {
+      "title": "Comenzando",
+      "description": "Aprende los conceptos básicos de Boiler.click y cómo configurar tu entorno de desarrollo.",
+      "prerequisites": {
+        "title": "Prerrequisitos",
+        "nodejs": "Node.js 18+ instalado en tu sistema",
+        "npm": "npm o yarn como gestor de paquetes",
+        "git": "Git para control de versiones",
+        "database": "Base de datos PostgreSQL (local o en la nube)"
+      },
+      "installation": {
+        "title": "Instalación",
+        "description": "Clona el repositorio e instala las dependencias para comenzar con tu entorno de desarrollo."
+      }
+    },
+    "configuration": {
+      "title": "Configuración",
+      "description": "Configura tus variables de entorno y conexión de base de datos para comenzar.",
+      "environment": {
+        "title": "Variables de Entorno",
+        "description": "Copia el archivo .env.example a .env.local y configura tus variables de entorno incluyendo URL de base de datos, secretos de autenticación y claves API."
+      },
+      "database": {
+        "title": "Configuración de Base de Datos",
+        "description": "Configura tu base de datos PostgreSQL y ejecuta las migraciones para crear las tablas y relaciones necesarias."
+      }
+    },
+    "development": {
+      "title": "Desarrollo",
+      "description": "Aprende sobre el flujo de trabajo de desarrollo y los scripts disponibles para construir tu aplicación.",
+      "scripts": {
+        "title": "Scripts Disponibles",
+        "dev": "Iniciar el servidor de desarrollo con recarga automática",
+        "build": "Construir la aplicación para producción",
+        "start": "Iniciar el servidor de producción",
+        "lint": "Ejecutar ESLint para verificar la calidad del código"
+      }
+    },
+    "vercel": {
+      "title": "Optimización para Vercel",
+      "description": "Este boilerplate está específicamente optimizado para el despliegue en Vercel con características y configuraciones integradas.",
+      "features": {
+        "title": "Características Específicas de Vercel",
+        "botid": "Detección de bots BotID integrada (automática en producción)",
+        "edge": "Optimización de Edge Runtime para tiempos de respuesta más rápidos",
+        "analytics": "Integración de Vercel Analytics para monitoreo de rendimiento",
+        "speed": "Optimización automática de imágenes y entrega CDN",
+        "deployment": "Despliegue de configuración cero con builds automáticos",
+        "functions": "Funciones serverless con rendimiento óptimo de arranque en frío",
+        "security": "HTTPS automático y headers de seguridad",
+        "scaling": "Escalado automático basado en patrones de tráfico"
+      },
+      "benefits": {
+        "title": "¿Por qué Vercel?",
+        "performance": "CDN global ultrarrápido y computación edge",
+        "developer": "Experiencia de desarrollador perfecta con despliegues instantáneos",
+        "monitoring": "Monitoreo de rendimiento y seguimiento de errores integrado",
+        "security": "Seguridad y cumplimiento de nivel empresarial",
+        "cost": "Precios de pago por escala con tier gratuito generoso"
+      }
+    },
+    "shadcnComponents": {
+      "title": "Componentes Shadcn/UI",
+      "description": "Aprende a usar los componentes más comunes de shadcn/ui con ejemplos de código prácticos.",
+      "visitWebsite": "Visita el sitio web oficial de shadcn/ui:",
+      "button": {
+        "title": "Componente Button",
+        "description": "Componente de botón versátil con múltiples variantes para diferentes casos de uso."
+      },
+      "card": {
+        "title": "Componente Card",
+        "description": "Componente de tarjeta flexible para mostrar contenido en un diseño estructurado."
+      },
+      "badge": {
+        "title": "Componente Badge",
+        "description": "Indicadores de estado pequeños y etiquetas con diferentes variantes."
+      }
+    },
+    "installationCommands": {
+      "title": "Comandos de Instalación",
+      "description": "Comandos esenciales para configurar componentes shadcn/ui y dependencias requeridas.",
+      "shadcn": {
+        "title": "Configuración Shadcn/UI",
+        "description": "Inicializa shadcn/ui y agrega los componentes más comúnmente utilizados.",
+        "comments": {
+          "init": "Instalar CLI de shadcn/ui",
+          "addComponents": "Agregar componentes"
+        }
+      },
+      "dependencies": {
+        "title": "Dependencias Requeridas",
+        "description": "Instala los paquetes necesarios para que los componentes shadcn/ui funcionen correctamente.",
+        "comment": "Instalar dependencias requeridas"
+      }
+    },
+    "codeExamples": {
+      "button": {
+        "clickMe": "Haz clic",
+        "outline": "Contorno",
+        "ghost": "Fantasma",
+        "delete": "Eliminar"
+      },
+      "card": {
+        "title": "Título de Tarjeta",
+        "content": "El contenido de la tarjeta va aquí"
+      },
+      "badge": {
+        "default": "Predeterminado",
+        "secondary": "Secundario",
+        "outline": "Contorno",
+        "destructive": "Destructivo"
+      }
+    },
+    "stepGuide": {
+      "title": "Guía Paso a Paso",
+      "description": "Sigue nuestra guía completa paso a paso para comenzar con Boiler.click. Cada paso incluye instrucciones detalladas, ejemplos de código y mejores prácticas.",
+      "welcome": {
+        "title": "Bienvenido",
+        "description": "Comienza con Boiler.click y entiende lo que estás construyendo"
+      },
+      "install": {
+        "title": "Instalar y Configurar",
+        "description": "Instala las dependencias y configura tu entorno para comenzar"
+      },
+      "development": {
+        "title": "Flujo de Desarrollo",
+        "description": "Aprende sobre el flujo de desarrollo y los scripts disponibles para construir tu aplicación"
+      },
+      "buildingPatterns": {
+        "title": "Patrones de Construcción y Código",
+        "description": "Aprende patrones esenciales de construcción, convenciones de código y mejores prácticas para aplicaciones escalables"
+      },
+      "shadcnComponents": {
+        "title": "Componentes Shadcn/UI",
+        "description": "Aprende a usar los componentes más comunes de shadcn/ui con ejemplos de código prácticos"
+      },
+      "vercelOptimization": {
+        "title": "Optimización para Vercel",
+        "description": "Este boilerplate está específicamente optimizado para el despliegue en Vercel con características y configuraciones integradas"
+      }
+    },
+    "github": {
+      "title": "Repositorio GitHub",
+      "description": "Accede al código fuente completo, contribuye al proyecto o reporta problemas en nuestro repositorio de GitHub. Rastrea todas las características, mejoras y correcciones en el desarrollo de Boiler.click.",
+      "button": "Ver en GitHub"
+    }
+  },
+  "homepage": {
+    "subtitle": "Plantilla SaaS Full-Stack",
+    "description": "Potenciado con Next.js, Prisma, Shadcn y Vercel",
+    "aboutButton": "Acerca de Boiler",
+    "githubButton": "GitHub",
+    "comingSoon": "Próximamente...",
+    "showcase": {
+      "title": "Construido con",
+      "footer": "Tecnologías que impulsan Boiler",
+      "nextjs": {
+        "description": "El framework de React para producción con renderizado híbrido estático y del servidor"
+      },
+      "prisma": {
+        "description": "ORM de nueva generación para Node.js y TypeScript para gestión de bases de datos"
+      },
+      "shadcn": {
+        "description": "Componentes bellamente diseñados construidos con Radix UI y Tailwind CSS"
+      },
+      "tailwind": {
+        "description": "Framework CSS utility-first para construir rápidamente interfaces de usuario personalizadas"
+      },
+      "typescript": {
+        "description": "JavaScript tipado a cualquier escala para una mejor experiencia de desarrollador"
+      },
+      "framer": {
+        "description": "Biblioteca de movimiento lista para producción para React con animaciones declarativas"
+      },
+      "lucide": {
+        "description": "Kit de herramientas de iconos hermoso y consistente con más de 1000 iconos para React"
+      },
+      "categories": {
+        "framework": "Framework",
+        "database": "Base de Datos",
+        "ui": "Librería UI",
+        "styling": "Estilos",
+        "language": "Lenguaje",
+        "animation": "Animación",
+        "icons": "Iconos"
+      }
+    },
+    "quickStart": {
+      "title": "Inicio Rápido",
+      "copyButton": "Copiar",
+      "copiedButton": "¡Copiado!",
+      "codeComments": {
+        "clone": "Clonar el repositorio",
+        "install": "Instalar dependencias",
+        "env": "Configurar variables de entorno",
+        "dev": "Iniciar servidor de desarrollo",
+        "build": "Construir para producción"
+      }
+    }
+  },
+  "about": {
+    "title": "Acerca de Boiler.click",
+    "description": "Una plantilla completa y lista para producción construida con tecnologías modernas. Perfecta para lanzar tu próxima aplicación SaaS con autenticación, gestión de base de datos y componentes de UI hermosos desde el primer momento.",
+    "coreFeatures": {
+      "title": "Características Principales",
+      "points": [
+        "Autenticación Passport.js",
+        "ORM Prisma con PostgreSQL",
+        "Componentes Shadcn/ui",
+        "Estilos Tailwind CSS",
+        "Servicio de Email Resend"
+      ]
+    },
+    "devExperience": {
+      "title": "Experiencia de Desarrollador",
+      "points": [
+        "Soporte Completo TypeScript",
+        "Configuración ESLint",
+        "Formateo de Código Prettier",
+        "Configuración de Pruebas Lista"
+      ]
+    },
+    "githubButton": "Ver en GitHub",
+    "userExperience": {
+      "title": "Experiencia de Usuario",
+      "points": [
+        "Diseño responsivo que funciona en todos los dispositivos",
+        "Tiempos de carga rápidos con rendimiento optimizado",
+        "Navegación intuitiva e interfaz fácil de usar",
+        "Diseño Centrado en Accesibilidad",
+        "Soporte RTL (Derecha a Izquierda)",
+        "Internacionalización (i18n)",
+        "Manejo mejorado de errores"
+      ]
+    },
+    "securitySeo": {
+      "title": "Destacados de Seguridad y SEO",
+      "security": {
+        "title": "Características de Seguridad",
+        "features": [
+          "* BotID detección de bots integrada en Vercel",
+          "Headers de Política de Seguridad de Contenido",
+          "Limitación de velocidad con bloqueo de IP",
+          "Validación de entrada con Zod",
+          "Flujo de autenticación seguro",
+          "Protección XSS",
+          "Protección CSRF"
+        ]
+      },
+      "botid": {
+        "title": "BotID Detección Avanzada de Bots",
+        "description": "Sistema de detección de bots integrado de Vercel que protege automáticamente tu aplicación",
+        "features": [
+          "Detección automática de bots usando aprendizaje automático",
+          "Sin configuración ni claves API requeridas",
+          "Puntuación de riesgo y análisis en tiempo real",
+          "Protección contra ataques automatizados",
+          "Integración perfecta con la plataforma Vercel",
+          "Invisible para usuarios legítimos",
+          "Análisis avanzado de comportamiento",
+          "Bloqueo automático de tráfico malicioso"
+        ]
+      },
+      "seo": {
+        "title": "Optimización SEO",
+        "features": [
+          "Optimización de meta tags",
+          "Tarjetas Open Graph y Twitter",
+          "Generación de sitemap",
+          "Configuración de robots.txt",
+          "Marcado de datos estructurados",
+          "Optimización de rendimiento"
+        ]
+      }
+    },
+    "performance": {
+      "title": "Métricas de Rendimiento",
+      "bundleSize": {
+        "title": "Tamaño del Bundle",
+        "value": "~420KB",
+        "description": "Build de producción G-Zipped"
+      },
+      "lighthouse": {
+        "title": "Puntuación Lighthouse",
+        "value": "90+/100",
+        "description": "Rendimiento optimizado"
+      },
+      "buildTime": {
+        "title": "Tiempo de Build",
+        "value": "~55s",
+        "description": "Builds de desarrollo rápidos"
+      }
+    },
+    "advancedFeatures": {
+      "title": "Características Avanzadas y Cumplimiento",
+      "performance": {
+        "title": "Optimizaciones Avanzadas de Rendimiento",
+        "features": [
+          "Optimización de Imágenes Next.js con WebP/AVIF",
+          "División automática de código y carga diferida",
+          "Optimización Edge Runtime para Vercel",
+          "Estrategias de caché integradas",
+          "Optimización del tamaño del bundle",
+          "Optimización de Core Web Vitals"
+        ]
+      },
+      "compliance": {
+        "title": "Cumplimiento y Estándares",
+        "features": [
+          "Gestión de cookies compatible con GDPR",
+          "Hosting compatible con SOC 2 Tipo 2 (Vercel)",
+          "Estándares de accesibilidad WCAG 2.1 AA",
+          "Implementación de headers de seguridad y CSP",
+          "Controles de protección de datos y privacidad"
+        ]
+      }
+    }
+  },
+  "mission": {
+    "title": "Nuestra Misión",
+    "description": "En Boiler.click, creemos que cada desarrollador debería tener acceso a herramientas de alta calidad y listas para producción que aceleren su proceso de desarrollo. Nuestra misión es eliminar el trabajo de configuración repetitivo que a menudo retrasa el lanzamiento de aplicaciones SaaS innovadoras.",
+    "goal": "Proporcionamos una plantilla completa y moderna que incluye todo lo que necesitas para construir y desplegar una aplicación SaaS full-stack. Desde autenticación y gestión de base de datos hasta hermosos componentes de UI y configuraciones de despliegue, te tenemos cubierto.",
+    "githubButton": "Ver en GitHub"
+  },
+  "support": {
+    "title": "Soporte",
+    "description": "¿Necesitas ayuda con Boiler.click? Estamos aquí para asistirte con cualquier pregunta o problema que puedas tener.",
+    "github": {
+      "title": "Repositorio de GitHub",
+      "description": "Encuentra documentación, problemas y contribuye al proyecto en GitHub.",
+      "button": "Visitar GitHub"
+    },
+    "email": {
+      "title": "Soporte por Email",
+      "description": "Para asistencia directa, contáctanos por email.",
+      "button": "Contactar Soporte"
+    }
+  },
+  "legal": {
+    "title": "Información Legal",
+    "lastUpdated": "Última Actualización: Diciembre 2024",
+    "privacyPolicy": {
+      "title": "Política de Privacidad",
+      "introduction": "Esta Política de Privacidad describe cómo Boiler.click recopila, usa y protege tu información cuando utilizas nuestro servicio.",
+      "informationCollection": {
+        "title": "Información que Recopilamos",
+        "personalInfoLabel": "Información Personal",
+        "personalInfo": "Podemos recopilar información personal como tu nombre, dirección de correo electrónico y datos de contacto cuando te registras en nuestro servicio o nos contactas.",
+        "usageDataLabel": "Datos de Uso",
+        "usageData": "Recopilamos automáticamente información sobre cómo usas nuestro servicio, incluyendo páginas visitadas, tiempo invertido e información del dispositivo.",
+        "cookiesLabel": "Cookies",
+        "cookies": "Utilizamos cookies y tecnologías similares para mejorar tu experiencia y analizar el rendimiento del sitio."
+      },
+      "informationUse": {
+        "title": "Cómo Utilizamos tu Información",
+        "service": "Para proporcionar, mantener y mejorar nuestros servicios",
+        "communication": "Para comunicarnos contigo sobre actualizaciones, soporte y avisos importantes",
+        "analytics": "Para analizar patrones de uso y mejorar nuestra plataforma",
+        "security": "Para proteger contra fraudes y asegurar la seguridad de la plataforma"
+      },
+      "informationSharing": {
+        "title": "Compartir Información",
+        "content": "No vendemos, intercambiamos o alquilamos tu información personal a terceros. Podemos compartir información solo con proveedores de servicios de confianza que nos ayudan a operar nuestra plataforma, y solo bajo estrictos acuerdos de confidencialidad."
+      },
+      "dataSecurity": {
+        "title": "Seguridad de Datos",
+        "content": "Implementamos medidas de seguridad apropiadas para proteger tu información personal contra acceso no autorizado, alteración, divulgación o destrucción. Sin embargo, ningún método de transmisión por internet es 100% seguro."
+      },
+      "yourRights": {
+        "title": "Tus Derechos",
+        "access": "Tienes derecho a acceder a tu información personal",
+        "correction": "Puedes solicitar la corrección de información inexacta",
+        "deletion": "Puedes solicitar la eliminación de tu información personal",
+        "portability": "Tienes derecho a la portabilidad de datos"
+      }
+    },
+    "termsOfService": {
+      "title": "Términos de Servicio",
+      "introduction": "Estos Términos de Servicio rigen tu uso de Boiler.click y nuestros servicios. Al usar nuestra plataforma, aceptas estos términos.",
+      "acceptance": {
+        "title": "Aceptación de Términos",
+        "content": "Al acceder o usar nuestro servicio, aceptas estar sujeto a estos Términos de Servicio y todas las leyes y regulaciones aplicables."
+      },
+      "useLicense": {
+        "title": "Licencia de Uso",
+        "permission": "Se otorga permiso para descargar temporalmente una copia de Boiler.click solo para visualización personal y no comercial.",
+        "restrictions": "No puedes modificar, copiar, distribuir, transmitir, mostrar, realizar, reproducir, publicar, licenciar, crear trabajos derivados, transferir o vender cualquier información, software, productos o servicios obtenidos de este sitio."
+      },
+      "userAccounts": {
+        "title": "Cuentas de Usuario",
+        "responsibility": "Eres responsable de mantener la confidencialidad de tu cuenta y contraseña.",
+        "security": "Aceptas asumir la responsabilidad de todas las actividades que ocurran bajo tu cuenta.",
+        "termination": "Nos reservamos el derecho de terminar cuentas que violen estos términos."
+      },
+      "prohibitedUses": {
+        "title": "Usos Prohibidos",
+        "content": "No puedes usar nuestro servicio para ningún propósito ilegal o para solicitar a otros que realicen actos ilegales, violar cualquier regla internacional, federal, provincial o estatal, leyes u ordenanzas locales, o infringir o violar nuestros derechos de propiedad intelectual o los derechos de propiedad intelectual de otros."
+      },
+      "disclaimer": {
+        "title": "Descargo de Responsabilidad",
+        "content": "La información en este sitio web se proporciona 'tal como está'. En la medida máxima permitida por la ley, Boiler.click excluye todas las representaciones, garantías, condiciones y términos relacionados con nuestro sitio web y el uso de este sitio web."
+      },
+      "limitation": {
+        "title": "Limitación de Responsabilidad",
+        "content": "En ningún caso Boiler.click, ni sus directores, empleados, socios, agentes, proveedores o afiliados, serán responsables de daños indirectos, incidentales, especiales, consecuenciales o punitivos, incluyendo sin limitación, pérdida de ganancias, datos, uso, buena voluntad u otras pérdidas intangibles."
+      }
+    },
+    "cookiePolicy": {
+      "title": "Política de Cookies",
+      "introduction": "Esta Política de Cookies explica cómo Boiler.click utiliza cookies y tecnologías similares cuando visitas nuestro sitio web.",
+      "whatAreCookies": {
+        "title": "Qué Son las Cookies",
+        "content": "Las cookies son pequeños archivos de texto que se colocan en tu computadora o dispositivo móvil cuando visitas un sitio web. Se utilizan ampliamente para hacer que los sitios web funcionen de manera más eficiente y proporcionar información a los propietarios de sitios web."
+      },
+      "howWeUseCookies": {
+        "title": "Cómo Utilizamos las Cookies",
+        "essentialLabel": "Esenciales",
+        "essential": "Las cookies esenciales son necesarias para que el sitio web funcione correctamente y no pueden ser deshabilitadas.",
+        "analyticsLabel": "Análisis",
+        "analytics": "Las cookies de análisis nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web recopilando e informando información de forma anónima.",
+        "preferencesLabel": "Preferencias",
+        "preferences": "Las cookies de preferencias recuerdan tus elecciones y configuraciones para proporcionar una experiencia más personalizada.",
+        "marketingLabel": "Marketing",
+        "marketing": "Las cookies de marketing se utilizan para rastrear visitantes a través de sitios web para mostrar anuncios relevantes y atractivos."
+      },
+      "cookieTypes": {
+        "title": "Tipos de Cookies que Utilizamos",
+        "sessionLabel": "Sesión",
+        "session": "Las cookies de sesión son temporales y se eliminan cuando cierras tu navegador",
+        "persistentLabel": "Persistentes",
+        "persistent": "Las cookies persistentes permanecen en tu dispositivo por un período determinado o hasta que las elimines",
+        "firstPartyLabel": "Primera parte",
+        "firstParty": "Las cookies de primera parte son establecidas por nuestro sitio web",
+        "thirdPartyLabel": "Terceros",
+        "thirdParty": "Las cookies de terceros son establecidas por otros sitios web cuyo contenido aparece en nuestro sitio"
+      },
+      "managingCookies": {
+        "title": "Gestionar Cookies",
+        "browserSettings": "Puedes controlar y eliminar cookies a través de la configuración de tu navegador.",
+        "optOut": "Puedes optar por no recibir ciertas cookies ajustando la configuración de tu navegador o usando herramientas de exclusión proporcionadas por servicios de terceros.",
+        "impact": "Ten en cuenta que deshabilitar ciertas cookies puede afectar la funcionalidad de nuestro sitio web."
+      }
+    },
+    "contact": {
+      "title": "Información de Contacto",
+      "content": "Si tienes alguna pregunta sobre estos documentos legales, por favor contáctanos en:",
+      "emailLabel": "Email",
+      "addressLabel": "Dirección"
+    }
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Respuestas a las preguntas más comunes",
+    "searchPlaceholder": "Buscar preguntas...",
+    "clearFilters": "Limpiar filtros",
+    "noResults": "No se encontraron resultados",
+    "description": "Encuentra respuestas a preguntas comunes sobre Boiler.click y obtén ayuda con la configuración, personalización y desarrollo.",
+    "categories": {
+      "all": "Todas",
+      "general": "General",
+      "technical": "Técnico",
+      "getting-started": "Comenzar",
+      "customization": "Personalización",
+      "production": "Producción",
+      "development": "Desarrollo"
+    },
+    "questions": [
+      {
+        "id": "what-is-boiler-click",
+        "question": "¿Qué es Boiler.click?",
+        "answer": "Boiler.click es un boilerplate SaaS full-stack de próxima generación construido con tecnologías modernas como Next.js, Prisma, Shadcn/UI, TypeScript y AI. Proporciona una base completa para construir aplicaciones SaaS con autenticación, integración de base de datos y componentes de UI modernos.",
+        "category": "general"
+      },
+      {
+        "id": "technologies-included",
+        "question": "¿Qué tecnologías están incluidas?",
+        "answer": "El boilerplate incluye Next.js 16, React 19, TypeScript, Prisma ORM, componentes Shadcn/UI, Tailwind CSS, Framer Motion para animaciones, NextAuth.js para autenticación, y muchas otras herramientas modernas para construir aplicaciones SaaS listas para producción.",
+        "category": "technical"
+      },
+      {
+        "id": "how-to-get-started",
+        "question": "¿Cómo empiezo?",
+        "answer": "1. Clona el repositorio desde GitHub\n2. Instala las dependencias con npm install\n3. Configura tus variables de entorno\n4. Configura tu base de datos\n5. Ejecuta npm run dev para comenzar el desarrollo",
+        "category": "getting-started"
+      },
+      {
+        "id": "is-boilerplate-free",
+        "question": "¿Este boilerplate es gratuito?",
+        "answer": "Sí, Boiler.click es completamente gratuito y de código abierto. Puedes usarlo para proyectos personales y comerciales sin restricciones.",
+        "category": "general"
+      },
+      {
+        "id": "how-to-customize-theme",
+        "question": "¿Cómo personalizo el tema?",
+        "answer": "El boilerplate usa Tailwind CSS con un sistema de diseño personalizado. Puedes personalizar colores, fuentes y componentes modificando las variables CSS en globals.css y la configuración de Tailwind.",
+        "category": "customization"
+      },
+      {
+        "id": "can-use-for-production",
+        "question": "¿Puedo usar esto en producción?",
+        "answer": "¡Absolutamente! Boiler.click está diseñado para uso en producción con manejo adecuado de errores, optimizaciones de rendimiento, headers de seguridad y mejores prácticas integradas.",
+        "category": "production"
+      },
+      {
+        "id": "how-to-add-features",
+        "question": "¿Cómo agrego nuevas características?",
+        "answer": "El boilerplate es modular y extensible. Puedes agregar nuevas páginas, componentes, rutas API y modelos de base de datos siguiendo los patrones y convenciones establecidos.",
+        "category": "development"
+      },
+      {
+        "id": "supported-databases",
+        "question": "¿Qué bases de datos son compatibles?",
+        "answer": "Boiler.click usa Prisma ORM que soporta PostgreSQL, MySQL, SQLite, MongoDB y otras bases de datos. La configuración por defecto está configurada para PostgreSQL.",
+        "category": "technical"
+      }
+    ]
+  },
+  "articles": {
+    "title": "Artículos",
+    "subtitle": "Tutoriales y guías útiles",
+    "description": "Descubre artículos y tutoriales útiles sobre Boiler.",
+    "searchPlaceholder": "Buscar artículos...",
+    "clearFilters": "Limpiar filtros",
+    "noResults": "No se encontraron resultados",
+    "readMore": "Leer Más",
+    "relatedArticles": "Artículos Relacionados",
+    "tags": "Etiquetas",
+    "publishedOn": "Publicado el",
+    "readTime": "min de lectura",
+    "all": "Todos",
+    "featured": "Destacado",
+    "tryAdjusting": "Intenta ajustar tu búsqueda o filtros"
+  },
+  "footer": {
+    "copyright": "© {year} Boiler.click. Todos los derechos reservados.",
+    "legal": "Legal",
+    "sitemap": "Mapa del sitio"
+  },
+  "language": {
+    "switch": "Cambiar Idioma",
+    "current": "Idioma Actual"
+  },
+  "social": {
+    "tooltips": {
+      "twitter": "Compartir en Twitter",
+      "facebook": "Compartir en Facebook",
+      "linkedin": "Compartir en LinkedIn",
+      "github": "Ver en GitHub"
+    }
+  },
+  "error": {
+    "404": {
+      "title": "404",
+      "message": "Página no encontrada"
+    },
+    "403": {
+      "title": "403",
+      "message": "Acceso Prohibido"
+    },
+    "405": {
+      "title": "405",
+      "message": "Método No Permitido"
+    },
+    "429": {
+      "title": "429",
+      "message": "Demasiadas Solicitudes"
+    },
+    "500": {
+      "title": "500",
+      "message": "Error Interno del Servidor"
+    },
+    "503": {
+      "title": "503",
+      "message": "Servicio No Disponible"
+    },
+    "default": {
+      "title": "Error",
+      "message": "Algo salió mal"
+    },
+    "actions": {
+      "tryAgain": "Intentar de nuevo",
+      "goHome": "Ir al inicio"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de Nuevo",
+      "subtitleBefore": "Inicia sesión en tu cuenta",
+      "subtitleAfter": "",
+      "formTitle": "Iniciar Sesión",
+      "formDescription": "Ingresa tus credenciales para acceder a tu cuenta",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "rememberMe": "Recuérdame",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "resendVerification": "Reenviar correo de verificación",
+      "submitButton": "Iniciar Sesión",
+      "submittingButton": "Iniciando sesión...",
+      "dontHaveAccount": "¿No tienes cuenta?",
+      "signUpLink": "Regístrate",
+      "needToVerify": "¿Necesitas verificar tu correo?"
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "subtitleBefore": "Únete a",
+      "subtitleAfter": "y comienza a construir aplicaciones increíbles",
+      "formTitle": "Nueva Cuenta",
+      "formDescription": "Completa el formulario para crear tu cuenta",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo Electrónico",
+      "telephone": "Teléfono (Opcional)",
+      "submitButton": "Registrarse",
+      "submittingButton": "Registrando...",
+      "successTitle": "¡Registro Exitoso!",
+      "successSubtitle": "Te hemos enviado un correo de verificación",
+      "checkEmailTitle": "Revisa tu correo",
+      "checkEmailMessage": "Hemos enviado un enlace de verificación a",
+      "redirectMessage": "Serás redirigido a la página de inicio de sesión...",
+      "alreadyHaveAccount": "¿Ya tienes cuenta?",
+      "signInLink": "Inicia sesión"
+    },
+    "forgotPassword": {
+      "title": "¿Olvidaste tu Contraseña?",
+      "subtitle": "No te preocupes, te enviaremos un enlace de restablecimiento",
+      "formTitle": "Restablecer Contraseña",
+      "formDescription": "Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña",
+      "email": "Correo Electrónico",
+      "submitButton": "Enviar Enlace de Restablecimiento",
+      "submittingButton": "Enviando enlace...",
+      "successTitle": "Revisa tu Correo",
+      "successSubtitle": "Te hemos enviado un enlace de restablecimiento de contraseña",
+      "resetLinkSentTitle": "Enlace de Restablecimiento Enviado",
+      "resetLinkSentMessage": "Si existe una cuenta con el correo",
+      "resetLinkSentMessage2": ", te hemos enviado un enlace de restablecimiento de contraseña.",
+      "checkEmailMessage": "Revisa tu correo y haz clic en el enlace para restablecer tu contraseña. El enlace expirará en 1 hora.",
+      "backToSignIn": "Volver a Iniciar Sesión",
+      "rememberPassword": "¿Recuerdas tu contraseña?",
+      "signInLink": "Inicia sesión"
+    },
+    "resetPassword": {
+      "title": "Restablece tu Contraseña",
+      "subtitle": "Ingresa tu nueva contraseña a continuación",
+      "formTitle": "Nueva Contraseña",
+      "formDescription": "Elige una contraseña segura para tu cuenta",
+      "submitButton": "Restablecer Contraseña",
+      "submittingButton": "Restableciendo contraseña...",
+      "successTitle": "¡Contraseña Restablecida con Éxito!",
+      "successSubtitle": "Tu contraseña ha sido actualizada correctamente",
+      "passwordUpdatedTitle": "Contraseña Actualizada",
+      "passwordUpdatedMessage": "Tu contraseña ha sido restablecida exitosamente. Ahora puedes iniciar sesión con tu nueva contraseña.",
+      "redirectMessage": "Serás redirigido a la página de inicio de sesión...",
+      "invalidLinkTitle": "Enlace de Restablecimiento Inválido",
+      "invalidLinkSubtitle": "Este enlace de restablecimiento de contraseña es inválido o ha expirado",
+      "linkInvalidTitle": "Enlace Inválido",
+      "linkInvalidMessage": "Este enlace de restablecimiento de contraseña es inválido o ha expirado. Por favor solicita uno nuevo.",
+      "requestNewLink": "Solicitar Nuevo Enlace de Restablecimiento",
+      "rememberPassword": "¿Recuerdas tu contraseña?",
+      "signInLink": "Inicia sesión"
+    },
+    "resendActivation": {
+      "title": "Reenviar Correo de Verificación",
+      "subtitle": "Obtén un nuevo enlace de verificación para tu cuenta",
+      "formTitle": "Reenviar Verificación",
+      "formDescription": "Ingresa tu correo electrónico para recibir un nuevo enlace de verificación",
+      "email": "Correo Electrónico",
+      "submitButton": "Enviar Correo de Verificación",
+      "submittingButton": "Enviando correo de verificación...",
+      "successTitle": "Correo de Verificación Enviado",
+      "successSubtitle": "Por favor revisa tu correo para el enlace de verificación",
+      "checkEmailTitle": "Revisa tu Correo",
+      "checkEmailMessage": "Hemos enviado un nuevo enlace de verificación a",
+      "checkEmailMessage2": "Haz clic en el enlace del correo para verificar tu cuenta. El enlace expirará en 24 horas.",
+      "backToSignIn": "Volver a Iniciar Sesión",
+      "alreadyVerified": "¿Ya verificaste tu correo?",
+      "signInLink": "Inicia sesión"
+    },
+    "verifyEmail": {
+      "verifyingTitle": "Verificando tu Correo",
+      "verifyingSubtitle": "Por favor espera mientras verificamos tu correo electrónico",
+      "verifyingMessage": "Estamos verificando tu correo electrónico. Esto puede tomar un momento.",
+      "successTitle": "¡Correo Verificado Exitosamente!",
+      "successSubtitle": "Tu cuenta ahora está activa y lista para usar",
+      "welcomeTitle": "¡Bienvenido a Boiler.click!",
+      "welcomeMessage": "Tu correo ha sido verificado exitosamente. Tu cuenta ahora está activa y puedes comenzar a usar todas las funciones.",
+      "redirectMessage": "Serás redirigido a la página de inicio de sesión...",
+      "failedTitle": "Verificación Fallida",
+      "failedSubtitle": "No pudimos verificar tu correo electrónico",
+      "verificationFailedTitle": "Verificación Fallida",
+      "verificationFailedMessage": "Este enlace de verificación puede haber expirado o haber sido utilizado anteriormente.",
+      "requestNewVerification": "Solicitar Nuevo Correo de Verificación",
+      "backToSignIn": "Volver a Iniciar Sesión"
+    },
+    "account": {
+      "dashboard": {
+        "title": "Panel de Cuenta",
+        "welcome": "Bienvenido de vuelta"
+      },
+      "title": "Panel de Cuenta",
+      "welcomeMessage": "¡Bienvenido de vuelta, {firstName}!",
+      "subtitle": "Gestiona la configuración y preferencias de tu cuenta",
+      "profile": {
+        "title": "Información del Perfil",
+        "description": "Gestiona tu información personal",
+        "name": "Nombre",
+        "email": "Correo Electrónico",
+        "phone": "Teléfono",
+        "role": "Rol",
+        "emailNotVerified": "Correo no verificado",
+        "editProfile": "Editar Perfil",
+        "backToAccount": "Volver a la Cuenta",
+        "profileSettings": "Configuración del Perfil",
+        "manageProfileInfo": "Gestiona la información de tu perfil",
+        "profileInformation": "Información del Perfil",
+        "andPassword": " y contraseña",
+        "firstName": "Nombre",
+        "lastName": "Apellido",
+        "email": "Correo Electrónico",
+        "phoneNumber": "Número de Teléfono",
+        "currentPassword": "Contraseña Actual",
+        "saving": "Guardando...",
+        "saveChanges": "Guardar Cambios",
+        "changing": "Cambiando...",
+        "changePassword": "Cambiar Contraseña",
+        "details": "Gestiona tu nombre, correo electrónico, número de teléfono y otra información del perfil.",
+        "pageTitle": "Configuración del Perfil",
+        "pageSubtitle": "Actualiza tu información personal y detalles de la cuenta",
+        "formTitle": "Información Personal",
+        "formDescription": "Actualiza tu información del perfil a continuación",
+        "firstName": "Nombre",
+        "lastName": "Apellido",
+        "email": "Dirección de Correo Electrónico",
+        "telephone": "Número de Teléfono (Opcional)",
+        "emailChangeWarning": "Cambiar tu correo electrónico requerirá verificación",
+        "saveButton": "Guardar Cambios",
+        "savingButton": "Guardando...",
+        "successMessage": "¡Perfil actualizado exitosamente!",
+        "backToAccount": "Volver a la Cuenta",
+        "profileSettings": "Configuración del Perfil",
+        "manageProfileInfo": "Gestiona la información de tu perfil",
+        "andPassword": " y contraseña",
+        "profileInformation": "Información del Perfil",
+        "passwordSettings": "Configuración de Contraseña",
+        "failedToUpdateProfile": "Error al actualizar el perfil. Por favor intenta de nuevo.",
+        "failedToChangePassword": "Error al cambiar la contraseña. Por favor intenta de nuevo."
+      },
+      "settings": {
+        "title": "Configuración de la Cuenta",
+        "description": "Gestiona las preferencias de tu cuenta",
+        "accountSettings": "Configuración de la Cuenta",
+        "changePassword": "Cambiar Contraseña",
+        "signOut": "Cerrar Sesión",
+        "details": "Actualiza tu contraseña, gestiona cuentas conectadas y configuración de seguridad.",
+        "pageTitle": "Configuración de la Cuenta",
+        "pageSubtitle": "Gestiona tu contraseña y cuentas conectadas",
+        "changePassword": {
+          "title": "Cambiar Contraseña",
+          "description": "Actualiza la contraseña de tu cuenta para mayor seguridad",
+          "currentPassword": "Contraseña Actual",
+          "newPassword": "Nueva Contraseña",
+          "confirmPassword": "Confirmar Nueva Contraseña",
+          "changeButton": "Cambiar Contraseña",
+          "changingButton": "Cambiando...",
+          "successMessage": "¡Contraseña cambiada exitosamente!"
+        },
+        "connectedAccounts": {
+          "title": "Cuentas Conectadas",
+          "description": "Gestiona las conexiones de tus cuentas OAuth",
+          "noAccounts": "No se encontraron cuentas conectadas. Conecta tus cuentas sociales para un inicio de sesión más fácil.",
+          "connectedOn": "Conectado",
+          "unlinkButton": "Desvincular"
+        }
+      },
+      "accountInfo": {
+        "title": "Información de la Cuenta",
+        "description": "Los detalles actuales de tu cuenta",
+        "name": "Nombre",
+        "email": "Correo Electrónico",
+        "role": "Rol",
+        "emailStatus": "Estado del Correo",
+        "verified": "Verificado",
+        "notVerified": "No Verificado",
+        "signOutButton": "Cerrar Sesión"
+      }
+    },
+    "messages": {
+      "unexpectedError": "Ocurrió un error inesperado. Por favor intenta de nuevo.",
+      "oauthError": "Error con el inicio de sesión social. Por favor intenta de nuevo.",
+      "oauthCancelled": "Inicio de sesión social cancelado.",
+      "sessionError": "Error de sesión. Por favor inicia sesión de nuevo.",
+      "emailNotVerified": "Tu correo electrónico no ha sido verificado. Por favor verifica tu correo.",
+      "tokenInvalid": "Token inválido o expirado."
+    }
+  },
+  "oauth": {
+    "orContinueWith": "O continúa con",
+    "continueWith": "Continuar con",
+    "connecting": "Conectando...",
+    "providers": {
+      "google": "Google",
+      "github": "GitHub",
+      "discord": "Discord",
+      "facebook": "Facebook",
+      "twitter": "Twitter"
+    }
+  }
+}

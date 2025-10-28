@@ -1,0 +1,804 @@
+{
+  "navigation": {
+    "title": "Boiler.click",
+    "mission": "ミッション",
+    "support": "サポート",
+    "about": "について",
+    "documentation": "ドキュメント",
+    "articles": "記事",
+    "faq": "よくある質問",
+    "signIn": "サインイン",
+    "signUp": "サインアップ",
+    "account": "アカウント",
+    "profile": "プロフィール",
+    "settings": "設定",
+    "logout": "ログアウト"
+  },
+  "quickStart": {
+    "title": "クイックスタート",
+    "copyButton": "コピー",
+    "copiedButton": "コピーしました！",
+    "codeComments": {
+      "clone": "リポジトリをクローン",
+      "install": "依存関係をインストール",
+      "env": "環境変数を設定",
+      "dev": "開発サーバーを開始",
+      "build": "本番用にビルド"
+    }
+  },
+  "githubButton": "GitHub",
+  "tooltips": {
+    "themeToggle": "テーマを切り替え",
+    "languageSwitcher": "言語を変更"
+  },
+  "cookies": {
+    "title": "クッキーを使用しています",
+    "description": "クッキーを使用して、お客様の体験を向上させ、サイトトラフィックを分析し、コンテンツをパーソナライズしています。いつでも設定を管理できます。",
+    "accept": "すべて受け入れる",
+    "decline": "拒否",
+    "settings": "設定",
+    "settingsTitle": "クッキー設定",
+    "savePreferences": "設定を保存",
+    "acceptAll": "すべて受け入れる",
+    "rejectAll": "すべて拒否",
+    "alwaysActive": "常にアクティブ",
+    "openSettings": "クッキー設定を開く",
+    "status": {
+      "accepted": "受け入れ済み",
+      "declined": "拒否済み",
+      "custom": "カスタム",
+      "notSet": "未設定"
+    },
+    "necessary": {
+      "title": "必要クッキー",
+      "description": "これらのクッキーは、ウェブサイトが正常に機能するために必要です。無効にすることはできません。"
+    },
+    "analytics": {
+      "title": "分析クッキー",
+      "description": "これらのクッキーは、訪問者がウェブサイトとどのように相互作用するかを理解するのに役立ち、匿名で情報を収集・報告します。"
+    },
+    "marketing": {
+      "title": "マーケティングクッキー",
+      "description": "これらのクッキーは、関連性の高い魅力的な広告を表示するために、ウェブサイト間で訪問者を追跡するために使用されます。"
+    }
+  },
+  "documentation": {
+    "title": "ドキュメント",
+    "lastUpdated": "最終更新: 2024年12月",
+    "quickStart": {
+      "title": "クイックスタート",
+      "description": "数分でBoiler.clickを起動します。これらの簡単な手順に従って開発環境をセットアップしてください。"
+    },
+    "gettingStarted": {
+      "title": "はじめに",
+      "description": "Boiler.clickの基本と開発環境のセットアップ方法を学びます。",
+      "prerequisites": {
+        "title": "前提条件",
+        "nodejs": "システムにNode.js 18+がインストールされている",
+        "npm": "npmまたはyarnパッケージマネージャー",
+        "git": "バージョン管理用のGit",
+        "database": "PostgreSQLデータベース（ローカルまたはクラウド）"
+      },
+      "installation": {
+        "title": "インストール",
+        "description": "リポジトリをクローンし、依存関係をインストールして開発環境を開始します。"
+      }
+    },
+    "configuration": {
+      "title": "設定",
+      "description": "環境変数とデータベース接続を設定して開始します。",
+      "environment": {
+        "title": "環境変数",
+        "description": ".env.exampleファイルを.env.localにコピーし、データベースURL、認証シークレット、APIキーを含む環境変数を設定します。"
+      },
+      "database": {
+        "title": "データベース設定",
+        "description": "PostgreSQLデータベースを設定し、マイグレーションを実行して必要なテーブルとリレーションを作成します。"
+      }
+    },
+    "development": {
+      "title": "開発",
+      "description": "開発ワークフローとアプリケーション構築に利用可能なスクリプトについて学びます。",
+      "scripts": {
+        "title": "利用可能なスクリプト",
+        "dev": "ホットリロードで開発サーバーを開始",
+        "build": "本番用にアプリケーションをビルド",
+        "start": "本番サーバーを開始",
+        "lint": "ESLintを実行してコード品質をチェック"
+      }
+    },
+    "vercel": {
+      "title": "Vercel最適化",
+      "description": "このボイラープレートは、統合された機能と設定でVercelデプロイメントに特化して最適化されています。",
+      "features": {
+        "title": "Vercel固有の機能",
+        "botid": "内蔵BotIDボット検出（本番環境で自動）",
+        "edge": "より高速な応答時間のためのEdge Runtime最適化",
+        "analytics": "パフォーマンス監視のためのVercel Analytics統合",
+        "speed": "自動画像最適化とCDN配信",
+        "deployment": "自動ビルドによるゼロ設定デプロイメント",
+        "functions": "最適なコールドスタートパフォーマンスのサーバーレス関数",
+        "security": "自動HTTPSとセキュリティヘッダー",
+        "scaling": "トラフィックパターンに基づく自動スケーリング"
+      },
+      "benefits": {
+        "title": "なぜVercelなのか？",
+        "performance": "超高速グローバルCDNとエッジコンピューティング",
+        "developer": "即座のデプロイメントによるシームレスな開発者体験",
+        "monitoring": "内蔵パフォーマンス監視とエラートラッキング",
+        "security": "エンタープライズグレードのセキュリティとコンプライアンス",
+        "cost": "寛大な無料ティアを備えた従量課金制価格"
+      }
+    },
+    "shadcnComponents": {
+      "title": "Shadcn/UIコンポーネント",
+      "description": "実用的なコード例で最も一般的なshadcn/uiコンポーネントの使用方法を学びます。",
+      "visitWebsite": "shadcn/uiの公式ウェブサイトをご覧ください：",
+      "button": {
+        "title": "Buttonコンポーネント",
+        "description": "異なるユースケースに対応する複数のバリアントを持つ多機能ボタンコンポーネント。"
+      },
+      "card": {
+        "title": "Cardコンポーネント",
+        "description": "構造化されたレイアウトでコンテンツを表示するための柔軟なカードコンポーネント。"
+      },
+      "badge": {
+        "title": "Badgeコンポーネント",
+        "description": "異なるバリアントを持つ小さなステータスインジケーターとラベル。"
+      }
+    },
+    "installationCommands": {
+      "title": "インストールコマンド",
+      "description": "shadcn/uiコンポーネントと必要な依存関係を設定するための必須コマンド。",
+      "shadcn": {
+        "title": "Shadcn/UIセットアップ",
+        "description": "shadcn/uiを初期化し、最も一般的に使用されるコンポーネントを追加します。",
+        "comments": {
+          "init": "shadcn/ui CLIをインストール",
+          "addComponents": "コンポーネントを追加"
+        }
+      },
+      "dependencies": {
+        "title": "必要な依存関係",
+        "description": "shadcn/uiコンポーネントが正しく動作するために必要なパッケージをインストールします。",
+        "comment": "必要な依存関係をインストール"
+      }
+    },
+    "codeExamples": {
+      "button": {
+        "clickMe": "クリック",
+        "outline": "アウトライン",
+        "ghost": "ゴースト",
+        "delete": "削除"
+      },
+      "card": {
+        "title": "カードタイトル",
+        "content": "カードのコンテンツはここに表示されます"
+      },
+      "badge": {
+        "default": "デフォルト",
+        "secondary": "セカンダリ",
+        "outline": "アウトライン",
+        "destructive": "破壊的"
+      }
+    },
+    "stepGuide": {
+      "title": "ステップバイステップガイド",
+      "description": "Boiler.clickを始めるための包括的なステップバイステップガイドに従ってください。各ステップには詳細な説明、コード例、ベストプラクティスが含まれています。",
+      "welcome": {
+        "title": "ようこそ",
+        "description": "Boiler.clickを始めて、何を構築しているかを理解してください"
+      },
+      "install": {
+        "title": "インストールと設定",
+        "description": "依存関係をインストールし、環境を設定して開始してください"
+      },
+      "development": {
+        "title": "開発ワークフロー",
+        "description": "開発ワークフローとアプリケーション構築に利用可能なスクリプトについて学んでください"
+      },
+      "buildingPatterns": {
+        "title": "ビルドとコーディングパターン",
+        "description": "スケーラブルなアプリケーションのための基本的なビルドパターン、コーディング規約、ベストプラクティスを学びます"
+      },
+      "shadcnComponents": {
+        "title": "Shadcn/UIコンポーネント",
+        "description": "実用的なコード例で最も一般的なshadcn/uiコンポーネントの使用方法を学んでください"
+      },
+      "vercelOptimization": {
+        "title": "Vercel最適化",
+        "description": "このボイラープレートは、組み込み機能と設定でVercelデプロイメントに特化して最適化されています"
+      }
+    },
+    "github": {
+      "title": "GitHubリポジトリ",
+      "description": "完全なソースコードにアクセスし、プロジェクトに貢献したり、GitHubリポジトリで問題を報告したりできます。Boiler.clickの開発におけるすべての機能、改善、修正を追跡できます。",
+      "button": "GitHubで見る"
+    }
+  },
+  "homepage": {
+    "subtitle": "フルスタックSaaSボイラープレート",
+    "description": "Next.js、Prisma、Shadcn、Vercelで構築",
+    "aboutButton": "Boilerについて",
+    "githubButton": "GitHub",
+    "comingSoon": "近日公開...",
+    "showcase": {
+      "title": "構築技術",
+      "footer": "Boilerを支えるテクノロジー",
+      "nextjs": {
+        "description": "ハイブリッド静的・サーバーレンダリングを備えた本番用Reactフレームワーク"
+      },
+      "prisma": {
+        "description": "データベース管理のための次世代Node.js・TypeScript ORM"
+      },
+      "shadcn": {
+        "description": "Radix UIとTailwind CSSで構築された美しく設計されたコンポーネント"
+      },
+      "tailwind": {
+        "description": "カスタムユーザーインターフェースを迅速に構築するためのユーティリティファーストCSSフレームワーク"
+      },
+      "typescript": {
+        "description": "より良い開発者体験のための任意のスケールでの型付きJavaScript"
+      },
+      "framer": {
+        "description": "宣言的アニメーションを備えたReact用の本番対応モーションライブラリ"
+      },
+      "lucide": {
+        "description": "1000以上のアイコンを備えたReact用の美しく一貫したアイコンツールキット"
+      }
+    },
+    "quickStart": {
+      "title": "クイックスタート",
+      "copyButton": "コピー",
+      "copiedButton": "コピーしました！",
+      "codeComments": {
+        "clone": "リポジトリをクローン",
+        "install": "依存関係をインストール",
+        "env": "環境変数を設定",
+        "dev": "開発サーバーを開始",
+        "build": "本番用にビルド"
+      }
+    }
+  },
+  "about": {
+    "title": "Boiler.clickについて",
+    "description": "モダンなテクノロジーで構築された包括的で本番環境に対応したボイラープレート。認証、データベース管理、美しいUIコンポーネントが最初から含まれており、次のSaaSアプリケーションを起動するのに最適です。",
+    "coreFeatures": {
+      "title": "コア機能",
+      "points": [
+        "Passport.js認証",
+        "PostgreSQLとのPrisma ORM",
+        "Shadcn/uiコンポーネント",
+        "Tailwind CSSスタイリング",
+        "Resendメールサービス"
+      ]
+    },
+    "devExperience": {
+      "title": "開発者体験",
+      "points": [
+        "完全なTypeScriptサポート",
+        "ESLint設定",
+        "Prettierコードフォーマット",
+        "テスト設定準備完了"
+      ]
+    },
+    "githubButton": "GitHubで見る",
+    "userExperience": {
+      "title": "ユーザーエクスペリエンス",
+      "points": [
+        "すべてのデバイスで動作するレスポンシブデザイン",
+        "最適化されたパフォーマンスによる高速読み込み",
+        "直感的なナビゲーションとユーザーフレンドリーなインターフェース",
+        "アクセシビリティファーストデザイン",
+        "RTL（右から左）サポート",
+        "国際化（i18n）",
+        "強化されたエラーハンドリング"
+      ]
+    },
+    "securitySeo": {
+      "title": "セキュリティとSEOのハイライト",
+      "security": {
+        "title": "セキュリティ機能",
+        "features": [
+          "* BotID Vercel内蔵ボット検出",
+          "Content Security Policyヘッダー",
+          "IPブロックによるレート制限",
+          "Zodによる入力検証",
+          "セキュアな認証フロー",
+          "XSS保護",
+          "CSRF保護"
+        ]
+      },
+      "botid": {
+        "title": "BotID 高度なボット検出",
+        "description": "アプリケーションを自動的に保護するVercelの内蔵ボット検出システム",
+        "features": [
+          "機械学習を使用した自動ボット検出",
+          "設定やAPIキーは不要",
+          "リアルタイムリスクスコアリングと分析",
+          "自動化された攻撃からの保護",
+          "Vercelプラットフォームとのシームレスな統合",
+          "正当なユーザーには見えない",
+          "高度な行動分析",
+          "悪意のあるトラフィックの自動ブロック"
+        ]
+      },
+      "seo": {
+        "title": "SEO最適化",
+        "features": [
+          "メタタグ最適化",
+          "Open Graph & Twitterカード",
+          "サイトマップ生成",
+          "robots.txt設定",
+          "構造化データマークアップ",
+          "パフォーマンス最適化"
+        ]
+      }
+    },
+    "performance": {
+      "title": "パフォーマンス指標",
+      "bundleSize": {
+        "title": "バンドルサイズ",
+        "value": "~420KB",
+        "description": "G-Zip圧縮された本番ビルド"
+      },
+      "lighthouse": {
+        "title": "Lighthouseスコア",
+        "value": "90+/100",
+        "description": "パフォーマンス最適化済み"
+      },
+      "buildTime": {
+        "title": "ビルド時間",
+        "value": "~55s",
+        "description": "高速開発ビルド"
+      }
+    },
+    "advancedFeatures": {
+      "title": "高度な機能とコンプライアンス",
+      "performance": {
+        "title": "高度なパフォーマンス最適化",
+        "features": [
+          "Next.js画像最適化（WebP/AVIF対応）",
+          "自動コード分割と遅延読み込み",
+          "Vercel用Edge Runtime最適化",
+          "内蔵キャッシュ戦略",
+          "バンドルサイズ最適化",
+          "Core Web Vitals最適化"
+        ]
+      },
+      "compliance": {
+        "title": "コンプライアンスと標準",
+        "features": [
+          "GDPR準拠クッキー管理",
+          "SOC 2 Type 2準拠ホスティング（Vercel）",
+          "WCAG 2.1 AAアクセシビリティ標準",
+          "セキュリティヘッダーとCSP実装",
+          "データ保護とプライバシー制御"
+        ]
+      }
+    }
+  },
+  "mission": {
+    "title": "私たちのミッション",
+    "description": "Boiler.clickでは、すべての開発者が開発プロセスを加速する高品質で本番環境に対応したツールにアクセスできるべきだと信じています。私たちのミッションは、革新的なSaaSアプリケーションの立ち上げを遅らせる反復的なセットアップ作業を排除することです。",
+    "goal": "フルスタックSaaSアプリケーションを構築・デプロイするために必要なすべてを含む包括的でモダンなボイラープレートを提供します。認証とデータベース管理から美しいUIコンポーネントとデプロイメント設定まで、すべてをカバーしています。",
+    "githubButton": "GitHubで見る"
+  },
+  "support": {
+    "title": "サポート",
+    "description": "Boiler.clickでお困りですか？ご質問や問題についてお手伝いいたします。",
+    "github": {
+      "title": "GitHubリポジトリ",
+      "description": "GitHubでドキュメント、問題を見つけ、プロジェクトに貢献してください。",
+      "button": "GitHubを訪問"
+    },
+    "email": {
+      "title": "メールサポート",
+      "description": "直接サポートが必要な場合は、メールでお問い合わせください。",
+      "button": "サポートに連絡"
+    }
+  },
+  "legal": {
+    "title": "法的情報",
+    "lastUpdated": "最終更新：2024年12月",
+    "privacyPolicy": {
+      "title": "プライバシーポリシー",
+      "introduction": "このプライバシーポリシーは、Boiler.clickがお客様のサービス利用時に情報をどのように収集、使用、保護するかを説明しています。",
+      "informationCollection": {
+        "title": "収集する情報",
+        "personalInfoLabel": "個人情報",
+        "personalInfo": "サービス登録時やお問い合わせ時に、お名前、メールアドレス、連絡先などの個人情報を収集する場合があります。",
+        "usageDataLabel": "使用データ",
+        "usageData": "訪問ページ、滞在時間、デバイス情報など、サービス利用方法に関する情報を自動的に収集します。",
+        "cookiesLabel": "クッキー",
+        "cookies": "お客様の体験向上とサイトパフォーマンス分析のため、クッキーや類似技術を使用しています。"
+      },
+      "informationUse": {
+        "title": "情報の使用方法",
+        "service": "サービスの提供、維持、改善のため",
+        "communication": "アップデート、サポート、重要な通知についてお客様とコミュニケーションを取るため",
+        "analytics": "利用パターンを分析し、プラットフォームを改善するため",
+        "security": "詐欺から保護し、プラットフォームのセキュリティを確保するため"
+      },
+      "informationSharing": {
+        "title": "情報の共有",
+        "content": "お客様の個人情報を第三者に販売、取引、貸与することはありません。プラットフォーム運営を支援する信頼できるサービスプロバイダーとのみ、厳格な機密保持契約の下で情報を共有する場合があります。"
+      },
+      "dataSecurity": {
+        "title": "データセキュリティ",
+        "content": "お客様の個人情報を不正アクセス、改ざん、開示、破壊から保護するため、適切なセキュリティ対策を実装しています。ただし、インターネット経由の送信方法で100%安全なものはありません。"
+      },
+      "yourRights": {
+        "title": "お客様の権利",
+        "access": "個人情報にアクセスする権利があります",
+        "correction": "不正確な情報の訂正を要求できます",
+        "deletion": "個人情報の削除を要求できます",
+        "portability": "データポータビリティの権利があります"
+      }
+    },
+    "termsOfService": {
+      "title": "利用規約",
+      "introduction": "この利用規約は、Boiler.clickおよび当社サービスの利用を管理します。プラットフォームをご利用いただくことで、これらの条件に同意されたものとみなします。",
+      "acceptance": {
+        "title": "条件の受諾",
+        "content": "サービスにアクセスまたは利用することで、この利用規約およびすべての適用される法律や規制に拘束されることに同意されたものとみなします。"
+      },
+      "useLicense": {
+        "title": "利用ライセンス",
+        "permission": "Boiler.clickのコピーを個人的、非商業的な一時的な閲覧目的でのみ一時的にダウンロードする許可が与えられます。",
+        "restrictions": "このサイトから得た情報、ソフトウェア、製品、サービスを修正、複製、配布、送信、表示、実行、複製、出版、ライセンス、派生作品の作成、転送、販売することはできません。"
+      },
+      "userAccounts": {
+        "title": "ユーザーアカウント",
+        "responsibility": "アカウントとパスワードの機密性を維持する責任があります。",
+        "security": "アカウントで発生するすべての活動について責任を負うことに同意します。",
+        "termination": "これらの条件に違反するアカウントを終了する権利を留保します。"
+      },
+      "prohibitedUses": {
+        "title": "禁止される使用法",
+        "content": "違法な目的でサービスを使用したり、他の人に違法行為を実行させたり、国際、連邦、州、地方の規則、法律、条例に違反したり、当社または他者の知的財産権を侵害したりすることはできません。"
+      },
+      "disclaimer": {
+        "title": "免責事項",
+        "content": "このウェブサイトの情報は「現状のまま」提供されます。法律で許可される最大限の範囲で、Boiler.clickは当社ウェブサイトおよびこのウェブサイトの使用に関連するすべての表明、保証、条件、条項を除外します。"
+      },
+      "limitation": {
+        "title": "責任の制限",
+        "content": "いかなる場合も、Boiler.click、その取締役、従業員、パートナー、代理人、供給業者、または関連会社は、利益、データ、使用、のれん、その他の無形の損失を含む、間接的、偶発的、特別、結果的、または懲罰的損害について責任を負いません。"
+      }
+    },
+    "cookiePolicy": {
+      "title": "クッキーポリシー",
+      "introduction": "このクッキーポリシーは、お客様が当社ウェブサイトを訪問する際にBoiler.clickがクッキーや類似技術をどのように使用するかを説明しています。",
+      "whatAreCookies": {
+        "title": "クッキーとは",
+        "content": "クッキーは、ウェブサイトを訪問する際にコンピューターやモバイルデバイスに配置される小さなテキストファイルです。ウェブサイトをより効率的に機能させ、ウェブサイト所有者に情報を提供するために広く使用されています。"
+      },
+      "howWeUseCookies": {
+        "title": "クッキーの使用方法",
+        "essential": "必須クッキーはウェブサイトが適切に機能するために必要であり、無効にすることはできません。",
+        "analytics": "分析クッキーは、訪問者が当社ウェブサイトとどのように相互作用するかを理解するのに役立ち、情報を匿名で収集・報告します。",
+        "preferences": "設定クッキーはお客様の選択と設定を記憶し、よりパーソナライズされた体験を提供します。",
+        "marketing": "マーケティングクッキーは、関連性があり魅力的な広告を表示するために、ウェブサイト間で訪問者を追跡するために使用されます。",
+        "essentialLabel": "必須",
+        "analyticsLabel": "分析",
+        "preferencesLabel": "設定",
+        "marketingLabel": "マーケティング"
+      },
+      "cookieTypes": {
+        "title": "使用するクッキーの種類",
+        "session": "セッションクッキーは一時的で、ブラウザを閉じると削除されます",
+        "persistent": "永続クッキーは、設定された期間または削除するまでデバイスに残ります",
+        "firstParty": "ファーストパーティクッキーは当社ウェブサイトによって設定されます",
+        "thirdParty": "サードパーティクッキーは、当社サイトにコンテンツが表示される他のウェブサイトによって設定されます",
+        "sessionLabel": "セッション",
+        "persistentLabel": "永続",
+        "firstPartyLabel": "ファーストパーティ",
+        "thirdPartyLabel": "サードパーティ"
+      },
+      "managingCookies": {
+        "title": "クッキーの管理",
+        "browserSettings": "ブラウザ設定を通じてクッキーを制御・削除できます。",
+        "optOut": "ブラウザ設定を調整したり、サードパーティサービスが提供するオプトアウトツールを使用したりして、特定のクッキーをオプトアウトできます。",
+        "impact": "特定のクッキーを無効にすると、当社ウェブサイトの機能に影響を与える可能性があることにご注意ください。"
+      }
+    },
+    "contact": {
+      "title": "お問い合わせ情報",
+      "content": "これらの法的文書についてご質問がございましたら、以下までお問い合わせください：",
+      "emailLabel": "メール",
+      "addressLabel": "住所"
+    }
+  },
+  "faq": {
+    "title": "よくある質問",
+    "subtitle": "最もよくある質問への回答",
+    "searchPlaceholder": "質問を検索...",
+    "clearFilters": "フィルターをクリア",
+    "noResults": "結果が見つかりません",
+    "description": "Boiler.clickに関する一般的な質問の回答を見つけ、セットアップ、カスタマイズ、開発のヘルプを得てください。",
+    "categories": {
+      "all": "すべて",
+      "general": "一般",
+      "technical": "技術",
+      "getting-started": "開始",
+      "customization": "カスタマイズ",
+      "production": "本番",
+      "development": "開発"
+    },
+    "questions": [
+      {
+        "id": "what-is-boiler-click",
+        "question": "Boiler.clickとは何ですか？",
+        "answer": "Boiler.clickは、Next.js、Prisma、Shadcn/UI、TypeScript、AIなどの最新技術で構築された次世代フルスタックSaaSボイラープレートです。認証、データベース統合、モダンなUIコンポーネントを備えたSaaSアプリケーション構築のための完全な基盤を提供します。"
+      },
+      {
+        "id": "technologies-included",
+        "question": "含まれる技術は何ですか？",
+        "answer": "このボイラープレートには、Next.js 16、React 19、TypeScript、Prisma ORM、Shadcn/UIコンポーネント、Tailwind CSS、アニメーション用のFramer Motion、認証用のNextAuth.js、本番対応SaaSアプリケーション構築のための多くのその他のモダンツールが含まれています。"
+      },
+      {
+        "id": "how-to-get-started",
+        "question": "どのように始めますか？",
+        "answer": "1. GitHubからリポジトリをクローン\n2. npm installで依存関係をインストール\n3. 環境変数を設定\n4. データベースを設定\n5. npm run devで開発を開始"
+      },
+      {
+        "id": "is-boilerplate-free",
+        "question": "このボイラープレートは無料ですか？",
+        "answer": "はい、Boiler.clickは完全に無料でオープンソースです。制限なしで個人および商用プロジェクトに使用できます。"
+      },
+      {
+        "id": "how-to-customize-theme",
+        "question": "テーマをカスタマイズするには？",
+        "answer": "このボイラープレートは、カスタムデザインシステムを使用したTailwind CSSを使用しています。globals.cssのCSS変数とTailwind設定を変更することで、色、フォント、コンポーネントをカスタマイズできます。"
+      },
+      {
+        "id": "can-use-for-production",
+        "question": "本番環境で使用できますか？",
+        "answer": "もちろんです！Boiler.clickは、適切なエラーハンドリング、パフォーマンス最適化、セキュリティヘッダー、組み込みのベストプラクティスで本番使用向けに設計されています。"
+      },
+      {
+        "id": "how-to-add-features",
+        "question": "新機能を追加するには？",
+        "answer": "このボイラープレートはモジュラーで拡張可能です。確立されたパターンと規則に従って、新しいページ、コンポーネント、APIルート、データベースモデルを追加できます。"
+      },
+      {
+        "id": "supported-databases",
+        "question": "サポートされているデータベースは？",
+        "answer": "Boiler.clickは、PostgreSQL、MySQL、SQLite、MongoDB、その他のデータベースをサポートするPrisma ORMを使用しています。デフォルト設定はPostgreSQL用に設定されています。"
+      }
+    ]
+  },
+  "articles": {
+    "title": "記事",
+    "subtitle": "有用なチュートリアルとガイド",
+    "description": "Boilerに関する有用な記事とチュートリアルを発見してください。",
+    "searchPlaceholder": "記事を検索...",
+    "clearFilters": "フィルターをクリア",
+    "noResults": "結果が見つかりません",
+    "readMore": "続きを読む",
+    "relatedArticles": "関連記事",
+    "tags": "タグ",
+    "publishedOn": "公開日",
+    "readTime": "分で読める",
+    "all": "すべて",
+    "featured": "注目",
+    "tryAdjusting": "検索またはフィルターを調整してみてください"
+  },
+  "footer": {
+    "copyright": "© {year} Boiler.click. 全著作権所有。",
+    "legal": "法的",
+    "sitemap": "サイトマップ"
+  },
+  "language": {
+    "switch": "言語を切り替える",
+    "current": "現在の言語"
+  },
+  "social": {
+    "tooltips": {
+      "twitter": "Twitterで共有",
+      "facebook": "Facebookで共有",
+      "linkedin": "LinkedInで共有",
+      "github": "GitHubで表示"
+    }
+  },
+  "error": {
+    "404": {
+      "title": "404",
+      "message": "ページが見つかりません"
+    },
+    "403": {
+      "title": "403",
+      "message": "アクセス禁止"
+    },
+    "405": {
+      "title": "405",
+      "message": "メソッドが許可されていません"
+    },
+    "429": {
+      "title": "429",
+      "message": "リクエストが多すぎます"
+    },
+    "500": {
+      "title": "500",
+      "message": "内部サーバーエラー"
+    },
+    "503": {
+      "title": "503",
+      "message": "サービス利用不可"
+    },
+    "default": {
+      "title": "エラー",
+      "message": "何かが間違っています"
+    },
+    "actions": {
+      "tryAgain": "再試行",
+      "goHome": "ホームに戻る"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "おかえりなさい",
+      "subtitleBefore": "あなたの",
+      "subtitleAfter": "アカウントにサインイン",
+      "formTitle": "サインイン",
+      "formDescription": "アカウントにアクセスするために認証情報を入力してください",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "rememberMe": "ログイン状態を保持",
+      "forgotPassword": "パスワードを忘れた？",
+      "resendVerification": "確認メールを再送信",
+      "submitButton": "サインイン",
+      "submittingButton": "サインイン中...",
+      "dontHaveAccount": "アカウントをお持ちでないですか？",
+      "signUpLink": "サインアップ",
+      "needToVerify": "メールを確認する必要がありますか？"
+    },
+    "register": {
+      "title": "アカウントを作成",
+      "subtitleBefore": "今すぐ",
+      "subtitleAfter": "に参加して素晴らしいアプリケーションを構築しましょう",
+      "formTitle": "新規アカウント",
+      "formDescription": "アカウントを作成するためにフォームに入力してください",
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "メールアドレス",
+      "telephone": "電話番号（オプション）",
+      "submitButton": "サインアップ",
+      "submittingButton": "登録中...",
+      "successTitle": "登録成功！",
+      "successSubtitle": "確認メールを送信しました",
+      "checkEmailTitle": "メールを確認してください",
+      "checkEmailMessage": "確認リンクを送信しました",
+      "redirectMessage": "サインインページにリダイレクトされます...",
+      "alreadyHaveAccount": "既にアカウントをお持ちですか？",
+      "signInLink": "サインイン"
+    },
+    "forgotPassword": {
+      "title": "パスワードを忘れた？",
+      "subtitle": "心配ありません、リセットリンクを送信します",
+      "formTitle": "パスワードをリセット",
+      "formDescription": "メールアドレスを入力すると、パスワードをリセットするリンクを送信します",
+      "email": "メールアドレス",
+      "submitButton": "リセットリンクを送信",
+      "submittingButton": "リンクを送信中...",
+      "successTitle": "メールを確認してください",
+      "successSubtitle": "パスワードリセットリンクを送信しました",
+      "resetLinkSentTitle": "リセットリンクを送信しました",
+      "resetLinkSentMessage": "メールが",
+      "resetLinkSentMessage2": "のアカウントが存在する場合、パスワードリセットリンクを送信しました。",
+      "checkEmailMessage": "メールを確認し、リンクをクリックしてパスワードをリセットしてください。リンクは1時間で期限切れになります。",
+      "backToSignIn": "サインインに戻る",
+      "rememberPassword": "パスワードを覚えていますか？",
+      "signInLink": "サインイン"
+    },
+    "resetPassword": {
+      "title": "パスワードをリセット",
+      "subtitle": "新しいパスワードを入力してください",
+      "formTitle": "新しいパスワード",
+      "formDescription": "アカウントの強力なパスワードを選択してください",
+      "submitButton": "パスワードをリセット",
+      "submittingButton": "リセット中...",
+      "successTitle": "パスワードリセット成功！",
+      "successSubtitle": "パスワードが正常に更新されました",
+      "passwordUpdatedTitle": "パスワードが更新されました",
+      "passwordUpdatedMessage": "パスワードが正常にリセットされました。新しいパスワードでサインインできます。",
+      "redirectMessage": "サインインページにリダイレクトされます...",
+      "invalidLinkTitle": "無効なリセットリンク",
+      "invalidLinkSubtitle": "このパスワードリセットリンクは無効であるか、期限切れです",
+      "linkInvalidTitle": "無効なリンク",
+      "linkInvalidMessage": "このパスワードリセットリンクは無効であるか、期限切れです。新しいリンクをリクエストしてください。",
+      "requestNewLink": "新しいリセットリンクをリクエスト",
+      "rememberPassword": "パスワードを覚えていますか？",
+      "signInLink": "サインイン"
+    },
+    "resendActivation": {
+      "title": "確認メールを再送信",
+      "subtitle": "アカウントの新しい確認リンクを取得",
+      "formTitle": "確認を再送信",
+      "formDescription": "新しい確認リンクを受け取るためにメールアドレスを入力してください",
+      "email": "メールアドレス",
+      "submitButton": "確認メールを送信",
+      "submittingButton": "確認メールを送信中...",
+      "successTitle": "確認メールを送信しました",
+      "successSubtitle": "確認リンクについてメールを確認してください",
+      "checkEmailTitle": "メールを確認してください",
+      "checkEmailMessage": "新しい確認リンクを送信しました",
+      "checkEmailMessage2": "メール内のリンクをクリックしてアカウントを確認してください。リンクは24時間で期限切れになります。",
+      "backToSignIn": "サインインに戻る",
+      "alreadyVerified": "既に確認済みですか？",
+      "signInLink": "サインイン"
+    },
+    "verifyEmail": {
+      "verifyingTitle": "メールを確認中",
+      "verifyingSubtitle": "メールアドレスを確認中です。しばらくお待ちください",
+      "verifyingMessage": "メールアドレスを確認しています。しばらくかかる場合があります。",
+      "successTitle": "メール確認成功！",
+      "successSubtitle": "アカウントは有効化され、使用準備が整いました",
+      "welcomeTitle": "Boiler.clickへようこそ！",
+      "welcomeMessage": "メールが正常に確認されました。アカウントは有効化され、すべての機能の使用を開始できます。",
+      "redirectMessage": "サインインページにリダイレクトされます...",
+      "failedTitle": "確認に失敗しました",
+      "failedSubtitle": "メールアドレスを確認できませんでした",
+      "verificationFailedTitle": "確認に失敗しました",
+      "verificationFailedMessage": "この確認リンクは期限切れであるか、既に使用されています。",
+      "requestNewVerification": "新しい確認メールをリクエスト",
+      "backToSignIn": "サインインに戻る"
+    },
+    "messages": {
+      "unexpectedError": "予期しないエラーが発生しました。もう一度お試しください。",
+      "oauthError": "ソーシャルログインでエラーが発生しました。もう一度お試しください。",
+      "oauthCancelled": "ソーシャルログインがキャンセルされました。",
+      "sessionError": "セッションエラー。もう一度サインインしてください。",
+      "emailNotVerified": "メールが確認されていません。メールを確認してください。",
+      "tokenInvalid": "トークンが無効または期限切れです。"
+    }
+  },
+  "account": {
+    "dashboard": {
+      "title": "アカウントダッシュボード",
+      "welcome": "おかえりなさい"
+    },
+    "profile": {
+      "title": "プロフィール情報",
+      "description": "個人情報を管理",
+      "name": "名前",
+      "email": "メール",
+      "phone": "電話",
+      "role": "役割",
+      "editProfile": "プロフィール編集",
+      "backToAccount": "アカウントに戻る",
+      "profileSettings": "プロフィール設定",
+      "manageProfileInfo": "プロフィール情報を管理",
+      "profileInformation": "プロフィール情報",
+      "andPassword": "とパスワード",
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "メール",
+      "phoneNumber": "電話番号",
+      "currentPassword": "現在のパスワード",
+      "saving": "保存中...",
+      "saveChanges": "変更を保存",
+      "changing": "変更中...",
+      "changePassword": "パスワードを変更"
+    },
+    "settings": {
+      "title": "アカウント設定",
+      "description": "アカウント設定を管理",
+      "accountSettings": "アカウント設定",
+      "signOut": "サインアウト"
+    }
+  },
+  "oauth": {
+    "orContinueWith": "または続行する",
+    "continueWith": "続行する",
+    "connecting": "接続中...",
+    "providers": {
+      "google": "Google",
+      "github": "GitHub",
+      "discord": "Discord",
+      "facebook": "Facebook",
+      "twitter": "Twitter"
+    }
+  }
+}

@@ -1,0 +1,803 @@
+{
+  "navigation": {
+    "title": "Boiler.click",
+    "mission": "Mission",
+    "support": "Support",
+    "about": "About",
+    "documentation": "Documentation",
+    "articles": "Articles",
+    "faq": "FAQ",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "account": "Account",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "quickStart": {
+    "title": "Quick Start",
+    "copyButton": "Copy",
+    "copiedButton": "Copied!",
+    "codeComments": {
+      "clone": "Clone the repository",
+      "install": "Install dependencies",
+      "env": "Set up environment variables",
+      "dev": "Start development server",
+      "build": "Build for production"
+    }
+  },
+  "githubButton": "GitHub",
+  "tooltips": {
+    "themeToggle": "Toggle theme",
+    "languageSwitcher": "Change language"
+  },
+  "cookies": {
+    "title": "We use cookies",
+    "description": "We use cookies to enhance your experience, analyze site traffic, and personalize content. You can manage your preferences at any time.",
+    "accept": "Accept All",
+    "decline": "Decline",
+    "settings": "Settings",
+    "settingsTitle": "Cookie Preferences",
+    "savePreferences": "Save Preferences",
+    "acceptAll": "Accept All",
+    "rejectAll": "Reject All",
+    "alwaysActive": "Always Active",
+    "openSettings": "Open cookie settings",
+    "status": {
+      "accepted": "Accepted",
+      "declined": "Declined",
+      "custom": "Custom",
+      "notSet": "Not Set"
+    },
+    "necessary": {
+      "title": "Necessary Cookies",
+      "description": "These cookies are essential for the website to function properly. They cannot be disabled."
+    },
+    "analytics": {
+      "title": "Analytics Cookies",
+      "description": "These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously."
+    },
+    "marketing": {
+      "title": "Marketing Cookies",
+      "description": "These cookies are used to track visitors across websites to display relevant and engaging advertisements."
+    }
+  },
+  "documentation": {
+    "title": "Documentation",
+    "lastUpdated": "Last updated: December 2024",
+    "quickStart": {
+      "title": "Quick Start",
+      "description": "Get up and running with Boiler.click in minutes. Follow these simple steps to set up your development environment."
+    },
+    "installConfigure": {
+      "title": "Install & Configure",
+      "description": "Install dependencies and configure your environment to get started"
+    },
+    "developmentWorkflow": {
+      "title": "Development Workflow",
+      "description": "Learn about the development workflow and available scripts for building your application"
+    },
+    "shadcnComponents": {
+      "title": "Shadcn/UI Components",
+      "description": "Learn how to use the most common shadcn/ui components with practical code examples"
+    },
+    "vercelOptimization": {
+      "title": "Vercel Optimization",
+      "description": "This boilerplate is specifically optimized for Vercel deployment with built-in features and configurations"
+    },
+    "codeExamples": {
+      "button": {
+        "clickMe": "Click me",
+        "outline": "Outline",
+        "ghost": "Ghost",
+        "delete": "Delete"
+      },
+      "card": {
+        "title": "Card Title",
+        "content": "Card content goes here"
+      },
+      "badge": {
+        "default": "Default",
+        "secondary": "Secondary",
+        "outline": "Outline",
+        "destructive": "Destructive"
+      }
+    },
+    "stepGuide": {
+      "title": "Step-by-Step Guide",
+      "description": "Follow our comprehensive step-by-step guide to get started with Boiler.click. Each step includes detailed instructions, code examples, and best practices.",
+      "welcome": {
+        "title": "Welcome",
+        "description": "Get started with Boiler.click and understand what you're building"
+      },
+      "install": {
+        "title": "Install & Configure",
+        "description": "Install dependencies and configure your environment to get started"
+      },
+      "development": {
+        "title": "Development Workflow",
+        "description": "Learn about the development workflow and available scripts for building your application"
+      },
+      "buildingPatterns": {
+        "title": "Building & Coding Patterns",
+        "description": "Learn essential building patterns, coding conventions, and best practices for scalable applications"
+      },
+      "shadcnComponents": {
+        "title": "Shadcn/UI Components",
+        "description": "Learn how to use the most common shadcn/ui components with practical code examples"
+      },
+      "vercelOptimization": {
+        "title": "Vercel Optimization",
+        "description": "This boilerplate is specifically optimized for Vercel deployment with built-in features and configurations"
+      }
+    },
+    "github": {
+      "title": "GitHub Repository",
+      "description": "Access the complete source code, contribute to the project, or report issues on our GitHub repository. Track all the features, improvements, and fixes in Boiler.click development.",
+      "button": "View on GitHub"
+    }
+  },
+  "homepage": {
+    "subtitle": "Full-Stack SaaS Minimal Boilerplate",
+    "description": "Powered by Next.js, Prisma, Shadcn, and Vercel",
+    "aboutButton": "About Boiler",
+    "githubButton": "GitHub",
+    "comingSoon": "Coming soon...",
+    "showcase": {
+      "title": "Built with",
+      "footer": "Technologies powering Boiler",
+      "nextjs": {
+        "description": "The React framework for production with hybrid static & server rendering"
+      },
+      "prisma": {
+        "description": "Next-generation Node.js and TypeScript ORM for database management"
+      },
+      "shadcn": {
+        "description": "Beautifully designed components built with Radix UI and Tailwind CSS"
+      },
+      "tailwind": {
+        "description": "Utility-first CSS framework for rapidly building custom user interfaces"
+      },
+      "typescript": {
+        "description": "Typed JavaScript at any scale for better developer experience"
+      },
+      "framer": {
+        "description": "Production-ready motion library for React with declarative animations"
+      },
+      "lucide": {
+        "description": "Beautiful & consistent icon toolkit with 1000+ icons for React"
+      },
+      "categories": {
+        "framework": "Framework",
+        "database": "Database",
+        "ui": "UI Library",
+        "styling": "Styling",
+        "language": "Language",
+        "animation": "Animation",
+        "icons": "Icons"
+      }
+    },
+    "quickStart": {
+      "title": "Quick Start",
+      "copyButton": "Copy",
+      "copiedButton": "Copied!",
+      "codeComments": {
+        "clone": "Clone the repository",
+        "install": "Install dependencies",
+        "env": "Set up environment variables",
+        "dev": "Start development server",
+        "build": "Build for production"
+      }
+    }
+  },
+  "about": {
+    "title": "About Boiler.click",
+    "description": "A comprehensive, production-ready boilerplate built with modern technologies. Perfect for launching your next SaaS application with authentication, database management, and beautiful UI components out of the box.",
+    "coreFeatures": {
+      "title": "Core Features",
+      "points": [
+        "Passport.js Authentication",
+        "Prisma ORM with PostgreSQL",
+        "Shadcn/ui Components",
+        "Tailwind CSS Styling",
+        "Resend Email Service"
+      ]
+    },
+    "devExperience": {
+      "title": "Developer Experience",
+      "points": [
+        "Full TypeScript Support",
+        "ESLint Configuration",
+        "Prettier Code Formatting",
+        "Testing Setup Ready"
+      ]
+    },
+    "githubButton": "View on GitHub",
+    "userExperience": {
+      "title": "User Experience",
+      "points": [
+        "Responsive design",
+        "Optimized performance",
+        "Intuitive UI/UX",
+        "Accessibility-First Design",
+        "RTL (Right-to-Left) support",
+        "Internationalization (i18n)",
+        "Enhanced error handling"
+      ]
+    },
+    "securitySeo": {
+      "title": "Security & SEO Highlights",
+      "security": {
+        "title": "Security Features",
+        "features": [
+          "* BotID built-in Vercel bot detection",
+          "Content Security Policy headers",
+          "Rate limiting with IP blocking",
+          "Input validation with Zod",
+          "Secure authentication flow",
+          "XSS protection",
+          "CSRF protection"
+        ]
+      },
+      "botid": {
+        "title": "BotID Advanced Bot Detection",
+        "description": "Vercel's built-in bot detection system that automatically protects your application",
+        "features": [
+          "Automatic bot detection using machine learning",
+          "No configuration or API keys required",
+          "Real-time risk scoring and analysis",
+          "Protection against automated attacks",
+          "Seamless integration with Vercel platform",
+          "Invisible to legitimate users",
+          "Advanced behavioral analysis",
+          "Automatic blocking of malicious traffic"
+        ]
+      },
+      "seo": {
+        "title": "SEO Optimization",
+        "features": [
+          "Meta tags optimization",
+          "Open Graph & Twitter cards",
+          "Sitemap generation",
+          "Robots.txt configuration",
+          "Structured data markup",
+          "Performance optimization"
+        ]
+      }
+    },
+    "performance": {
+      "title": "Performance Metrics",
+      "bundleSize": {
+        "title": "Bundle Size",
+        "value": "~420KB",
+        "description": "G-Zipped production build"
+      },
+      "lighthouse": {
+        "title": "Lighthouse Score",
+        "value": "90+/100",
+        "description": "Performance optimized"
+      },
+      "buildTime": {
+        "title": "Build Time",
+        "value": "~55s",
+        "description": "Fast development builds"
+      }
+    },
+    "advancedFeatures": {
+      "title": "Advanced Features & Compliance",
+      "performance": {
+        "title": "Advanced Performance Optimizations",
+        "features": [
+          "Next.js Image Optimization with WebP/AVIF",
+          "Automatic code splitting and lazy loading",
+          "Edge Runtime optimization for Vercel",
+          "Built-in caching strategies",
+          "Bundle size optimization",
+          "Core Web Vitals optimization"
+        ]
+      },
+      "compliance": {
+        "title": "Compliance & Standards",
+        "features": [
+          "GDPR compliant cookie management",
+          "SOC 2 Type 2 compliant hosting (Vercel)",
+          "WCAG 2.1 AA accessibility standards",
+          "Security headers and CSP implementation",
+          "Data protection and privacy controls"
+        ]
+      }
+    }
+  },
+  "mission": {
+    "title": "Our Mission",
+    "description": "At Boiler.click, we believe that every developer should have access to high-quality, production-ready tools that accelerate their development process. Our mission is to eliminate the repetitive setup work that often delays the launch of innovative SaaS applications.",
+    "goal": "We provide a comprehensive, modern boilerplate that includes everything you need to build and deploy a full-stack SaaS application. From authentication and database management to beautiful UI components and deployment configurations, we've got you covered.",
+    "githubButton": "View on GitHub"
+  },
+  "support": {
+    "title": "Support",
+    "description": "Need help with Boiler.click? We're here to assist you with any questions or issues you might have.",
+    "github": {
+      "title": "GitHub Repository",
+      "description": "Find documentation, issues, and contribute to the project on GitHub.",
+      "button": "Visit GitHub"
+    },
+    "email": {
+      "title": "Email Support",
+      "description": "For direct assistance, reach out to us via email.",
+      "button": "Contact Support"
+    }
+  },
+  "legal": {
+    "title": "Legal Information",
+    "lastUpdated": "Last Updated: December 2024",
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "introduction": "This Privacy Policy describes how Boiler.click collects, uses, and protects your information when you use our service.",
+      "informationCollection": {
+        "title": "Information We Collect",
+        "personalInfoLabel": "Personal Information",
+        "personalInfo": "We may collect personal information such as your name, email address, and contact details when you register for our service or contact us.",
+        "usageDataLabel": "Usage Data",
+        "usageData": "We automatically collect information about how you use our service, including pages visited, time spent, and device information.",
+        "cookiesLabel": "Cookies",
+        "cookies": "We use cookies and similar technologies to enhance your experience and analyze site performance."
+      },
+      "informationUse": {
+        "title": "How We Use Your Information",
+        "service": "To provide, maintain, and improve our services",
+        "communication": "To communicate with you about updates, support, and important notices",
+        "analytics": "To analyze usage patterns and improve our platform",
+        "security": "To protect against fraud and ensure platform security"
+      },
+      "informationSharing": {
+        "title": "Information Sharing",
+        "content": "We do not sell, trade, or rent your personal information to third parties. We may share information only with trusted service providers who assist in operating our platform, and only under strict confidentiality agreements."
+      },
+      "dataSecurity": {
+        "title": "Data Security",
+        "content": "We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure."
+      },
+      "yourRights": {
+        "title": "Your Rights",
+        "access": "You have the right to access your personal information",
+        "correction": "You can request correction of inaccurate information",
+        "deletion": "You may request deletion of your personal information",
+        "portability": "You have the right to data portability"
+      }
+    },
+    "termsOfService": {
+      "title": "Terms of Service",
+      "introduction": "These Terms of Service govern your use of Boiler.click and our services. By using our platform, you agree to these terms.",
+      "acceptance": {
+        "title": "Acceptance of Terms",
+        "content": "By accessing or using our service, you agree to be bound by these Terms of Service and all applicable laws and regulations."
+      },
+      "useLicense": {
+        "title": "Use License",
+        "permission": "Permission is granted to temporarily download one copy of Boiler.click for personal, non-commercial transitory viewing only.",
+        "restrictions": "You may not modify, copy, distribute, transmit, display, perform, reproduce, publish, license, create derivative works from, transfer, or sell any information, software, products, or services obtained from this site."
+      },
+      "userAccounts": {
+        "title": "User Accounts",
+        "responsibility": "You are responsible for maintaining the confidentiality of your account and password.",
+        "security": "You agree to accept responsibility for all activities that occur under your account.",
+        "termination": "We reserve the right to terminate accounts that violate these terms."
+      },
+      "prohibitedUses": {
+        "title": "Prohibited Uses",
+        "content": "You may not use our service for any unlawful purpose or to solicit others to perform unlawful acts, violate any international, federal, provincial, or state rules, laws, or local ordinances, or infringe upon or violate our intellectual property rights or the intellectual property rights of others."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": "The information on this website is provided on an 'as is' basis. To the fullest extent permitted by law, Boiler.click excludes all representations, warranties, conditions and terms relating to our website and the use of this website."
+      },
+      "limitation": {
+        "title": "Limitation of Liability",
+        "content": "In no event shall Boiler.click, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses."
+      }
+    },
+    "cookiePolicy": {
+      "title": "Cookie Policy",
+      "introduction": "This Cookie Policy explains how Boiler.click uses cookies and similar technologies when you visit our website.",
+      "whatAreCookies": {
+        "title": "What Are Cookies",
+        "content": "Cookies are small text files that are placed on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and provide information to website owners."
+      },
+      "howWeUseCookies": {
+        "title": "How We Use Cookies",
+        "essentialLabel": "Essential",
+        "essential": "Essential cookies are necessary for the website to function properly and cannot be disabled.",
+        "analyticsLabel": "Analytics",
+        "analytics": "Analytics cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.",
+        "preferencesLabel": "Preferences",
+        "preferences": "Preference cookies remember your choices and settings to provide a more personalized experience.",
+        "marketingLabel": "Marketing",
+        "marketing": "Marketing cookies are used to track visitors across websites to display relevant and engaging advertisements."
+      },
+      "cookieTypes": {
+        "title": "Types of Cookies We Use",
+        "sessionLabel": "Session",
+        "session": "Session cookies are temporary and deleted when you close your browser",
+        "persistentLabel": "Persistent",
+        "persistent": "Persistent cookies remain on your device for a set period or until you delete them",
+        "firstPartyLabel": "First-party",
+        "firstParty": "First-party cookies are set by our website",
+        "thirdPartyLabel": "Third-party",
+        "thirdParty": "Third-party cookies are set by other websites whose content appears on our site"
+      },
+      "managingCookies": {
+        "title": "Managing Cookies",
+        "browserSettings": "You can control and delete cookies through your browser settings.",
+        "optOut": "You can opt out of certain cookies by adjusting your browser settings or using opt-out tools provided by third-party services.",
+        "impact": "Please note that disabling certain cookies may affect the functionality of our website."
+      }
+    },
+    "contact": {
+      "title": "Contact Information",
+      "content": "If you have any questions about these legal documents, please contact us at:",
+      "emailLabel": "Email",
+      "addressLabel": "Address"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to the most common questions",
+    "searchPlaceholder": "Search questions...",
+    "clearFilters": "Clear filters",
+    "noResults": "No results found",
+    "description": "Find answers to common questions about Boiler.click and get help with setup, customization, and development.",
+    "categories": {
+      "all": "All",
+      "general": "General",
+      "technical": "Technical",
+      "getting-started": "Getting Started",
+      "customization": "Customization",
+      "production": "Production",
+      "development": "Development"
+    },
+    "questions": [
+      {
+        "id": "what-is-boiler-click",
+        "question": "What is Boiler.click?",
+        "answer": "Boiler.click is a next-generation full-stack SaaS boilerplate built with modern technologies like Next.js, Prisma, Shadcn/UI, TypeScript, and AI. It provides a complete foundation for building SaaS applications with authentication, database integration, and modern UI components.",
+        "category": "general"
+      },
+      {
+        "id": "technologies-included",
+        "question": "What technologies are included?",
+        "answer": "The boilerplate includes Next.js 16, React 19, TypeScript, Prisma ORM, Shadcn/UI components, Tailwind CSS, Framer Motion for animations, NextAuth.js for authentication, and many other modern tools for building production-ready SaaS applications.",
+        "category": "technical"
+      },
+      {
+        "id": "how-to-get-started",
+        "question": "How do I get started?",
+        "answer": "1. Clone the repository from GitHub\n2. Install dependencies with npm install\n3. Set up your environment variables\n4. Configure your database\n5. Run npm run dev to start development",
+        "category": "getting-started"
+      },
+      {
+        "id": "is-boilerplate-free",
+        "question": "Is this boilerplate free?",
+        "answer": "Yes, Boiler.click is completely free and open-source. You can use it for personal and commercial projects without any restrictions.",
+        "category": "general"
+      },
+      {
+        "id": "how-to-customize-theme",
+        "question": "How do I customize the theme?",
+        "answer": "The boilerplate uses Tailwind CSS with a custom design system. You can customize colors, fonts, and components by modifying the CSS variables in globals.css and the Tailwind configuration.",
+        "category": "customization"
+      },
+      {
+        "id": "can-use-for-production",
+        "question": "Can I use this for production?",
+        "answer": "Absolutely! Boiler.click is designed for production use with proper error handling, performance optimizations, security headers, and best practices built-in.",
+        "category": "production"
+      },
+      {
+        "id": "how-to-add-features",
+        "question": "How do I add new features?",
+        "answer": "The boilerplate is modular and extensible. You can add new pages, components, API routes, and database models following the established patterns and conventions.",
+        "category": "development"
+      },
+      {
+        "id": "supported-databases",
+        "question": "What databases are supported?",
+        "answer": "Boiler.click uses Prisma ORM which supports PostgreSQL, MySQL, SQLite, MongoDB, and other databases. The default configuration is set up for PostgreSQL.",
+        "category": "technical"
+      }
+    ]
+  },
+  "articles": {
+    "title": "Articles",
+    "subtitle": "Helpful tutorials and guides",
+    "description": "Discover helpful articles and tutorials about Boiler.",
+    "searchPlaceholder": "Search articles...",
+    "clearFilters": "Clear filters",
+    "noResults": "No results found",
+    "readMore": "Read More",
+    "relatedArticles": "Related Articles",
+    "tags": "Tags",
+    "publishedOn": "Published on",
+    "readTime": "min read",
+    "all": "All",
+    "featured": "Featured",
+    "tryAdjusting": "Try adjusting your search or filters"
+  },
+  "footer": {
+    "copyright": "© {year} Boiler.click. All rights reserved.",
+    "legal": "Legal",
+    "sitemap": "Sitemap"
+  },
+  "language": {
+    "switch": "Switch Language",
+    "current": "Current Language"
+  },
+  "social": {
+    "tooltips": {
+      "twitter": "Share on Twitter",
+      "facebook": "Share on Facebook",
+      "linkedin": "Share on LinkedIn",
+      "github": "View on GitHub"
+    }
+  },
+  "error": {
+    "404": {
+      "title": "404",
+      "message": "Page not found"
+    },
+    "403": {
+      "title": "403",
+      "message": "Access Forbidden"
+    },
+    "405": {
+      "title": "405",
+      "message": "Method Not Allowed"
+    },
+    "429": {
+      "title": "429",
+      "message": "Too Many Requests"
+    },
+    "500": {
+      "title": "500",
+      "message": "Internal Server Error"
+    },
+    "503": {
+      "title": "503",
+      "message": "Service Unavailable"
+    },
+    "default": {
+      "title": "Error",
+      "message": "Something went wrong"
+    },
+    "actions": {
+      "tryAgain": "Try again",
+      "goHome": "Go home"
+    }
+  },
+  "auth": {
+    "register": {
+      "title": "Create Your Account",
+      "subtitleBefore": "Join",
+      "subtitleAfter": "and start building amazing applications",
+      "formTitle": "Sign Up",
+      "formDescription": "Fill in your details to create your account",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "telephone": "Phone Number (Optional)",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submitButton": "Create Account",
+      "submittingButton": "Creating Account...",
+      "successTitle": "Registration Successful!",
+      "successSubtitle": "Please check your email for a verification link to complete your registration.",
+      "checkEmailTitle": "Check Your Email",
+      "checkEmailMessage": "We've sent a verification link to",
+      "redirectMessage": "You'll be redirected to the login page shortly...",
+      "alreadyHaveAccount": "Already have an account?",
+      "signInLink": "Sign in"
+    },
+    "login": {
+      "title": "Welcome Back",
+      "subtitleBefore": "Sign in to your",
+      "subtitleAfter": "account",
+      "formTitle": "Sign In",
+      "formDescription": "Enter your credentials to access your account",
+      "email": "Email Address",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submitButton": "Sign In",
+      "submittingButton": "Signing In...",
+      "dontHaveAccount": "Don't have an account?",
+      "signUpLink": "Sign up",
+      "resendVerification": "Resend verification email",
+      "needToVerify": "Need to verify your email?"
+    },
+    "forgotPassword": {
+      "title": "Forgot Your Password?",
+      "subtitle": "No worries, we'll send you a reset link",
+      "formTitle": "Reset Password",
+      "formDescription": "Enter your email address and we'll send you a link to reset your password",
+      "email": "Email Address",
+      "submitButton": "Send Reset Link",
+      "submittingButton": "Sending Reset Link...",
+      "successTitle": "Check Your Email",
+      "successSubtitle": "We've sent you a password reset link",
+      "resetLinkSentTitle": "Password Reset Link Sent",
+      "resetLinkSentMessage": "If an account with the email",
+      "resetLinkSentMessage2": "exists, we've sent you a password reset link.",
+      "checkEmailMessage": "Check your email and click the link to reset your password. The link will expire in 1 hour.",
+      "backToSignIn": "Back to Sign In",
+      "rememberPassword": "Remember your password?",
+      "signInLink": "Sign in"
+    },
+    "resetPassword": {
+      "title": "Reset Your Password",
+      "subtitle": "Enter your new password below",
+      "formTitle": "New Password",
+      "formDescription": "Choose a strong password for your account",
+      "password": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "submitButton": "Reset Password",
+      "submittingButton": "Resetting Password...",
+      "successTitle": "Password Reset Successful!",
+      "successSubtitle": "Your password has been updated successfully",
+      "passwordUpdatedTitle": "Password Updated",
+      "passwordUpdatedMessage": "Your password has been successfully reset. You can now sign in with your new password.",
+      "redirectMessage": "You'll be redirected to the login page shortly...",
+      "invalidLinkTitle": "Invalid Reset Link",
+      "invalidLinkSubtitle": "This password reset link is invalid or has expired",
+      "linkInvalidTitle": "Link Invalid",
+      "linkInvalidMessage": "This password reset link is invalid or has expired. Please request a new one.",
+      "requestNewLink": "Request New Reset Link",
+      "rememberPassword": "Remember your password?",
+      "signInLink": "Sign in"
+    },
+    "resendActivation": {
+      "title": "Resend Verification Email",
+      "subtitle": "Get a new verification link for your account",
+      "formTitle": "Resend Verification",
+      "formDescription": "Enter your email address to receive a new verification link",
+      "email": "Email Address",
+      "submitButton": "Send Verification Email",
+      "submittingButton": "Sending Verification Email...",
+      "successTitle": "Verification Email Sent",
+      "successSubtitle": "Please check your email for the verification link",
+      "checkEmailTitle": "Check Your Email",
+      "checkEmailMessage": "We've sent a new verification link to",
+      "checkEmailMessage2": "Click the link in the email to verify your account. The link will expire in 24 hours.",
+      "backToSignIn": "Back to Sign In",
+      "alreadyVerified": "Already verified?",
+      "signInLink": "Sign in"
+    },
+    "verifyEmail": {
+      "verifyingTitle": "Verifying Your Email",
+      "verifyingSubtitle": "Please wait while we verify your email address",
+      "verifyingMessage": "We're verifying your email address. This may take a moment.",
+      "successTitle": "Email Verified Successfully!",
+      "successSubtitle": "Your account is now active and ready to use",
+      "welcomeTitle": "Welcome to Boiler.click!",
+      "welcomeMessage": "Your email has been successfully verified. Your account is now active and you can start using all features.",
+      "redirectMessage": "You'll be redirected to the login page shortly...",
+      "failedTitle": "Verification Failed",
+      "failedSubtitle": "We couldn't verify your email address",
+      "verificationFailedTitle": "Verification Failed",
+      "verificationFailedMessage": "This verification link may have expired or been used already.",
+      "requestNewVerification": "Request New Verification Email",
+      "backToSignIn": "Back to Sign In"
+    },
+    "account": {
+      "dashboard": {
+        "title": "Account Dashboard",
+        "welcome": "Welcome back"
+      },
+      "title": "Account Dashboard",
+      "welcomeMessage": "Welcome back, {firstName}!",
+      "subtitle": "Manage your account settings and preferences",
+      "profile": {
+        "title": "Profile Information",
+        "description": "Manage your personal information",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "role": "Role",
+        "emailNotVerified": "Email not verified",
+        "editProfile": "Edit Profile",
+        "backToAccount": "Back to Account",
+        "profileSettings": "Profile Settings",
+        "manageProfileInfo": "Manage your profile information",
+        "profileInformation": "Profile Information",
+        "andPassword": " and password",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "phoneNumber": "Phone Number",
+        "currentPassword": "Current Password",
+        "saving": "Saving...",
+        "saveChanges": "Save Changes",
+        "changing": "Changing...",
+        "changePassword": "Change Password",
+        "details": "Manage your name, email, phone number, and other profile information.",
+        "pageTitle": "Profile Settings",
+        "pageSubtitle": "Update your personal information and account details",
+        "formTitle": "Personal Information",
+        "formDescription": "Update your profile information below",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email Address",
+        "telephone": "Phone Number (Optional)",
+        "emailChangeWarning": "Changing your email will require verification",
+        "saveButton": "Save Changes",
+        "savingButton": "Saving...",
+        "successMessage": "Profile updated successfully!",
+        "backToAccount": "Back to Account",
+        "profileSettings": "Profile Settings",
+        "manageProfileInfo": "Manage your profile information",
+        "andPassword": " and password",
+        "profileInformation": "Profile Information",
+        "passwordSettings": "Password Settings",
+        "failedToUpdateProfile": "Failed to update profile. Please try again.",
+        "failedToChangePassword": "Failed to change password. Please try again."
+      },
+      "settings": {
+        "title": "Account Settings",
+        "description": "Manage your account preferences",
+        "accountSettings": "Account Settings",
+        "changePassword": "Change Password",
+        "signOut": "Sign Out",
+        "details": "Update your password, manage connected accounts, and security settings.",
+        "pageTitle": "Account Settings",
+        "pageSubtitle": "Manage your password and connected accounts",
+        "changePassword": {
+          "title": "Change Password",
+          "description": "Update your account password for better security",
+          "currentPassword": "Current Password",
+          "newPassword": "New Password",
+          "confirmPassword": "Confirm New Password",
+          "changeButton": "Change Password",
+          "changingButton": "Changing...",
+          "successMessage": "Password changed successfully!"
+        },
+        "connectedAccounts": {
+          "title": "Connected Accounts",
+          "description": "Manage your OAuth account connections",
+          "noAccounts": "No connected accounts found. Connect your social accounts for easier sign-in.",
+          "connectedOn": "Connected",
+          "unlinkButton": "Unlink"
+        }
+      },
+      "accountInfo": {
+        "title": "Account Information",
+        "description": "Your current account details",
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "emailStatus": "Email Status",
+        "verified": "Verified",
+        "notVerified": "Not Verified",
+        "signOutButton": "Sign Out"
+      }
+    },
+    "messages": {
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "oauthError": "OAuth authentication failed. Please try again.",
+      "oauthCancelled": "OAuth authentication was cancelled or failed.",
+      "sessionError": "Session creation failed. Please try again.",
+      "emailNotVerified": "Your email address has not been verified. Please verify your email.",
+      "tokenInvalid": "Invalid or expired token."
+    }
+  },
+  "oauth": {
+    "orContinueWith": "Or continue with",
+    "continueWith": "Continue with",
+    "connecting": "Connecting...",
+    "providers": {
+      "google": "Google",
+      "github": "GitHub",
+      "discord": "Discord",
+      "facebook": "Facebook",
+      "twitter": "Twitter"
+    }
+  }
+}

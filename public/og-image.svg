@@ -1,0 +1,7 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#1a1a1a"/>
+  <rect x="100" y="100" width="1000" height="430" rx="20" fill="#2a2a2a"/>
+  <text x="600" y="280" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="72" font-weight="bold">Boiler.click</text>
+  <text x="600" y="350" text-anchor="middle" fill="#cccccc" font-family="Arial, sans-serif" font-size="32">Next generation full-stack SaaS boilerplate</text>
+  <text x="600" y="400" text-anchor="middle" fill="#888888" font-family="Arial, sans-serif" font-size="24">Powered by Next.js, Prisma, Shadcn, and more</text>
+</svg>

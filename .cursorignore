@@ -1,0 +1,551 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Production builds
+.next/
+out/
+dist/
+build/
+.vercel/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Package manager lock files (keep package-lock.json)
+yarn.lock
+pnpm-lock.yaml
+
+# Generated files
+*.generated.*
+*.auto.*
+
+# Test files (optional - uncomment if you don't want Cursor to analyze tests)
+# **/*.test.*
+# **/*.spec.*
+# **/__tests__/
+# **/test/
+# **/tests/
+
+# Documentation that might be outdated
+# docs/
+# *.md
+
+# Large media files
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.mp3
+*.wav
+*.flac
+*.aac
+
+# Large images (keep optimized ones)
+*.psd
+*.ai
+*.sketch
+*.fig
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Local development files
+.local
+.cache
+.temp
+.tmp
+
+# Build artifacts
+*.map
+*.min.js
+*.min.css
+
+# Generated documentation
+docs/generated/
+api-docs/
+
+# Local configuration overrides
+local.config.*
+*.local.*
+
+# Performance monitoring
+.vercel/analytics/
+.vercel/project.json
+
+# Bundle analysis
+bundle-analyzer-report.html
+bundle-stats.json
+
+# TypeScript build info
+*.tsbuildinfo
+
+# ESLint cache
+.eslintcache
+
+# Prettier cache
+.prettiercache
+
+# Stylelint cache
+.stylelintcache
+
+# Jest cache
+.jest/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Storybook
+storybook-static/
+
+# Turborepo
+.turbo/
+
+# Sentry
+.sentryclirc
+
+# Local Netlify folder
+.netlify
+
+# Local Vercel folder
+.vercel
+
+# Local Railway folder
+.railway
+
+# Local Render folder
+.render
+
+# Local Fly.io folder
+.fly
+
+# Local Heroku folder
+.heroku
+
+# Local Docker folder
+.docker
+
+# Local Kubernetes folder
+.k8s
+
+# Local Terraform folder
+.terraform
+
+# Local Ansible folder
+.ansible
+
+# Local Vagrant folder
+.vagrant
+
+# Local VirtualBox folder
+.vbox
+
+# Local VMware folder
+.vmware
+
+# Local Parallels folder
+.parallels
+
+# Local Docker Compose folder
+.docker-compose
+
+# Local Kubernetes Config folder
+.kube
+
+# Local Helm folder
+.helm
+
+# Local Istio folder
+.istio
+
+# Local Linkerd folder
+.linkerd
+
+# Local Consul folder
+.consul
+
+# Local Vault folder
+.vault
+
+# Local Nomad folder
+.nomad
+
+# Local Terraform folder
+.terraform
+
+# Local Packer folder
+.packer
+
+# Local Ansible folder
+.ansible
+
+# Local Chef folder
+.chef
+
+# Local Puppet folder
+.puppet
+
+# Local Salt folder
+.salt
+
+# Local Fabric folder
+.fabric
+
+# Local Capistrano folder
+.capistrano
+
+# Local Mina folder
+.mina
+
+# Local Vlad folder
+.vlad
+
+# Local Maven folder
+.maven
+
+# Local Gradle folder
+.gradle
+
+# Local SBT folder
+.sbt
+
+# Local Leiningen folder
+.lein
+
+# Local Boot folder
+.boot
+
+# Local Cargo folder
+.cargo
+
+# Local Go folder
+.go
+
+# Local Rust folder
+.rust
+
+# Local Python folder
+.python
+
+# Local Ruby folder
+.ruby
+
+# Local PHP folder
+.php
+
+# Local Java folder
+.java
+
+# Local C++ folder
+.cpp
+
+# Local C folder
+.c
+
+# Local C# folder
+.cs
+
+# Local VB.NET folder
+.vb
+
+# Local F# folder
+.fs
+
+# Local Scala folder
+.scala
+
+# Local Clojure folder
+.clj
+
+# Local Haskell folder
+.hs
+
+# Local Erlang folder
+.erl
+
+# Local Elixir folder
+.ex
+
+# Local OCaml folder
+.ml
+
+# Local F# folder
+.fs
+
+# Local Common Lisp folder
+.lisp
+
+# Local Scheme folder
+.scm
+
+# Local Racket folder
+.rkt
+
+# Local Smalltalk folder
+.st
+
+# Local Prolog folder
+.pro
+
+# Local Forth folder
+.fs
+
+# Local Assembly folder
+.asm
+
+# Local COBOL folder
+.cob
+
+# Local Fortran folder
+.f
+
+# Local Pascal folder
+.pas
+
+# Local Ada folder
+.ada
+
+# Local Modula-2 folder
+.mod
+
+# Local Oberon folder
+.ob
+
+# Local Eiffel folder
+.e
+
+# Local Sather folder
+.sa
+
+# Local Beta folder
+.bet
+
+# Local BETA folder
+.beta
+
+# Local Simula folder
+.sim
+
+# Local Algol folder
+.alg
+
+# Local PL/I folder
+.pli
+
+# Local APL folder
+.apl
+
+# Local J folder
+.j
+
+# Local K folder
+.k
+
+# Local Q folder
+.q
+
+# Local R folder
+.r
+
+# Local MATLAB folder
+.matlab
+
+# Local Octave folder
+.octave
+
+# Local Scilab folder
+.scilab
+
+# Local LabVIEW folder
+.labview
+
+# Local Simulink folder
+.simulink
+
+# Local Modelica folder
+.modelica
+
+# Local VHDL folder
+.vhdl
+
+# Local Verilog folder
+.v
+
+# Local SystemVerilog folder
+.sv
+
+# Local Chisel folder
+.chisel
+
+# Local Bluespec folder
+.bluespec
+
+# Local MyHDL folder
+.myhdl
+
+# Local Migen folder
+.migen
+
+# Local nMigen folder
+.nmigen
+
+# Local Amaranth folder
+.amaranth
+
+# Local Torii folder
+.torii
+
+# Local SpinalHDL folder
+.spinalhdl
+
+# Local Chisel3 folder
+.chisel3
+
+# Local Chisel4 folder
+.chisel4
+
+# Local Chisel5 folder
+.chisel5
+
+# Local Chisel6 folder
+.chisel6
+
+# Local Chisel7 folder
+.chisel7
+
+# Local Chisel8 folder
+.chisel8
+
+# Local Chisel9 folder
+.chisel9
+
+# Local Chisel10 folder
+.chisel10
