@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { HeroBackground } from "@/components/HeroBackground";
 import { DarkOverlay } from "@/components/DarkOverlay";
+import { CodeTyping } from "@/components/auth/CodeTyping";
 import {
   Card,
   CardContent,
@@ -325,10 +326,10 @@ function LoginForm() {
           <DarkOverlay />
         </div>
 
-        {/* Code Typing Component
+        {/* Code Typing Component */}
         <div className="relative z-10 w-full h-full">
           <CodeTyping />
-        </div> */}
+        </div>
       </div>
     </div>
   );
