@@ -282,7 +282,7 @@ export function PasswordConfirmInput({
           </Button>
         </div>
 
-        {confirmPassword.length > 0 && (
+        {confirmPassword.length > 0 && matchValidation && (
           <div className="flex items-center gap-2">
             {getMatchIcon()}
             <span
