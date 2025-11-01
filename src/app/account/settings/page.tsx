@@ -1,7 +1,7 @@
 /* Account settings page for authenticated users */
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -56,7 +56,7 @@ interface User {
   }[];
 }
 
-export default function SettingsPage() {
+function SettingsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { t } = useLanguage();
@@ -564,5 +564,29 @@ export default function SettingsPage() {
         </DialogContent>
       </Dialog>
     </div>
+  );
+}
+
+export default function SettingsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+          <Card className="w-full max-w-md">
+            <CardHeader>
+              <CardTitle>Loading Settings...</CardTitle>
+              <CardDescription>Please wait while we load your settings</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center text-gray-600 dark:text-gray-400">
+                Loading...
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      }
+    >
+      <SettingsPageContent />
+    </Suspense>
   );
 }
