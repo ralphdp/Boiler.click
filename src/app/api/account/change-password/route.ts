@@ -8,18 +8,23 @@ import {
   savePasswordToHistory,
 } from "@/lib/auth/password";
 import { changePasswordSchema } from "@/lib/validation/auth";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Force Node.js runtime for Prisma compatibility
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {
+    const t = useLanguage();
     const user = await getCurrentUser(request);
 
     if (!user) {
-      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+      return NextResponse.json(
+        { error: t("auth.messages.notAuthenticated") },
+        { status: 401 }
+      );
     }
 
     const body = await request.json();
@@ -29,7 +34,7 @@ export async function POST(request: NextRequest) {
     if (!validationResult.success) {
       return NextResponse.json(
         {
-          error: "Validation failed",
+          error: t("auth.messages.validationFailed"),
           details: validationResult.error.errors,
         },
         { status: 400 }
@@ -49,7 +54,7 @@ export async function POST(request: NextRequest) {
 
     if (!userWithPassword || !userWithPassword.password) {
       return NextResponse.json(
-        { error: "User not found or no password set" },
+        { error: t("auth.messages.userNotFoundOrNoPassword") },
         { status: 404 }
       );
     }
@@ -61,7 +66,7 @@ export async function POST(request: NextRequest) {
     );
     if (!isCurrentPasswordValid) {
       return NextResponse.json(
-        { error: "Current password is incorrect" },
+        { error: t("auth.messages.currentPasswordIncorrect") },
         { status: 400 }
       );
     }
@@ -73,7 +78,7 @@ export async function POST(request: NextRequest) {
     );
     if (isSamePassword) {
       return NextResponse.json(
-        { error: "New password must be different from current password" },
+        { error: t("auth.messages.newPasswordMustBeDifferent") },
         { status: 400 }
       );
     }
@@ -102,13 +107,13 @@ export async function POST(request: NextRequest) {
     await savePasswordToHistory(user.id, hashedNewPassword);
 
     return NextResponse.json(
-      { message: "Password changed successfully" },
+      { message: t("auth.messages.passwordChangedSuccessfully") },
       { status: 200 }
     );
   } catch (error) {
     console.error("Change password error:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: t("auth.messages.internalServerError") },
       { status: 500 }
     );
   }

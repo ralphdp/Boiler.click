@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Flame, Menu, User, LogOut } from "lucide-react";
+import { Flame, Menu, User, LogOut, UserStar, UserCog } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { SimpleLanguageSwitcher } from "@/components/SimpleLanguageSwitcher";
@@ -59,7 +59,7 @@ export function Navigation() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       role="navigation"
-      aria-label="Main navigation"
+      aria-label={t("navigation.aria.mainNavigation")}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -71,23 +71,14 @@ export function Navigation() {
             <Link
               href="/"
               className="flex items-center gap-2"
-              aria-label="Boiler.click homepage"
+              aria-label={t("navigation.aria.homepage")}
             >
               <Flame
                 className="w-6 h-6 text-purple-500 dark:text-purple-400"
                 aria-hidden="true"
               />
               <span className="text-xl font-bold font-cabin">
-                {(() => {
-                  const title = t("navigation.title") as string;
-                  const parts = title.split(".");
-                  return (
-                    <>
-                      {parts[0]}
-                      <span className="text-xs">.{parts[1] || ""}</span>
-                    </>
-                  );
-                })()}
+                {t("navigation.title")}
               </span>
             </Link>
           </motion.div>
@@ -145,7 +136,7 @@ export function Navigation() {
             <div
               className="hidden md:flex items-center gap-4"
               role="group"
-              aria-label="Navigation controls"
+              aria-label={t("navigation.aria.navigationControls")}
             >
               <SimpleLanguageSwitcher />
 
@@ -181,6 +172,7 @@ export function Navigation() {
                             href="/account/profile"
                             className="flex items-center gap-2"
                           >
+                            <UserStar className="h-4 w-4" />
                             {t("navigation.profile")}
                           </Link>
                         </DropdownMenuItem>
@@ -189,6 +181,7 @@ export function Navigation() {
                             href="/account/settings"
                             className="flex items-center gap-2"
                           >
+                            <UserCog className="h-4 w-4" />
                             {t("navigation.settings")}
                           </Link>
                         </DropdownMenuItem>
@@ -223,7 +216,7 @@ export function Navigation() {
               <SheetTrigger asChild>
                 <button
                   className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                  aria-label="Toggle mobile menu"
+                  aria-label={t("navigation.aria.toggleMobileMenu")}
                   aria-expanded="false"
                   aria-controls="mobile-menu"
                 >
@@ -237,7 +230,7 @@ export function Navigation() {
               >
                 <SheetHeader>
                   <SheetTitle className={isRTL ? "text-right" : "text-left"}>
-                    Navigation
+                    {t("navigation.mobile.title")}
                   </SheetTitle>
                 </SheetHeader>
                 <div
@@ -245,7 +238,7 @@ export function Navigation() {
                   id="mobile-menu"
                   className="flex flex-col space-y-4 mt-6"
                   role="navigation"
-                  aria-label="Mobile navigation menu"
+                  aria-label={t("navigation.aria.mobileNavigationMenu")}
                 >
                   {/* ARIA Live Region for dynamic content */}
                   <div
@@ -253,7 +246,7 @@ export function Navigation() {
                     aria-atomic="true"
                     className="sr-only"
                   >
-                    Mobile navigation menu opened
+                    {t("navigation.mobile.menuOpened")}
                   </div>
 
                   {/* Mobile Navigation Links */}
@@ -311,7 +304,8 @@ export function Navigation() {
                         {user ? (
                           <div className="space-y-2">
                             <div className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400">
-                              Signed in as {user.firstName} {user.lastName}
+                              {t("navigation.mobile.signedInAs")}{" "}
+                              {user.firstName} {user.lastName}
                             </div>
                             <Link
                               href="/account"
@@ -319,7 +313,7 @@ export function Navigation() {
                               role="menuitem"
                               tabIndex={0}
                             >
-                              Account
+                              {t("navigation.mobile.account")}
                             </Link>
                             <Link
                               href="/account/profile"
@@ -327,7 +321,7 @@ export function Navigation() {
                               role="menuitem"
                               tabIndex={0}
                             >
-                              Profile
+                              {t("navigation.mobile.profile")}
                             </Link>
                             <Link
                               href="/account/settings"
@@ -335,7 +329,7 @@ export function Navigation() {
                               role="menuitem"
                               tabIndex={0}
                             >
-                              Settings
+                              {t("navigation.mobile.settings")}
                             </Link>
                             <button
                               onClick={logout}
@@ -343,7 +337,7 @@ export function Navigation() {
                               role="menuitem"
                               tabIndex={0}
                             >
-                              Sign Out
+                              {t("navigation.mobile.signOut")}
                             </button>
                           </div>
                         ) : (
@@ -354,7 +348,7 @@ export function Navigation() {
                               role="menuitem"
                               tabIndex={0}
                             >
-                              Sign In
+                              {t("navigation.mobile.signIn")}
                             </Link>
                             <Link
                               href="/auth/register"
@@ -362,7 +356,7 @@ export function Navigation() {
                               role="menuitem"
                               tabIndex={0}
                             >
-                              Sign Up
+                              {t("navigation.mobile.signUp")}
                             </Link>
                           </div>
                         )}

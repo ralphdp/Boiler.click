@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { BotIdClient } from "botid/client";
 import { isBotIdEnabled, getBotIdConfig } from "@/lib/botid";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface BotIdProps {
   className?: string;
@@ -10,6 +11,7 @@ interface BotIdProps {
 }
 
 export default function BotId({ className = "", children }: BotIdProps) {
+  const { t } = useLanguage();
   const [isActive, setIsActive] = useState(false);
   const config = getBotIdConfig();
 
@@ -26,7 +28,7 @@ export default function BotId({ className = "", children }: BotIdProps) {
           <div className="w-4 h-4 bg-green-100 dark:bg-green-900 rounded border border-green-300 dark:border-green-700 flex items-center justify-center">
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
           </div>
-          <span>BotID disabled in development</span>
+          <span>{t("ui.botid.disabledInDevelopment")}</span>
         </div>
         {children}
       </div>
@@ -40,7 +42,7 @@ export default function BotId({ className = "", children }: BotIdProps) {
           <div className="w-4 h-4 bg-blue-100 dark:bg-blue-900 rounded border border-blue-300 dark:border-blue-700 flex items-center justify-center">
             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
           </div>
-          <span>BotID protection active</span>
+          <span>{t("ui.botid.protectionActive")}</span>
         </div>
       )}
       {children}

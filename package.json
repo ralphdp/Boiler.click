@@ -1,9 +1,10 @@
 {
-  "name": "boiler-click",
+  "name": "boiler",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "node scripts/setup-env.js && next dev --turbopack",
+    "dev:clean": "npm run clean && npm run dev",
     "dev:webpack": "node scripts/setup-env.js && next dev --webpack",
     "build": "node scripts/setup-env.js && next build",
     "postinstall": "prisma generate --accelerate || prisma generate",
@@ -16,7 +17,8 @@
     "setup:env": "node scripts/setup-env.js",
     "test:oauth": "node scripts/test-oauth.js",
     "test:session": "node scripts/test-session.js",
-    "test:complete": "node scripts/test-complete-oauth.js"
+    "test:complete": "node scripts/test-complete-oauth.js",
+    "clean": "rm -rf .next node_modules/.cache .playwright-mcp ~/.cache/ms-playwright"
   },
   "dependencies": {
     "@prisma/client": "^6.18.0",
@@ -28,9 +30,11 @@
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@react-email/components": "^0.5.7",
     "@react-email/render": "^1.4.0",
+    "@types/qrcode": "^1.5.6",
     "bcryptjs": "^3.0.2",
     "botid": "^1.5.10",
     "class-variance-authority": "^0.7.1",
@@ -52,9 +56,11 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
+    "qrcode": "^1.5.4",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "resend": "^6.3.0",
+    "speakeasy": "^2.0.0",
     "tailwind-merge": "^3.3.1",
     "zod": "^3.22.4"
   },

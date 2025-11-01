@@ -78,7 +78,7 @@ export function OAuthButtons({
         </div>
         <div className="relative flex justify-center text-sm">
           <span className="bg-white dark:bg-gray-900 px-2 text-gray-500 dark:text-gray-400">
-            {t("oauth.orContinueWith") || "Or continue with"}
+            {t("oauth.orContinueWith")}
           </span>
         </div>
       </div>
@@ -104,8 +104,8 @@ export function OAuthButtons({
               <Icon className="h-5 w-5" />
               <span>
                 {isProviderLoading
-                  ? t("oauth.connecting") || "Connecting..."
-                  : `${t("oauth.continueWith") || "Continue with"} ${t("oauth.providers." + provider.id) || provider.name}`}
+                  ? t("oauth.connecting")
+                  : `${t("oauth.continueWith")} ${t("oauth.providers." + provider.id) || provider.name}`}
               </span>
             </Button>
           );

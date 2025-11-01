@@ -19,53 +19,69 @@ enum UserRole {
 }
 
 model User {
-  id                  String          @id @default(cuid())
-  email               String          @unique
-  firstName           String
-  lastName            String
-  telephone           String?
-  password            String?
-  emailVerified       Boolean         @default(false)
-  verificationToken   String?         @unique
+  id                      String            @id @default(cuid())
+  email                   String            @unique
+  firstName               String
+  lastName                String
+  telephone               String?
+  password                String?
+  emailVerified           Boolean           @default(false)
+  verificationToken       String?           @unique
   verificationTokenExpiry DateTime?
-  resetToken          String?         @unique
-  resetTokenExpiry    DateTime?
-  role                UserRole        @default(user)
-  createdAt           DateTime        @default(now())
-  updatedAt           DateTime        @updatedAt
-  accounts            Account[]
-  passwordHistory     PasswordHistory[]
-  sessions            Session[]
+  resetToken              String?           @unique
+  resetTokenExpiry        DateTime?
+  role                    UserRole          @default(user)
+  twoFactorEnabled        Boolean           @default(false)
+  twoFactorMethod         String? // "email" or "totp"
+  totpSecret              String?
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
+  accounts                Account[]
+  passwordHistory         PasswordHistory[]
+  sessions                Session[]
+  backupCodes             BackupCode[]
 }
 
 model Account {
-  id                  String          @id @default(cuid())
-  userId              String
-  provider            String // e.g., "google", "github", "discord", "facebook", "twitter"
-  providerId          String
-  accessToken         String
-  refreshToken        String?
-  createdAt           DateTime        @default(now())
-  updatedAt           DateTime        @updatedAt
-  user                User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  userId       String
+  provider     String // e.g., "google", "github", "discord", "facebook", "twitter"
+  providerId   String
+  accessToken  String
+  refreshToken String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerId])
 }
 
 model PasswordHistory {
-  id                  String          @id @default(cuid())
-  userId              String
-  passwordHash        String
-  createdAt           DateTime        @default(now())
-  user                User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  userId       String
+  passwordHash String
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Session {
-  id                  String          @id @default(cuid())
-  userId              String
-  token               String          @unique
-  expiresAt           DateTime
-  createdAt           DateTime        @default(now())
-  updatedAt           DateTime        @updatedAt
-  user                User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model BackupCode {
+  id        String   @id @default(cuid())
+  userId    String
+  code      String
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, code])
+  @@index([userId])
 }

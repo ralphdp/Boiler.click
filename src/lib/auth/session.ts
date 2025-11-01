@@ -215,6 +215,9 @@ export async function getCurrentUser(
       verificationTokenExpiry: true,
       resetToken: true,
       resetTokenExpiry: true,
+      twoFactorEnabled: true,
+      twoFactorMethod: true,
+      totpSecret: true,
       accounts: {
         select: {
           id: true,

@@ -56,12 +56,12 @@ export default function AccountPage() {
             router.push("/auth/login");
             return;
           }
-          throw new Error("Failed to fetch user data");
+          throw new Error(t("auth.messages.fetchUserError"));
         }
         const userData = await response.json();
         setUser(userData.user);
       } catch (error) {
-        setError("Failed to load user data");
+        setError(t("auth.messages.loadUserDataError"));
         console.error("Error fetching user:", error);
       } finally {
         setIsLoading(false);
@@ -69,7 +69,7 @@ export default function AccountPage() {
     };
 
     fetchUser();
-  }, [router]);
+  }, [router, t]);
 
   const handleLogout = async () => {
     try {
@@ -80,10 +80,10 @@ export default function AccountPage() {
       if (response.ok) {
         router.push("/auth/login");
       } else {
-        setError("Failed to logout");
+        setError(t("auth.messages.logoutError"));
       }
     } catch (error) {
-      setError("Failed to logout");
+      setError(t("auth.messages.logoutError"));
       console.error("Logout error:", error);
     }
   };
@@ -118,7 +118,9 @@ export default function AccountPage() {
           <CardContent className="pt-6">
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>User not found</AlertDescription>
+              <AlertDescription>
+                {t("auth.messages.userNotFound")}
+              </AlertDescription>
             </Alert>
           </CardContent>
         </Card>
@@ -144,10 +146,10 @@ export default function AccountPage() {
           >
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                {t("account.dashboard.title")}
+                {t("auth.account.dashboard.title")}
               </h1>
               <p className="mt-2 text-gray-600 dark:text-gray-400">
-                {t("account.dashboard.welcome")}, {user.firstName}!
+                {t("auth.account.dashboard.welcome")}, {user.firstName}!
               </p>
             </div>
 
@@ -157,16 +159,16 @@ export default function AccountPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <User className="h-5 w-5" />
-                    {t("account.profile.title")}
+                    {t("auth.account.profile.title")}
                   </CardTitle>
                   <CardDescription>
-                    {t("account.profile.description")}
+                    {t("auth.account.profile.description")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
                     <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      {t("account.profile.name")}
+                      {t("auth.account.profile.name")}
                     </p>
                     <p className="text-lg">
                       {user.firstName} {user.lastName}
@@ -174,26 +176,26 @@ export default function AccountPage() {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      {t("account.profile.email")}
+                      {t("auth.account.profile.email")}
                     </p>
                     <p className="text-lg">{user.email}</p>
                     {!user.emailVerified && (
                       <p className="text-sm text-red-600 dark:text-red-400">
-                        {t("account.profile.emailNotVerified")}
+                        {t("auth.account.profile.emailNotVerified")}
                       </p>
                     )}
                   </div>
                   {user.telephone && (
                     <div>
                       <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {t("account.profile.phone")}
+                        {t("auth.account.profile.phone")}
                       </p>
                       <p className="text-lg">{user.telephone}</p>
                     </div>
                   )}
                   <div>
                     <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      {t("account.profile.role")}
+                      {t("auth.account.profile.role")}
                     </p>
                     <p className="text-lg capitalize">
                       {user.role.replace("_", " ")}
@@ -201,7 +203,7 @@ export default function AccountPage() {
                   </div>
                   <Button asChild className="w-full">
                     <Link href="/account/profile">
-                      {t("account.profile.editProfile")}
+                      {t("auth.account.profile.editProfile")}
                     </Link>
                   </Button>
                 </CardContent>
@@ -212,22 +214,22 @@ export default function AccountPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Settings className="h-5 w-5" />
-                    {t("account.settings.title")}
+                    {t("auth.account.settings.title")}
                   </CardTitle>
                   <CardDescription>
-                    {t("account.settings.description")}
+                    {t("auth.account.settings.description")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <Button asChild variant="outline" className="w-full">
                     <Link href="/account/settings">
-                      {t("account.settings.accountSettings")}
+                      {t("auth.account.settings.accountSettings")}
                     </Link>
                   </Button>
                   {hasPassword && (
                     <Button asChild variant="outline" className="w-full">
                       <Link href="/account/profile">
-                        {t("account.settings.changePassword")}
+                        {t("auth.account.profile.changePassword")}
                       </Link>
                     </Button>
                   )}
@@ -237,7 +239,7 @@ export default function AccountPage() {
                     onClick={handleLogout}
                   >
                     <LogOut className="h-4 w-4 mr-2" />
-                    {t("account.settings.signOut")}
+                    {t("auth.account.settings.signOut")}
                   </Button>
                 </CardContent>
               </Card>

@@ -18,8 +18,8 @@ import {
 import Image from "next/image";
 import { HeroBackground } from "@/components/HeroBackground";
 import { DarkOverlay } from "@/components/DarkOverlay";
-import { TerminalModal } from "@/components/TerminalModal";
 import { CodeTyping } from "@/components/auth/CodeTyping";
+import { CodeOptionsDropdown } from "@/components/CodeOptionsDropdown";
 import {
   Card,
   CardContent,
@@ -48,6 +48,11 @@ function LoginForm() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [requires2FA, setRequires2FA] = useState(false);
+  const [twoFactorSessionId, setTwoFactorSessionId] = useState("");
+  const [twoFactorMethod, setTwoFactorMethod] = useState<"email" | "totp">("email");
+  const [twoFactorCode, setTwoFactorCode] = useState("");
+  const [isVerifying2FA, setIsVerifying2FA] = useState(false);
 
   // Scroll to top when page loads
   useEffect(() => {
@@ -67,6 +72,10 @@ function LoginForm() {
       setErrors({ general: t("auth.messages.oauthError") });
     } else if (error === "oauth_failed") {
       setErrors({ general: t("auth.messages.oauthCancelled") });
+    } else if (error === "oauth_conflict_existing_account") {
+      setErrors({ general: t("auth.messages.oauthConflictExistingAccount") });
+    } else if (error === "oauth_conflict_provider") {
+      setErrors({ general: t("auth.messages.oauthConflictProvider") });
     } else if (error === "session_error") {
       setErrors({ general: t("auth.messages.sessionError") });
     }
@@ -77,6 +86,40 @@ function LoginForm() {
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }));
+    }
+  };
+
+  const handleVerify2FA = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsVerifying2FA(true);
+    setErrors({});
+
+    try {
+      const response = await fetch("/api/auth/login/verify-2fa", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sessionId: twoFactorSessionId,
+          code: twoFactorCode,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrors({ general: data.error });
+        return;
+      }
+
+      // 2FA verified, redirect to account
+      router.push("/account");
+    } catch (error) {
+      console.error("2FA verification error:", error);
+      setErrors({ general: t("auth.messages.unexpectedError") });
+    } finally {
+      setIsVerifying2FA(false);
     }
   };
 
@@ -131,6 +174,14 @@ function LoginForm() {
         return;
       }
 
+      // Check if 2FA is required
+      if (data.requiresTwoFactor) {
+        setRequires2FA(true);
+        setTwoFactorSessionId(data.sessionId);
+        setTwoFactorMethod(data.method);
+        return;
+      }
+
       // Login successful, redirect to account
       router.push("/account");
     } catch (error) {
@@ -143,7 +194,30 @@ function LoginForm() {
 
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [hasImageError, setHasImageError] = useState(false);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [showCodeOptions, setShowCodeOptions] = useState(false);
+  const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (
+        showCodeOptions &&
+        !target.closest("[data-dropdown]") &&
+        !target.closest("[data-eddie]")
+      ) {
+        setShowCodeOptions(false);
+      }
+    };
+
+    if (showCodeOptions) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showCodeOptions]);
 
   return (
     <div className="min-h-screen flex overflow-hidden">
@@ -163,67 +237,8 @@ function LoginForm() {
         <ThemeToggle />
       </div>
 
-      {/* Eddie the Elephant - Bottom Right */}
-      <div className="fixed bottom-10 right-10 z-50">
-        {/* Right Content - Eddie the Elephant */}
-        <motion.div
-          className="flex-1 flex justify-center lg:justify-end"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-        >
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div
-                  className="relative w-64 h-64 lg:w-80 lg:h-80 cursor-pointer"
-                  onClick={() => setIsTerminalOpen(true)}
-                >
-                  {isImageLoading && !hasImageError && (
-                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg flex items-center justify-center">
-                      <div className="text-gray-400 text-sm">Loading...</div>
-                    </div>
-                  )}
-                  {hasImageError && (
-                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-                      <div className="text-gray-400 text-sm">
-                        Image unavailable
-                      </div>
-                    </div>
-                  )}
-                  <Image
-                    src="/assets/uploads/eddie-the-elephant.webp"
-                    alt="Eddie the Elephant - Boiler.click mascot"
-                    width={320}
-                    height={320}
-                    className={`object-contain w-full h-full transition-opacity duration-300 ${
-                      !isImageLoading ? "opacity-100" : "opacity-0"
-                    }`}
-                    priority
-                    quality={90}
-                    placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                    onLoad={() => {
-                      setIsImageLoading(false);
-                      console.log("Eddie image loaded successfully");
-                    }}
-                    onError={(e) => {
-                      setHasImageError(true);
-                      console.error("Eddie image failed to load:", e);
-                    }}
-                  />
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" className="text-xs">
-                <p>Click me to open the terminal! 🖥️</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </motion.div>
-      </div>
-
       {/* Left Side - Login Form */}
-      <div className="w-full lg:w-1/3 flex items-center justify-center p-8 bg-white dark:bg-gray-900 relative z-10 shadow-lg">
+      <div className="w-full lg:w-1/3 flex items-center justify-center p-8 bg-white dark:bg-gray-900 relative z-20 shadow-lg">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -241,7 +256,7 @@ function LoginForm() {
                 href="/"
                 className="text-purple-600 dark:text-purple-400 hover:underline font-semibold"
               >
-                Boiler.click
+                Boiler™
               </Link>{" "}
               {t("auth.login.subtitleAfter")}
             </p>
@@ -255,14 +270,15 @@ function LoginForm() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {errors.general && (
-                  <div className="p-3 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
-                    {errors.general}
-                  </div>
-                )}
+              {!requires2FA ? (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {errors.general && (
+                    <div className="p-3 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
+                      {errors.general}
+                    </div>
+                  )}
 
-                <div className="space-y-2">
+                  <div className="space-y-2">
                   <Label
                     htmlFor="email"
                     className="text-gray-700 dark:text-gray-300"
@@ -346,29 +362,85 @@ function LoginForm() {
                     : t("auth.login.submitButton")}
                 </Button>
               </form>
+            ) : (
+              <form onSubmit={handleVerify2FA} className="space-y-4">
+                <div className="p-3 text-sm text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
+                  {twoFactorMethod === "email" 
+                    ? "Enter the 6-digit code sent to your email"
+                    : "Enter the 6-digit code from your authenticator app"}
+                </div>
 
-              <OAuthButtons className="mt-6" disabled={isLoading} />
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="twoFactorCode"
+                    className="text-gray-700 dark:text-gray-300"
+                  >
+                    Verification Code <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="twoFactorCode"
+                    type="text"
+                    maxLength={6}
+                    value={twoFactorCode}
+                    onChange={(e) => setTwoFactorCode(e.target.value.replace(/\D/g, ""))}
+                    placeholder="000000"
+                    className={errors.twoFactorCode ? "border-red-500 text-center text-2xl tracking-widest" : "text-center text-2xl tracking-widest"}
+                    disabled={isVerifying2FA}
+                    required
+                  />
+                  {errors.twoFactorCode && (
+                    <p className="text-sm text-red-600 dark:text-red-400">
+                      {errors.twoFactorCode}
+                    </p>
+                  )}
+                </div>
 
-              <div className="mt-6 text-center space-y-2">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {t("auth.login.dontHaveAccount")}{" "}
-                  <Link
-                    href="/auth/register"
-                    className="text-purple-600 dark:text-purple-400 hover:underline"
-                  >
-                    {t("auth.login.signUpLink")}
-                  </Link>
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {t("auth.login.needToVerify")}{" "}
-                  <Link
-                    href="/auth/resend-activation"
-                    className="text-purple-600 dark:text-purple-400 hover:underline"
-                  >
-                    {t("auth.login.resendVerification")}
-                  </Link>
-                </p>
-              </div>
+                <Button type="submit" className="w-full" disabled={isVerifying2FA || twoFactorCode.length !== 6}>
+                  {isVerifying2FA ? "Verifying..." : "Verify Code"}
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    setRequires2FA(false);
+                    setTwoFactorCode("");
+                    setTwoFactorSessionId("");
+                  }}
+                  disabled={isVerifying2FA}
+                >
+                  Back to Login
+                </Button>
+              </form>
+            )}
+
+              {!requires2FA && (
+                <>
+                  <OAuthButtons className="mt-6" disabled={isLoading} />
+
+                  <div className="mt-6 text-center space-y-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {t("auth.login.dontHaveAccount")}{" "}
+                      <Link
+                        href="/auth/register"
+                        className="text-purple-600 dark:text-purple-400 hover:underline"
+                      >
+                        {t("auth.login.signUpLink")}
+                      </Link>
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {t("auth.login.needToVerify")}{" "}
+                      <Link
+                        href="/auth/resend-activation"
+                        className="text-purple-600 dark:text-purple-400 hover:underline"
+                      >
+                        {t("auth.login.resendVerification")}
+                      </Link>
+                    </p>
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -384,7 +456,10 @@ function LoginForm() {
       </div>
 
       {/* Right Side - Animated Background with Code Typing */}
-      <div className="hidden lg:flex lg:w-2/3 relative overflow-hidden">
+      <div
+        className={`hidden lg:flex lg:w-2/3 fixed z-10 ${isRTL ? "left-0" : "right-0"} top-0 h-full overflow-hidden`}
+        dir="ltr"
+      >
         {/* Animated Gradient Background */}
         <div
           className="absolute inset-0 z-0 opacity-20 dark:opacity-30 overflow-hidden"
@@ -399,15 +474,75 @@ function LoginForm() {
 
         {/* Code Typing Component */}
         <div className="relative z-10 w-full h-full">
-          <CodeTyping />
+          <CodeTyping currentSnippetIndex={currentCodeIndex} />
+        </div>
+
+        {/* Eddie the Elephant - Positioned relative to right column - Visible on large screens */}
+        <div className={`absolute bottom-10 z-50 right-10`}>
+          <TooltipProvider>
+            <Tooltip open={true}>
+              <TooltipTrigger asChild>
+                <div
+                  className="relative w-64 h-64 lg:w-80 lg:h-80 cursor-pointer"
+                  onClick={() => setShowCodeOptions(!showCodeOptions)}
+                  data-eddie
+                >
+                  {isImageLoading && !hasImageError && (
+                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg flex items-center justify-center">
+                      <div className="text-gray-400 text-sm">
+                        {t("auth.messages.loading")}
+                      </div>
+                    </div>
+                  )}
+                  {hasImageError && (
+                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+                      <div className="text-gray-400 text-sm">
+                        {t("auth.messages.imageUnavailable")}
+                      </div>
+                    </div>
+                  )}
+                  <Image
+                    src="/assets/uploads/eddie-the-elephant.webp"
+                    alt="Eddie the Elephant - Boiler™ mascot"
+                    width={320}
+                    height={320}
+                    className={`object-contain w-full h-full transition-opacity duration-300 ${
+                      !isImageLoading ? "opacity-100" : "opacity-0"
+                    }`}
+                    priority
+                    quality={90}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    onLoad={() => {
+                      setIsImageLoading(false);
+                      console.log("Eddie image loaded successfully");
+                    }}
+                    onError={(e) => {
+                      setHasImageError(true);
+                      console.error("Eddie image failed to load:", e);
+                    }}
+                  />
+
+                  {/* Code Options Dropdown - Positioned relative to Eddie */}
+                  <CodeOptionsDropdown
+                    isOpen={showCodeOptions}
+                    currentCodeIndex={currentCodeIndex}
+                    onSelectCode={setCurrentCodeIndex}
+                    onClose={() => setShowCodeOptions(false)}
+                  />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="text-xs">
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: t("documentation.eddie.tooltip"),
+                  }}
+                />
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
-
-      {/* Terminal Modal */}
-      <TerminalModal
-        isOpen={isTerminalOpen}
-        onClose={() => setIsTerminalOpen(false)}
-      />
     </div>
   );
 }

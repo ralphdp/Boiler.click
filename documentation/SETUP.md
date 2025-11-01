@@ -1,10 +1,10 @@
 # Setup Guide
 
-Complete setup guide for Boiler.click - a production-ready Next.js boilerplate.
+Complete setup guide for Boiler™ - a production-ready Next.js boilerplate.
 
 ## 📋 Prerequisites
 
-Before setting up Boiler.click, ensure you have:
+Before setting up Boiler™, ensure you have:
 
 - **Node.js 18+** - [Download here](https://nodejs.org/)
 - **PostgreSQL** - [Download here](https://www.postgresql.org/download/)

@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { config } from "@/lib/config";
 import { PrismaClient } from "@prisma/client";
 import { hashPassword } from "@/lib/auth/password";
-import { authenticateUser, setSessionCookie } from "@/lib/auth/session";
+import { authenticateUser, getCurrentUser, setSessionCookie } from "@/lib/auth/session";
+import { getTranslations, getTranslationValue } from "@/lib/utils";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
@@ -68,34 +69,78 @@ export async function GET(request: NextRequest) {
     const { id, email, given_name, family_name } = googleUser;
 
     if (!email) {
-      return NextResponse.redirect(`${config.site.url}/auth/login?error=no_email`);
+      return NextResponse.redirect(
+        `${config.site.url}/auth/login?error=no_email`
+      );
     }
 
     // Check if user exists
     let user = await prisma.user.findUnique({ where: { email } });
 
-    if (user) {
-      // User exists, check if Google account is linked
-      const account = await prisma.account.findUnique({
-        where: {
-          provider_providerId: {
-            provider: "google",
-            providerId: id,
-          },
-        },
-      });
+    // Check if there's a currently logged-in user
+    const currentUser = await getCurrentUser(request);
 
-      if (!account) {
-        // Link Google account to existing user
-        await prisma.account.create({
-          data: {
-            userId: user.id,
-            provider: "google",
-            providerId: id,
-            accessToken: access_token,
-            refreshToken: tokenData.refresh_token || null,
+    if (user) {
+      // 🔒 SECURITY: Check if this is an email/password account
+      if (user.password) {
+        // User has email/password account - check if Google is already linked
+        const account = await prisma.account.findUnique({
+          where: {
+            provider_providerId: {
+              provider: "google",
+              providerId: id,
+            },
           },
         });
+
+        if (!account) {
+          // Check if user is currently logged in - if so, allow linking
+          if (currentUser && currentUser.id === user.id) {
+            // Link Google account to logged-in user
+            await prisma.account.create({
+              data: {
+                userId: user.id,
+                provider: "google",
+                providerId: id,
+                accessToken: access_token,
+                refreshToken: tokenData.refresh_token || null,
+              },
+            });
+            // Redirect to settings page to show success
+            return NextResponse.redirect(
+              `${config.site.url}/account/settings?linked=google`
+            );
+          } else {
+            // Security risk: Don't allow auto-linking OAuth to email/password account
+            return NextResponse.redirect(
+              `${config.site.url}/auth/login?error=oauth_conflict_existing_account`
+            );
+          }
+        }
+        // If account IS linked, proceed with login
+      } else {
+        // User is OAuth-only - check if Google account is linked
+        const account = await prisma.account.findUnique({
+          where: {
+            provider_providerId: {
+              provider: "google",
+              providerId: id,
+            },
+          },
+        });
+
+        if (!account) {
+          // Link Google account to existing OAuth-only user (different OAuth provider)
+          await prisma.account.create({
+            data: {
+              userId: user.id,
+              provider: "google",
+              providerId: id,
+              accessToken: access_token,
+              refreshToken: tokenData.refresh_token || null,
+            },
+          });
+        }
       }
     } else {
       // Create new user
@@ -105,7 +150,12 @@ export async function GET(request: NextRequest) {
       user = await prisma.user.create({
         data: {
           email,
-          firstName: given_name || "User",
+          firstName:
+            given_name ||
+            getTranslationValue(
+              await getTranslations("en"),
+              "api.fallbacks.user"
+            ),
           lastName: family_name || "",
           password: null, // OAuth users don't need a password
           emailVerified: true, // OAuth providers verify email
@@ -133,6 +183,8 @@ export async function GET(request: NextRequest) {
     return response;
   } catch (error) {
     console.error("Google OAuth callback error:", error);
-    return NextResponse.redirect(`${config.site.url}/auth/login?error=oauth_error`);
+    return NextResponse.redirect(
+      `${config.site.url}/auth/login?error=oauth_error`
+    );
   }
 }

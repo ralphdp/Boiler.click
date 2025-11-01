@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-type Language = "en" | "es" | "fr" | "jp" | "ar";
+type Language = "en" | "ar";
 
 interface LanguageContextType {
   language: Language;
@@ -31,15 +31,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const savedLanguage = localStorage.getItem(
       "boiler-click-language"
     ) as Language;
-    if (
-      savedLanguage &&
-      ["en", "es", "fr", "jp", "ar"].includes(savedLanguage)
-    ) {
+    if (savedLanguage && ["en", "ar"].includes(savedLanguage)) {
       setLanguage(savedLanguage);
     } else {
       // Try to detect browser language
       const browserLang = navigator.language.split("-")[0];
-      if (["en", "es", "fr", "jp", "ar"].includes(browserLang)) {
+      if (["en", "ar"].includes(browserLang)) {
         setLanguage(browserLang as Language);
         localStorage.setItem("boiler-click-language", browserLang);
       }
@@ -58,18 +55,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       try {
         let messages;
         switch (language) {
-          case "en":
-            messages = (await import("../languages/en.json")).default;
-            break;
-          case "es":
-            messages = (await import("../languages/es.json")).default;
-            break;
-          case "fr":
-            messages = (await import("../languages/fr.json")).default;
-            break;
-          case "jp":
-            messages = (await import("../languages/jp.json")).default;
-            break;
           case "ar":
             messages = (await import("../languages/ar.json")).default;
             break;

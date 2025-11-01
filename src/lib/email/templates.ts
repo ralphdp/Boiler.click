@@ -1,4 +1,5 @@
 import { config } from "@/lib/config";
+import { getTranslations, getTranslationValue } from "@/lib/utils";
 
 export interface EmailTemplateData {
   title: string;
@@ -7,6 +8,8 @@ export interface EmailTemplateData {
   buttonUrl?: string;
   footerText?: string;
   userName?: string;
+  totpCode?: string;
+  backupCodes?: string[];
 }
 
 export interface EmailTemplateOptions {
@@ -19,14 +22,18 @@ export interface EmailTemplateOptions {
  */
 // In src/lib/email/templates.ts, update the getBaseTemplate function:
 
-function getBaseTemplate(content: string): string {
+async function getBaseTemplate(
+  content: string,
+  lang: string = "en"
+): Promise<string> {
+  const messages = await getTranslations(lang);
   return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boiler.click</title>
+  <title>Boiler&trade;</title>
   <style>
   /* Reset styles */
   body, table, td, p, a, li, blockquote {
@@ -256,7 +263,7 @@ function getBaseTemplate(content: string): string {
     <div class="email-container">
       <!-- Header -->
       <div class="header">
-        <h1>Boiler.click</h1>
+        <h1>Boiler&trade;</h1>
         <p class="subtitle">Full-Stack SaaS Boilerplate</p>
       </div>
       
@@ -267,17 +274,17 @@ function getBaseTemplate(content: string): string {
       
       <!-- Footer -->
       <div class="footer">
-        <p>© ${new Date().getFullYear()} Boiler.click. All rights reserved.</p>
+        <p>${getTranslationValue(messages, "email.templates.common.footer").replace("{year}", new Date().getFullYear().toString())}</p>
         <p>
-          <a href="${config.site.url}">Visit our website</a> | 
-          <a href="${config.site.url}/support">Support</a> | 
-          <a href="${config.site.url}/legal">Legal</a>
+          <a href="${config.site.url}">${getTranslationValue(messages, "email.templates.common.visitWebsite")}</a> | 
+          <a href="${config.site.url}/support">${getTranslationValue(messages, "email.templates.common.support")}</a> | 
+          <a href="${config.site.url}/legal">${getTranslationValue(messages, "email.templates.common.legal")}</a>
         </p>
         <div class="social-links">
-          ${config.social.github ? `<a href="${config.social.github}">GitHub</a>` : ""}
-          ${config.social.x ? `<a href="${config.social.x}">X (Twitter)</a>` : ""}
-          ${config.social.facebook ? `<a href="${config.social.facebook}">Facebook</a>` : ""}
-          ${config.social.youtube ? `<a href="${config.social.youtube}">YouTube</a>` : ""}
+          ${config.social.github ? `<a href="${config.social.github}">${getTranslationValue(messages, "email.templates.common.github")}</a>` : ""}
+          ${config.social.x ? `<a href="${config.social.x}">${getTranslationValue(messages, "email.templates.common.twitter")}</a>` : ""}
+          ${config.social.facebook ? `<a href="${config.social.facebook}">${getTranslationValue(messages, "email.templates.common.facebook")}</a>` : ""}
+          ${config.social.youtube ? `<a href="${config.social.youtube}">${getTranslationValue(messages, "email.templates.common.youtube")}</a>` : ""}
         </div>
       </div>
     </div>
@@ -290,68 +297,88 @@ function getBaseTemplate(content: string): string {
 /**
  * Welcome email template
  */
-export function getWelcomeTemplate(data: EmailTemplateData): string {
+export async function getWelcomeTemplate(
+  data: EmailTemplateData,
+  lang: string = "en"
+): Promise<string> {
+  const messages = await getTranslations(lang);
+
   const content = `
-    <h2>Welcome to Boiler.click!</h2>
-    <p>Hi ${data.userName || "there"},</p>
-    <p>Welcome to Boiler.click! Your account has been successfully created and you're now part of our community.</p>
-    <p>You can now start using all the features of our platform to build amazing SaaS applications.</p>
+    <h2>${getTranslationValue(messages, "email.templates.welcome.title")}</h2>
+    <p>${getTranslationValue(messages, "email.templates.welcome.greeting").replace("{userName}", data.userName || "there")}</p>
+    <p>${getTranslationValue(messages, "email.templates.welcome.message")}</p>
+    <p>${getTranslationValue(messages, "email.templates.welcome.action")}</p>
     <div class="button-container">
-      <a href="${data.buttonUrl || config.site.url}" class="button">Get Started</a>
+      <a href="${data.buttonUrl || config.site.url}" class="button">${getTranslationValue(messages, "email.templates.welcome.buttonText")}</a>
     </div>
-    <p>If you have any questions, feel free to reach out to our support team.</p>
+    <p>${getTranslationValue(messages, "email.templates.welcome.support")}</p>
   `;
 
-  return getBaseTemplate(content);
+  return await getBaseTemplate(content, lang);
 }
 
 /**
  * Email verification template
  */
-export function getVerificationTemplate(data: EmailTemplateData): string {
+export async function getVerificationTemplate(
+  data: EmailTemplateData,
+  lang: string = "en"
+): Promise<string> {
+  const messages = await getTranslations(lang);
+
   const content = `
-    <h2>Verify Your Email Address</h2>
-    <p>Hi ${data.userName || "there"},</p>
-    <p>Thank you for signing up! To complete your registration, please verify your email address by clicking the button below.</p>
+    <h2>${getTranslationValue(messages, "email.templates.verification.title")}</h2>
+    <p>${getTranslationValue(messages, "email.templates.verification.greeting").replace("{userName}", data.userName || "there")}</p>
+    <p>${getTranslationValue(messages, "email.templates.verification.message")}</p>
     <div class="button-container">
-      <a href="${data.buttonUrl}" class="button">${data.buttonText || "Verify Email"}</a>
+      <a href="${data.buttonUrl}" class="button">${data.buttonText || getTranslationValue(messages, "email.templates.verification.buttonText")}</a>
     </div>
-    <p>If the button doesn't work, you can also copy and paste this link into your browser:</p>
+    <p>${getTranslationValue(messages, "email.templates.verification.alternativeText")}</p>
     <p style="word-break: break-all; background-color: #f3f4f6; padding: 12px; border-radius: 6px; font-family: monospace; font-size: 14px;">${data.buttonUrl}</p>
-    <p><strong>This link will expire in 24 hours.</strong></p>
-    <p>If you didn't create an account with us, please ignore this email.</p>
+    <p><strong>${getTranslationValue(messages, "email.templates.verification.expiry")}</strong></p>
+    <p>${getTranslationValue(messages, "email.templates.verification.ignoreText")}</p>
   `;
 
-  return getBaseTemplate(content);
+  return await getBaseTemplate(content, lang);
 }
 
 /**
  * Password reset template
  */
-export function getResetPasswordTemplate(data: EmailTemplateData): string {
+export async function getResetPasswordTemplate(
+  data: EmailTemplateData,
+  lang: string = "en"
+): Promise<string> {
+  const messages = await getTranslations(lang);
+
   const content = `
-    <h2>Reset Your Password</h2>
-    <p>Hi ${data.userName || "there"},</p>
-    <p>You requested to reset your password. Click the button below to create a new password.</p>
+    <h2>${getTranslationValue(messages, "email.templates.resetPassword.title")}</h2>
+    <p>${getTranslationValue(messages, "email.templates.resetPassword.greeting").replace("{userName}", data.userName || "there")}</p>
+    <p>${getTranslationValue(messages, "email.templates.resetPassword.message")}</p>
     <div class="button-container">
-      <a href="${data.buttonUrl}" class="button">${data.buttonText || "Reset Password"}</a>
+      <a href="${data.buttonUrl}" class="button">${data.buttonText || getTranslationValue(messages, "email.templates.resetPassword.buttonText")}</a>
     </div>
-    <p>If the button doesn't work, you can also copy and paste this link into your browser:</p>
+    <p>${getTranslationValue(messages, "email.templates.resetPassword.alternativeText")}</p>
     <p style="word-break: break-all; background-color: #f3f4f6; padding: 12px; border-radius: 6px; font-family: monospace; font-size: 14px;">${data.buttonUrl}</p>
-    <p><strong>This link will expire in 1 hour.</strong></p>
-    <p>If you didn't request a password reset, please ignore this email. Your password will remain unchanged.</p>
+    <p><strong>${getTranslationValue(messages, "email.templates.resetPassword.expiry")}</strong></p>
+    <p>${getTranslationValue(messages, "email.templates.resetPassword.ignoreText")}</p>
   `;
 
-  return getBaseTemplate(content);
+  return await getBaseTemplate(content, lang);
 }
 
 /**
  * General notification template
  */
-export function getNotificationTemplate(data: EmailTemplateData): string {
+export async function getNotificationTemplate(
+  data: EmailTemplateData,
+  lang: string = "en"
+): Promise<string> {
+  const messages = await getTranslations(lang);
+
   const content = `
     <h2>${data.title}</h2>
-    <p>Hi ${data.userName || "there"},</p>
+    <p>${getTranslationValue(messages, "email.templates.notification.greeting").replace("{userName}", data.userName || "there")}</p>
     ${data.content}
     ${
       data.buttonText && data.buttonUrl
@@ -365,23 +392,26 @@ export function getNotificationTemplate(data: EmailTemplateData): string {
     ${data.footerText ? `<p>${data.footerText}</p>` : ""}
   `;
 
-  return getBaseTemplate(content);
+  return await getBaseTemplate(content, lang);
 }
 
 /**
  * Get email template based on type
  */
-export function getEmailTemplate(options: EmailTemplateOptions): string {
+export async function getEmailTemplate(
+  options: EmailTemplateOptions,
+  lang: string = "en"
+): Promise<string> {
   switch (options.template) {
     case "welcome":
-      return getWelcomeTemplate(options.data);
+      return await getWelcomeTemplate(options.data, lang);
     case "verification":
-      return getVerificationTemplate(options.data);
+      return await getVerificationTemplate(options.data, lang);
     case "reset":
-      return getResetPasswordTemplate(options.data);
+      return await getResetPasswordTemplate(options.data, lang);
     case "notification":
-      return getNotificationTemplate(options.data);
+      return await getNotificationTemplate(options.data, lang);
     default:
-      return getNotificationTemplate(options.data);
+      return await getNotificationTemplate(options.data, lang);
   }
 }

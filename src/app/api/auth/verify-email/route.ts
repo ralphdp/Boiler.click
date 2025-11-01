@@ -1,16 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { verifyToken } from "@/lib/auth/tokens";
+import { getTranslations, getTranslationValue } from "@/lib/utils";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
 
 const prisma = new PrismaClient();
 
-async function verifyEmailToken(token: string | null) {
+async function verifyEmailToken(token: string | null, lang: string = "en") {
+  const messages = await getTranslations(lang);
+
   if (!token) {
     return NextResponse.json(
-      { error: "Verification token is required" },
+      {
+        error: getTranslationValue(
+          messages,
+          "api.errors.verificationTokenRequired"
+        ),
+      },
       { status: 400 }
     );
   }
@@ -19,7 +27,12 @@ async function verifyEmailToken(token: string | null) {
   const tokenPayload = verifyToken(token, "verification");
   if (!tokenPayload) {
     return NextResponse.json(
-      { error: "Invalid or expired verification token" },
+      {
+        error: getTranslationValue(
+          messages,
+          "api.errors.invalidOrExpiredToken"
+        ),
+      },
       { status: 400 }
     );
   }
@@ -30,7 +43,10 @@ async function verifyEmailToken(token: string | null) {
   });
 
   if (!user) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+    return NextResponse.json(
+      { error: getTranslationValue(messages, "api.errors.userNotFound") },
+      { status: 404 }
+    );
   }
 
   // Check if token is still valid in database
@@ -40,7 +56,12 @@ async function verifyEmailToken(token: string | null) {
     user.verificationTokenExpiry < new Date()
   ) {
     return NextResponse.json(
-      { error: "Verification token has expired" },
+      {
+        error: getTranslationValue(
+          messages,
+          "api.errors.verificationTokenExpired"
+        ),
+      },
       { status: 400 }
     );
   }
@@ -56,7 +77,12 @@ async function verifyEmailToken(token: string | null) {
   });
 
   return NextResponse.json(
-    { message: "Email verified successfully" },
+    {
+      message: getTranslationValue(
+        messages,
+        "api.errors.emailVerifiedSuccessfully"
+      ),
+    },
     { status: 200 }
   );
 }
@@ -65,11 +91,17 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const token = searchParams.get("token");
-    return await verifyEmailToken(token);
+    const lang =
+      request.headers.get("accept-language")?.split(",")[0]?.split("-")[0] ||
+      "en";
+    return await verifyEmailToken(token, lang);
   } catch (error) {
     console.error("Email verification error:", error);
+    const messages = await getTranslations("en");
     return NextResponse.json(
-      { error: "Internal server error" },
+      {
+        error: getTranslationValue(messages, "api.errors.internalServerError"),
+      },
       { status: 500 }
     );
   }
@@ -79,11 +111,17 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { token } = body;
-    return await verifyEmailToken(token);
+    const lang =
+      request.headers.get("accept-language")?.split(",")[0]?.split("-")[0] ||
+      "en";
+    return await verifyEmailToken(token, lang);
   } catch (error) {
     console.error("Email verification error:", error);
+    const messages = await getTranslations("en");
     return NextResponse.json(
-      { error: "Internal server error" },
+      {
+        error: getTranslationValue(messages, "api.errors.internalServerError"),
+      },
       { status: 500 }
     );
   }

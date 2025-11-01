@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
+import { getTranslations, getTranslationValue } from "@/lib/utils";
 
 const prisma = new PrismaClient();
 const SALT_ROUNDS = 12;
@@ -43,43 +44,48 @@ export async function comparePassword(
 /**
  * Validates password strength and requirements.
  * @param password The password to validate.
+ * @param lang The language for error messages.
  * @returns A PasswordValidationResult object.
  */
-export function validatePassword(password: string): PasswordValidationResult {
+export async function validatePassword(
+  password: string,
+  lang: string = "en"
+): Promise<PasswordValidationResult> {
+  const messages = await getTranslations(lang);
   const errors: string[] = [];
   let score = 0;
 
   // Length
   if (password.length < 8) {
-    errors.push("Password must be at least 8 characters long");
+    errors.push(getTranslationValue(messages, "validation.password.minLength"));
   } else {
     score++;
   }
 
   // Uppercase
   if (!/[A-Z]/.test(password)) {
-    errors.push("Password must contain at least one uppercase letter");
+    errors.push(getTranslationValue(messages, "validation.password.uppercase"));
   } else {
     score++;
   }
 
   // Lowercase
   if (!/[a-z]/.test(password)) {
-    errors.push("Password must contain at least one lowercase letter");
+    errors.push(getTranslationValue(messages, "validation.password.lowercase"));
   } else {
     score++;
   }
 
   // Number
   if (!/[0-9]/.test(password)) {
-    errors.push("Password must contain at least one number");
+    errors.push(getTranslationValue(messages, "validation.password.number"));
   } else {
     score++;
   }
 
   // Special character
   if (!/[^A-Za-z0-9]/.test(password)) {
-    errors.push("Password must contain at least one special character");
+    errors.push(getTranslationValue(messages, "validation.password.special"));
   } else {
     score++;
   }
@@ -91,7 +97,7 @@ export function validatePassword(password: string): PasswordValidationResult {
     errors,
     strength: {
       score: Math.min(score, 4), // Max score of 4 for display purposes
-      label: getPasswordStrengthLabel(score),
+      label: await getPasswordStrengthLabel(score, lang),
     },
   };
 }
@@ -100,31 +106,61 @@ export function validatePassword(password: string): PasswordValidationResult {
  * Checks if two passwords match.
  * @param password The first password.
  * @param confirmPassword The second password.
+ * @param lang The language for error messages.
  * @returns A PasswordMatchValidationResult object.
  */
-export function checkPasswordMatch(
+export async function checkPasswordMatch(
   password: string,
-  confirmPassword: string
-): PasswordMatchValidationResult {
+  confirmPassword: string,
+  lang: string = "en"
+): Promise<PasswordMatchValidationResult> {
+  const messages = await getTranslations(lang);
   const isMatch = password === confirmPassword;
   return {
     isMatch,
-    error: isMatch ? "" : "Passwords do not match",
+    error: isMatch
+      ? ""
+      : getTranslationValue(messages, "validation.password.doNotMatch"),
   };
 }
 
 /**
  * Gets the human-readable label for password strength.
  * @param score The password strength score.
+ * @param lang The language for the label.
  * @returns The strength label.
  */
-export function getPasswordStrengthLabel(score: number): string {
-  if (score === 0) return "Very Weak";
-  if (score === 1) return "Weak";
-  if (score === 2) return "Medium";
-  if (score === 3) return "Strong";
-  if (score >= 4) return "Very Strong";
-  return "Very Weak";
+export async function getPasswordStrengthLabel(
+  score: number,
+  lang: string = "en"
+): Promise<string> {
+  const messages = await getTranslations(lang);
+
+  if (score === 0)
+    return getTranslationValue(messages, "auth.password.strength.veryWeak");
+  if (score === 1)
+    return getTranslationValue(messages, "auth.password.strength.weak");
+  if (score === 2)
+    return getTranslationValue(messages, "auth.password.strength.medium");
+  if (score === 3)
+    return getTranslationValue(messages, "auth.password.strength.strong");
+  if (score >= 4)
+    return getTranslationValue(messages, "auth.password.strength.veryStrong");
+  return getTranslationValue(messages, "auth.password.strength.veryWeak");
+}
+
+/**
+ * Gets the translation key for password strength.
+ * @param score The password strength score.
+ * @returns The translation key.
+ */
+export function getPasswordStrengthTranslationKey(score: number): string {
+  if (score === 0) return "auth.password.strength.veryWeak";
+  if (score === 1) return "auth.password.strength.weak";
+  if (score === 2) return "auth.password.strength.medium";
+  if (score === 3) return "auth.password.strength.strong";
+  if (score >= 4) return "auth.password.strength.veryStrong";
+  return "auth.password.strength.veryWeak";
 }
 
 /**
@@ -145,12 +181,15 @@ export function getPasswordStrengthColor(score: number): string {
  * Checks if a new password has been used previously by the user.
  * @param userId The ID of the user.
  * @param newPassword The new password to check.
+ * @param lang The language for error messages.
  * @returns An object with isReused flag and message.
  */
 export async function checkPasswordHistory(
   userId: string,
-  newPassword: string
+  newPassword: string,
+  lang: string = "en"
 ): Promise<{ isReused: boolean; message: string }> {
+  const messages = await getTranslations(lang);
   const history = await prisma.passwordHistory.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
@@ -161,8 +200,10 @@ export async function checkPasswordHistory(
     if (await comparePassword(newPassword, entry.passwordHash)) {
       return {
         isReused: true,
-        message:
-          "You cannot reuse a recently used password. Please choose a different password.",
+        message: getTranslationValue(
+          messages,
+          "validation.password.recentlyUsed"
+        ),
       };
     }
   }

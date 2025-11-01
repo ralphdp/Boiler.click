@@ -45,40 +45,40 @@ export default function RootLayout({
         {/* SEO Meta Tags */}
         <meta
           name="description"
-          content="Boiler.click - Full-Stack SaaS Boilerplate"
+          content="Boiler™ - Full-Stack SaaS Boilerplate"
         />
         <meta
           name="keywords"
           content="Next.js, SaaS, Boilerplate, TypeScript, Tailwind CSS"
         />
-        <meta name="author" content="Boiler.click" />
+        <meta name="author" content="Boiler™" />
         <meta name="robots" content="index, follow" />
 
         {/* Open Graph Meta Tags */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Boiler.click - Full-Stack SaaS Boilerplate"
+          content="Boiler™ - Full-Stack SaaS Boilerplate"
         />
         <meta
           property="og:description"
           content="A comprehensive, production-ready Next.js boilerplate for building modern SaaS applications."
         />
-        <meta property="og:url" content="https://boiler.click" />
-        <meta property="og:site_name" content="Boiler.click" />
+        <meta property="og:url" content="https://boiler™" />
+        <meta property="og:site_name" content="Boiler™" />
         <meta property="og:image" content="https://boiler.click/og-image.svg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta
           property="og:image:alt"
-          content="Boiler.click - Full-Stack SaaS Boilerplate"
+          content="Boiler™ - Full-Stack SaaS Boilerplate"
         />
 
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Boiler.click - Full-Stack SaaS Boilerplate"
+          content="Boiler™ - Full-Stack SaaS Boilerplate"
         />
         <meta
           name="twitter:description"
@@ -90,7 +90,7 @@ export default function RootLayout({
         />
         <meta
           name="twitter:image:alt"
-          content="Boiler.click - Full-Stack SaaS Boilerplate"
+          content="Boiler™ - Full-Stack SaaS Boilerplate"
         />
 
         {/* Canonical URL */}
@@ -143,7 +143,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Boiler.click",
+              name: "Boiler™",
               description: "Full-Stack SaaS Boilerplate",
               url: "https://boiler.click",
               potentialAction: {

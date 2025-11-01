@@ -1,10 +1,10 @@
 # API Documentation
 
-Complete API documentation for Boiler.click endpoints.
+Complete API documentation for Boiler™ endpoints.
 
 ## 🔗 API Overview
 
-Boiler.click provides a comprehensive REST API for authentication, account management, analytics, and more.
+Boiler™ provides a comprehensive REST API for authentication, account management, analytics, and more.
 
 ### Base URL
 

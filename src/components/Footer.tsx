@@ -58,7 +58,7 @@ export default function Footer() {
                     ? "text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200"
                     : "text-zinc-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
                 }`}
-                aria-label="View legal information"
+                aria-label={t("ui.components.footer.viewLegal")}
               >
                 {t("footer.legal")}
               </Link>
@@ -66,7 +66,7 @@ export default function Footer() {
               <Link
                 href="/sitemap.xml"
                 className="text-sm underline transition-all duration-300 text-zinc-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
-                aria-label="View sitemap"
+                aria-label={t("ui.components.footer.viewSitemap")}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -87,7 +87,7 @@ export default function Footer() {
                   </TooltipTrigger>
                   <TooltipContent>
                     <p className="text-xs">
-                      Build:{" "}
+                      {t("ui.components.footer.buildTime")}{" "}
                       {process.env.NEXT_PUBLIC_BUILD_TIME ||
                         new Date().toISOString()}
                     </p>

@@ -65,7 +65,7 @@ npm run build`;
         </Button>
       </div>
       <div className="bg-zinc-900 dark:bg-zinc-500/10 p-6 rounded-lg">
-        <ScrollArea className="h-48">
+        <ScrollArea className="h-[320px]">
           <pre className="text-sm text-left">
             <code className="block">
               <span className="text-zinc-400">
@@ -73,6 +73,13 @@ npm run build`;
               </span>
               <br />
               <span className="text-zinc-100">{getGitHubCloneCommand()}</span>
+              <br />
+              <br />
+              <span className="text-zinc-400">
+                # {t("homepage.quickStart.codeComments.cd")}
+              </span>
+              <br />
+              <span className="text-zinc-100">cd Boiler</span>
               <br />
               <br />
               <span className="text-zinc-400">
@@ -87,6 +94,13 @@ npm run build`;
               </span>
               <br />
               <span className="text-zinc-100">cp .env.example .env</span>
+              <br />
+              <br />
+              <span className="text-zinc-400">
+                # {t("homepage.quickStart.codeComments.setupEnv")}
+              </span>
+              <br />
+              <span className="text-zinc-100">npm run setup:env</span>
               <br />
               <br />
               <span className="text-zinc-400">

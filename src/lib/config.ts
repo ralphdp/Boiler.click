@@ -6,7 +6,7 @@ export const config = {
 
   // Site Configuration
   site: {
-    title: process.env.NEXT_PUBLIC_SITE_TITLE || "Boiler.click",
+    title: process.env.NEXT_PUBLIC_SITE_TITLE || "Boiler™",
     url:
       process.env.NODE_ENV === "production"
         ? process.env.NEXT_PUBLIC_PRODUCTION_SITE_URL || "https://boiler.click"

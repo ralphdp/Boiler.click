@@ -1,6 +1,6 @@
 # Development Guide
 
-Complete development guide for working with Boiler.click.
+Complete development guide for working with Boiler™.
 
 ## 🚀 Getting Started
 
@@ -94,10 +94,7 @@ src/
 │   └── articles.json       # Articles content
 ├── languages/              # Translation files
 │   ├── ar.json             # Arabic translations
-│   ├── en.json             # English translations
-│   ├── es.json             # Spanish translations
-│   ├── fr.json             # French translations
-│   └── jp.json             # Japanese translations
+│   └── en.json             # English translations
 ├── lib/                    # Utility libraries
 │   ├── analytics.ts        # Analytics and performance monitoring
 │   ├── auth/               # Authentication utilities

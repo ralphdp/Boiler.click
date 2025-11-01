@@ -40,11 +40,11 @@ export default function ResetPasswordPage() {
     // Validate token on component mount
     if (!token) {
       setTokenValid(false);
-      setErrors({ general: "Invalid reset link" });
+      setErrors({ general: t("auth.resetPassword.linkInvalidMessage") });
     } else {
       setTokenValid(true);
     }
-  }, [token]);
+  }, [token, t]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));

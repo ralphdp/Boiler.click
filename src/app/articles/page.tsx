@@ -82,31 +82,28 @@ export default function ArticlesPage() {
   return (
     <>
       <Head>
-        <title>Articles & Updates - Boiler.click</title>
+        <title>Articles & Updates - Boiler™</title>
         <meta
           name="description"
-          content="Stay updated with the latest developments, tutorials, and insights from the Boiler.click team. Learn about our development process, mission, and upcoming features."
+          content="Stay updated with the latest developments, tutorials, and insights from the Boiler™ team. Learn about our development process, mission, and upcoming features."
         />
         <meta
           name="keywords"
           content="articles, updates, development, boilerplate, SaaS, Next.js, React, TypeScript, tutorials, insights"
         />
-        <meta property="og:title" content="Articles & Updates - Boiler.click" />
+        <meta property="og:title" content="Articles & Updates - Boiler™" />
         <meta
           property="og:description"
-          content="Stay updated with the latest developments, tutorials, and insights from the Boiler.click team."
+          content="Stay updated with the latest developments, tutorials, and insights from the Boiler™ team."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://boiler.click/articles" />
         <meta property="og:image" content="https://boiler.click/og-image.svg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Articles & Updates - Boiler.click"
-        />
+        <meta name="twitter:title" content="Articles & Updates - Boiler™" />
         <meta
           name="twitter:description"
-          content="Stay updated with the latest developments, tutorials, and insights from the Boiler.click team."
+          content="Stay updated with the latest developments, tutorials, and insights from the Boiler™ team."
         />
         <meta
           name="twitter:image"
@@ -119,9 +116,9 @@ export default function ArticlesPage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebPage",
-              name: "Articles & Updates - Boiler.click",
+              name: "Articles & Updates - Boiler™",
               description:
-                "Stay updated with the latest developments, tutorials, and insights from the Boiler.click team.",
+                "Stay updated with the latest developments, tutorials, and insights from the Boiler™ team.",
               url: "https://boiler.click/articles",
               mainEntity: {
                 "@type": "ItemList",

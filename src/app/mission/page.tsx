@@ -68,14 +68,14 @@ export default function MissionPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center"
-                  aria-label="View Boiler.click on GitHub (opens in new tab)"
+                  aria-label="View Boiler™ on GitHub (opens in new tab)"
                 >
                   <Github className="h-4 w-4" />
                   {t("mission.githubButton")}
                 </a>
               </Button>
               <Button asChild variant="outline">
-                <Link href="/support" aria-label="Get support for Boiler.click">
+                <Link href="/support" aria-label="Get support for Boiler™;">
                   <HelpCircle className="h-4 w-4" />
                   {t("navigation.support")}
                 </Link>

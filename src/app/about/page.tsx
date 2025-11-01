@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { HeroBackground } from "@/components/HeroBackground";
 import { DarkOverlay } from "@/components/DarkOverlay";
+import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
 import {
   Shield,
   Search,
@@ -26,6 +27,38 @@ import { getGitHubUrl } from "@/lib/github";
 export default function AboutPage() {
   const { t } = useLanguage();
 
+  // Screenshots data with translations
+  const screenshots = [
+    {
+      id: "dashboard",
+      src: "/assets/uploads/example-screenshot-faq-page.png",
+      alt: t("about.screenshots.dashboard.alt"),
+      title: t("about.screenshots.dashboard.title"),
+      description: t("about.screenshots.dashboard.description"),
+    },
+    {
+      id: "auth",
+      src: "/assets/uploads/example-screenshot-faq-page.png",
+      alt: t("about.screenshots.auth.alt"),
+      title: t("about.screenshots.auth.title"),
+      description: t("about.screenshots.auth.description"),
+    },
+    {
+      id: "profile",
+      src: "/assets/uploads/example-screenshot-faq-page.png",
+      alt: t("about.screenshots.profile.alt"),
+      title: t("about.screenshots.profile.title"),
+      description: t("about.screenshots.profile.description"),
+    },
+    {
+      id: "admin",
+      src: "/assets/uploads/example-screenshot-faq-page.png",
+      alt: t("about.screenshots.admin.alt"),
+      title: t("about.screenshots.admin.title"),
+      description: t("about.screenshots.admin.description"),
+    },
+  ];
+
   return (
     <div className="min-h-screen font-sans dark:bg-gradient-to-br dark:from-gray-900 dark:to-black">
       {/* Animated Gradient Background */}
@@ -37,7 +70,7 @@ export default function AboutPage() {
       <main
         className="flex min-h-screen w-full max-w-4xl mx-auto flex-col items-center justify-center py-32 px-16 sm:items-start relative z-10"
         role="main"
-        aria-label="About page main content"
+        aria-label={t("about.mainContentAriaLabel")}
       >
         <div className="prose prose-lg dark:prose-invert max-w-none">
           <motion.div
@@ -47,10 +80,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <h1 className="text-4xl font-bold text-black dark:text-white mb-8">
-              {String(t("navigation.title")).split(".")[0]}
-              <span className="text-sm">
-                .{String(t("navigation.title")).split(".")[1]}
-              </span>
+              {t("navigation.title")}
             </h1>
           </motion.div>
 
@@ -64,11 +94,26 @@ export default function AboutPage() {
               {t("about.description")}
             </p>
 
+            {/* Screenshot Carousel Section */}
+            <motion.div
+              className="w-full mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+            >
+              <ScreenshotCarousel
+                screenshots={screenshots}
+                autoPlay={true}
+                autoPlayInterval={5000}
+                className="max-w-4xl mx-auto"
+              />
+            </motion.div>
+
             {/* Technology Labels */}
             <div
               className="flex flex-wrap gap-4 mb-2"
               role="list"
-              aria-label="Technologies used"
+              aria-label={t("about.technologiesAriaLabel")}
             >
               <Badge
                 variant="outline"
@@ -162,7 +207,7 @@ export default function AboutPage() {
                 <ul
                   className="space-y-4"
                   role="list"
-                  aria-label="Core features"
+                  aria-label={t("about.coreFeaturesAriaLabel")}
                 >
                   {(() => {
                     const points = t("about.coreFeatures.points");
@@ -192,7 +237,7 @@ export default function AboutPage() {
                 <ul
                   className="space-y-4"
                   role="list"
-                  aria-label="Developer experience features"
+                  aria-label={t("about.devExperienceAriaLabel")}
                 >
                   {(() => {
                     const points = t("about.devExperience.points");
@@ -221,7 +266,7 @@ export default function AboutPage() {
                 <ul
                   className="space-y-4"
                   role="list"
-                  aria-label="User experience features"
+                  aria-label={t("about.userExperienceAriaLabel")}
                 >
                   {(() => {
                     const points = t("about.userExperience.points");
@@ -261,7 +306,13 @@ export default function AboutPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 text-zinc-600 dark:text-zinc-400">
+                    <ul
+                      className="space-y-2 text-zinc-600 dark:text-zinc-400"
+                      role="list"
+                      aria-label={t(
+                        "about.securitySeo.security.featuresAriaLabel"
+                      )}
+                    >
                       {(() => {
                         const features = t(
                           "about.securitySeo.security.features"
@@ -269,25 +320,12 @@ export default function AboutPage() {
                         if (Array.isArray(features)) {
                           return features.map(
                             (feature: string, index: number) => (
-                              <li key={index}>• {feature}</li>
+                              <li key={index} role="listitem">
+                                • {feature}
+                              </li>
                             )
                           );
                         }
-                        // Fallback to hardcoded English features if translation fails
-                        const fallbackFeatures = [
-                          "* BotID built-in Vercel bot detection",
-                          "Content Security Policy headers",
-                          "Rate limiting with IP blocking",
-                          "Input validation with Zod",
-                          "Secure authentication flow",
-                          "XSS protection",
-                          "CSRF protection",
-                        ];
-                        return fallbackFeatures.map(
-                          (feature: string, index: number) => (
-                            <li key={index}>• {feature}</li>
-                          )
-                        );
                       })()}
                     </ul>
                   </CardContent>
@@ -300,30 +338,22 @@ export default function AboutPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 text-zinc-600 dark:text-zinc-400">
+                    <ul
+                      className="space-y-2 text-zinc-600 dark:text-zinc-400"
+                      role="list"
+                      aria-label={t("about.securitySeo.seo.featuresAriaLabel")}
+                    >
                       {(() => {
                         const features = t("about.securitySeo.seo.features");
                         if (Array.isArray(features)) {
                           return features.map(
                             (feature: string, index: number) => (
-                              <li key={index}>• {feature}</li>
+                              <li key={index} role="listitem">
+                                • {feature}
+                              </li>
                             )
                           );
                         }
-                        // Fallback to hardcoded English features if translation fails
-                        const fallbackFeatures = [
-                          "Meta tags optimization",
-                          "Open Graph & Twitter cards",
-                          "Sitemap generation",
-                          "Robots.txt configuration",
-                          "Structured data markup",
-                          "Performance optimization",
-                        ];
-                        return fallbackFeatures.map(
-                          (feature: string, index: number) => (
-                            <li key={index}>• {feature}</li>
-                          )
-                        );
                       })()}
                     </ul>
                   </CardContent>
@@ -345,32 +375,24 @@ export default function AboutPage() {
                 </p>
                 <Card>
                   <CardContent className="pt-6">
-                    <ul className="space-y-2 text-zinc-600 dark:text-zinc-400">
+                    <ul
+                      className="space-y-2 text-zinc-600 dark:text-zinc-400"
+                      role="list"
+                      aria-label={t(
+                        "about.securitySeo.botid.featuresAriaLabel"
+                      )}
+                    >
                       {(() => {
                         const features = t("about.securitySeo.botid.features");
                         if (Array.isArray(features)) {
                           return features.map(
                             (feature: string, index: number) => (
-                              <li key={index}>• {feature}</li>
+                              <li key={index} role="listitem">
+                                • {feature}
+                              </li>
                             )
                           );
                         }
-                        // Fallback to hardcoded English features if translation fails
-                        const fallbackBotIdFeatures = [
-                          "Automatic bot detection using machine learning",
-                          "No configuration or API keys required",
-                          "Real-time risk scoring and analysis",
-                          "Protection against automated attacks",
-                          "Seamless integration with Vercel platform",
-                          "Invisible to legitimate users",
-                          "Advanced behavioral analysis",
-                          "Automatic blocking of malicious traffic",
-                        ];
-                        return fallbackBotIdFeatures.map(
-                          (feature: string, index: number) => (
-                            <li key={index}>• {feature}</li>
-                          )
-                        );
                       })()}
                     </ul>
                   </CardContent>
@@ -459,7 +481,13 @@ export default function AboutPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+                    <ul
+                      className="space-y-2 text-gray-600 dark:text-gray-400"
+                      role="list"
+                      aria-label={t(
+                        "about.advancedFeatures.performance.featuresAriaLabel"
+                      )}
+                    >
                       {(() => {
                         const features = t(
                           "about.advancedFeatures.performance.features"
@@ -467,24 +495,12 @@ export default function AboutPage() {
                         if (Array.isArray(features)) {
                           return features.map(
                             (feature: string, index: number) => (
-                              <li key={index}>• {feature}</li>
+                              <li key={index} role="listitem">
+                                • {feature}
+                              </li>
                             )
                           );
                         }
-                        // Fallback to hardcoded English features if translation fails
-                        const fallbackFeatures = [
-                          "Next.js Image Optimization with WebP/AVIF",
-                          "Automatic code splitting and lazy loading",
-                          "Edge Runtime optimization for Vercel",
-                          "Built-in caching strategies",
-                          "Bundle size optimization",
-                          "Core Web Vitals optimization",
-                        ];
-                        return fallbackFeatures.map(
-                          (feature: string, index: number) => (
-                            <li key={index}>• {feature}</li>
-                          )
-                        );
                       })()}
                     </ul>
                   </CardContent>
@@ -497,7 +513,13 @@ export default function AboutPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+                    <ul
+                      className="space-y-2 text-gray-600 dark:text-gray-400"
+                      role="list"
+                      aria-label={t(
+                        "about.advancedFeatures.compliance.featuresAriaLabel"
+                      )}
+                    >
                       {(() => {
                         const features = t(
                           "about.advancedFeatures.compliance.features"
@@ -505,23 +527,12 @@ export default function AboutPage() {
                         if (Array.isArray(features)) {
                           return features.map(
                             (feature: string, index: number) => (
-                              <li key={index}>• {feature}</li>
+                              <li key={index} role="listitem">
+                                • {feature}
+                              </li>
                             )
                           );
                         }
-                        // Fallback to hardcoded English features if translation fails
-                        const fallbackFeatures = [
-                          "GDPR compliant cookie management",
-                          "SOC 2 Type 2 compliant hosting (Vercel)",
-                          "WCAG 2.1 AA accessibility standards",
-                          "Security headers and CSP implementation",
-                          "Data protection and privacy controls",
-                        ];
-                        return fallbackFeatures.map(
-                          (feature: string, index: number) => (
-                            <li key={index}>• {feature}</li>
-                          )
-                        );
                       })()}
                     </ul>
                   </CardContent>
@@ -529,14 +540,14 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <div role="group" aria-label="GitHub link">
+            <div role="group" aria-label={t("about.githubButtonAriaLabel")}>
               <Button asChild>
                 <a
                   href={getGitHubUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center"
-                  aria-label="View Boiler.click on GitHub (opens in new tab)"
+                  aria-label={t("about.githubButtonDetailedAriaLabel")}
                 >
                   <Github className="h-4 w-4" />
                   {t("about.githubButton")}

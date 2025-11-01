@@ -1,10 +1,10 @@
 # OAuth Provider Setup
 
-Complete guide for setting up OAuth providers with Boiler.click.
+Complete guide for setting up OAuth providers with Boiler™.
 
 ## 🔐 Supported OAuth Providers
 
-Boiler.click supports the following OAuth providers:
+Boiler™ supports the following OAuth providers:
 
 - **Google** - Google Cloud Console
 - **GitHub** - GitHub Developer Settings

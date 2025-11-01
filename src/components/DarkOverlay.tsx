@@ -11,7 +11,7 @@ export function DarkOverlay({
 }: DarkOverlayProps) {
   return (
     <div
-      className={`absolute inset-0 z-[1] dark:bg-black ${className}`}
+      className={`fixed inset-0 z-[1] dark:bg-black pointer-events-none ${className}`}
       style={{ opacity: `${opacity}%` }}
       aria-hidden="true"
     />

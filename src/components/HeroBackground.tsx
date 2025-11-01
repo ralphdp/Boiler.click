@@ -15,7 +15,7 @@ export function HeroBackground({
 }: HeroBackgroundProps) {
   return (
     <div
-      className={`fixed inset-0 z-0 overflow-hidden ${className}`}
+      className={`fixed inset-0 z-0 overflow-hidden pointer-events-none ${className}`}
       style={{
         opacity: `${opacity}%`,
       }}
@@ -24,7 +24,7 @@ export function HeroBackground({
     >
       {/* First animated gradient layer */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400"
+        className="fixed inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 pointer-events-none"
         animate={{
           background: [
             "linear-gradient(45deg, #8b5cf6, #ec4899, #3b82f6)",
@@ -44,7 +44,7 @@ export function HeroBackground({
 
       {/* Second animated gradient layer */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-l from-blue-400 via-green-400 to-purple-400"
+        className="fixed inset-0 bg-gradient-to-l from-blue-400 via-green-400 to-purple-400 pointer-events-none"
         animate={{
           background: [
             "linear-gradient(225deg, #3b82f6, #10b981, #8b5cf6)",

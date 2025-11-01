@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { getCurrentUser } from "@/lib/auth/session";
 import { profileUpdateSchema } from "@/lib/validation/auth";
+import { getTranslations, createTranslator } from "@/lib/utils";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
@@ -11,9 +12,17 @@ const prisma = new PrismaClient();
 export async function GET(request: NextRequest) {
   try {
     const user = await getCurrentUser(request);
+    const lang =
+      request.headers.get("accept-language")?.split(",")[0]?.split("-")[0] ||
+      "en";
+    const messages = await getTranslations(lang);
+    const t = createTranslator(messages);
 
     if (!user) {
-      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+      return NextResponse.json(
+        { error: t("auth.messages.notAuthenticated") },
+        { status: 401 }
+      );
     }
 
     // Get user profile from database
@@ -33,14 +42,19 @@ export async function GET(request: NextRequest) {
     });
 
     if (!userProfile) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: t("auth.messages.userNotFound") },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json({ user: userProfile }, { status: 200 });
   } catch (error) {
     console.error("Get profile error:", error);
+    const messages = await getTranslations("en");
+    const t = createTranslator(messages);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: t("auth.messages.internalServerError") },
       { status: 500 }
     );
   }
@@ -49,9 +63,17 @@ export async function GET(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const user = await getCurrentUser(request);
+    const lang =
+      request.headers.get("accept-language")?.split(",")[0]?.split("-")[0] ||
+      "en";
+    const messages = await getTranslations(lang);
+    const t = createTranslator(messages);
 
     if (!user) {
-      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+      return NextResponse.json(
+        { error: t("auth.messages.notAuthenticated") },
+        { status: 401 }
+      );
     }
 
     const body = await request.json();
@@ -61,7 +83,7 @@ export async function PUT(request: NextRequest) {
     if (!validationResult.success) {
       return NextResponse.json(
         {
-          error: "Validation failed",
+          error: t("auth.messages.validationFailed"),
           details: validationResult.error.errors,
         },
         { status: 400 }
@@ -78,7 +100,7 @@ export async function PUT(request: NextRequest) {
 
       if (existingUser) {
         return NextResponse.json(
-          { error: "Email is already taken" },
+          { error: t("auth.messages.emailAlreadyTaken") },
           { status: 409 }
         );
       }
@@ -110,15 +132,17 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json(
       {
-        message: "Profile updated successfully",
+        message: t("auth.messages.profileUpdatedSuccessfully"),
         user: updatedUser,
       },
       { status: 200 }
     );
   } catch (error) {
     console.error("Update profile error:", error);
+    const messages = await getTranslations("en");
+    const t = createTranslator(messages);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: t("auth.messages.internalServerError") },
       { status: 500 }
     );
   }

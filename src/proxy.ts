@@ -67,9 +67,30 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  return NextResponse.next();
+  // Add cache-busting headers for development
+  const response = NextResponse.next();
+
+  if (process.env.NODE_ENV === "development") {
+    // Disable caching but be less aggressive
+    response.headers.set(
+      "Cache-Control",
+      "no-cache, no-store, must-revalidate"
+    );
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
+  }
+
+  return response;
 }
 
 export const config = {
-  matcher: ["/account/:path*", "/admin/:path*", "/auth/:path*"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+  ],
 };

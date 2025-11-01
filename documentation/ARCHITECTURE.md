@@ -1,6 +1,6 @@
 # Architecture Overview
 
-Comprehensive overview of Boiler.click's architecture, design decisions, and technical implementation.
+Comprehensive overview of Boiler™'s architecture, design decisions, and technical implementation.
 
 ## 🏗️ System Architecture
 
@@ -214,10 +214,7 @@ interface LanguageContextType {
 ### Supported Languages
 
 - **English (en)** - Default
-- **Spanish (es)** - Complete translation
-- **French (fr)** - Complete translation
 - **Arabic (ar)** - Complete translation with RTL support
-- **Japanese (jp)** - Complete translation
 
 ### Translation Features
 

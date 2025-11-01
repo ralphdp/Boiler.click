@@ -27,7 +27,7 @@ export default function LegalPage() {
       <main
         className="flex min-h-screen w-full max-w-3xl mx-auto flex-col items-center justify-center py-32 px-16 sm:items-start relative z-10"
         role="main"
-        aria-label="Legal page main content"
+        aria-label={t("ui.ariaLabels.legalPageMainContent")}
       >
         <div className="prose prose-lg dark:prose-invert max-w-none">
           <motion.div
@@ -54,7 +54,7 @@ export default function LegalPage() {
             <div
               className="space-y-12"
               role="contentinfo"
-              aria-label="Legal policies"
+              aria-label={t("ui.ariaLabels.legalPolicies")}
             >
               {/* Privacy Policy */}
               <section aria-labelledby="privacy-policy">

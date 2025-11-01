@@ -78,10 +78,10 @@ export const emailService = {
    * @param firstName The recipient's first name.
    */
   sendWelcomeEmail: async (to: string, firstName: string) => {
-    const emailHtml = getEmailTemplate({
+    const emailHtml = await getEmailTemplate({
       template: "welcome",
       data: {
-        title: "Welcome to Boiler.click!",
+        title: "Welcome to Boiler™!",
         content: "",
         userName: firstName,
         buttonText: "Get Started",
@@ -91,7 +91,7 @@ export const emailService = {
 
     await sendEmail({
       to,
-      subject: "Welcome to Boiler.click!",
+      subject: "Welcome to Boiler™!",
       html: emailHtml,
     });
   },
@@ -107,7 +107,7 @@ export const emailService = {
     verificationLink: string,
     firstName?: string
   ) => {
-    const emailHtml = getEmailTemplate({
+    const emailHtml = await getEmailTemplate({
       template: "verification",
       data: {
         title: "Verify Your Email",
@@ -120,7 +120,7 @@ export const emailService = {
 
     await sendEmail({
       to,
-      subject: "Verify Your Email for Boiler.click",
+      subject: "Verify Your Email for Boiler™",
       html: emailHtml,
     });
   },
@@ -136,7 +136,7 @@ export const emailService = {
     resetLink: string,
     firstName?: string
   ) => {
-    const emailHtml = getEmailTemplate({
+    const emailHtml = await getEmailTemplate({
       template: "reset",
       data: {
         title: "Reset Your Password",
@@ -149,7 +149,7 @@ export const emailService = {
 
     await sendEmail({
       to,
-      subject: "Reset Your Boiler.click Password",
+      subject: "Reset Your Boiler™ Password",
       html: emailHtml,
     });
   },
@@ -165,11 +165,42 @@ export const emailService = {
     subject: string,
     templateOptions: EmailTemplateOptions
   ) => {
-    const emailHtml = getEmailTemplate(templateOptions);
+    const emailHtml = await getEmailTemplate(templateOptions);
 
     await sendEmail({
       to,
       subject,
+      html: emailHtml,
+    });
+  },
+
+  /**
+   * Sends a 2FA code email.
+   * @param to The recipient's email address.
+   * @param code The 6-digit verification code.
+   * @param firstName The recipient's first name (optional).
+   */
+  send2FACodeEmail: async (to: string, code: string, firstName?: string) => {
+    const emailHtml = await getEmailTemplate({
+      template: "notification",
+      data: {
+        title: "Your Security Code",
+        content: `
+          <p style="font-size: 16px; margin: 24px 0;">Use this code to complete your sign-in:</p>
+          <div style="text-align: center; margin: 32px 0;">
+            <div style="display: inline-block; background-color: #f3f4f6; padding: 16px 24px; border-radius: 8px; font-family: monospace; font-size: 32px; font-weight: 700; letter-spacing: 8px; color: #1f2937;">
+              ${code}
+            </div>
+          </div>
+          <p style="font-size: 14px; color: #6b7280;">This code will expire in 5 minutes. If you didn't request this code, please ignore this email.</p>
+        `,
+        userName: firstName,
+      },
+    });
+
+    await sendEmail({
+      to,
+      subject: "Your Boiler™ Security Code",
       html: emailHtml,
     });
   },

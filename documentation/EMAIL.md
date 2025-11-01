@@ -1,10 +1,10 @@
 # Email Setup Guide
 
-Complete guide for setting up email services with Boiler.click using Resend.
+Complete guide for setting up email services with Boiler™ using Resend.
 
 ## 📧 Email Service Overview
 
-Boiler.click uses **Resend** as the primary email service provider, offering:
+Boiler™ uses **Resend** as the primary email service provider, offering:
 
 - **High deliverability** rates
 - **Developer-friendly** API
@@ -46,7 +46,7 @@ RESEND_FROM_EMAIL="hi@boiler.click"
 
 ### Available Templates
 
-Boiler.click includes the following email templates:
+Boiler™ includes the following email templates:
 
 1. **Welcome Email** - Sent after user registration
 2. **Email Verification** - Sent for email verification
@@ -60,7 +60,7 @@ Email templates are located in `src/lib/email/templates.ts`:
 ```typescript
 export const emailTemplates = {
   welcome: {
-    subject: "Welcome to Boiler.click!",
+    subject: "Welcome to Boiler™!",
     html: `<!-- HTML template -->`,
     text: `<!-- Plain text template -->`,
   },
@@ -92,7 +92,7 @@ RESEND_API_KEY="re_your-resend-api-key-here"
 RESEND_FROM_EMAIL="hi@boiler.click"
 
 # Site Configuration (for email templates)
-NEXT_PUBLIC_SITE_TITLE="Boiler.click"
+NEXT_PUBLIC_SITE_TITLE="Boiler™"
 NEXT_PUBLIC_SITE_URL="https://boiler.click"
 NEXT_PUBLIC_SITE_EMAIL_SUPPORT="hi@boiler.click"
 ```

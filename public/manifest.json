@@ -1,6 +1,6 @@
 {
-  "name": "Boiler.click - Full-stack SaaS Boilerplate",
-  "short_name": "Boiler.click",
+  "name": "Boiler™ - Full-stack SaaS Boilerplate",
+  "short_name": "Boiler™",
   "description": "Next generation full-stack SaaS boilerplate. Powered with Next.js, Prisma, Shadcn, and other performant technologies.",
   "start_url": "/",
   "display": "standalone",
@@ -47,7 +47,7 @@
     {
       "name": "About",
       "short_name": "About",
-      "description": "Learn about Boiler.click",
+      "description": "Learn about Boiler™",
       "url": "/about",
       "icons": [
         {

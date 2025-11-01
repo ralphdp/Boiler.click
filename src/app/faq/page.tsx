@@ -120,7 +120,7 @@ export default function FAQPage() {
       <main
         className="flex min-h-screen w-full max-w-3xl mx-auto flex-col items-center justify-center py-32 px-16 sm:items-start relative z-10"
         role="main"
-        aria-label="FAQ page main content"
+        aria-label={t("ui.ariaLabels.faqPageMainContent")}
       >
         <div className="prose prose-lg dark:prose-invert max-w-none">
           <motion.div

@@ -209,7 +209,7 @@ export default function DocumentationPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center"
-                      aria-label="View Boiler.click on GitHub (opens in new tab)"
+                      aria-label="View Boiler™ on GitHub (opens in new tab)"
                     >
                       <Github className="h-4 w-4" />
                       {t("documentation.github.button")}

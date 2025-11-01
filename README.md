@@ -1,4 +1,4 @@
-# Boiler.click - Production-Ready Next.js Boilerplate
+# ™ - Production-Ready Next.js Boilerplate
 
 A comprehensive, production-ready Next.js boilerplate for building modern SaaS applications with internationalization, analytics, and performance monitoring.
 
@@ -6,8 +6,8 @@ A comprehensive, production-ready Next.js boilerplate for building modern SaaS a
 
 ```bash
 # Clone the repository
-git clone https://github.com/ralphdp/boiler-click.git
-cd boiler-click
+git clone https://github.com/ralphdp/Boiler.git
+cd Boiler
 
 # Install dependencies
 npm install
@@ -40,10 +40,18 @@ npm run dev
 ### 🔐 **Authentication & User Management**
 
 - **Authentication System** with email/password and OAuth (Google, GitHub, Discord, Facebook, Twitter)
+- **Two-Factor Authentication (2FA)** with Email OTP and TOTP (Authenticator App) support
+  - QR code generation for authenticator apps
+  - Email-based verification codes
+  - Backup codes with download and regeneration
+  - Secure 2FA flow during login
+  - Redis-backed OTP storage for serverless environments
+- **Account Linking** with ability to connect multiple OAuth providers
 - **Account Management** with profile, settings, and password management pages
 - **Email Verification** with JWT tokens and resend functionality
 - **Password Reset** with secure token generation and expiry
 - **Remember Me** functionality with configurable session expiry
+- **GDPR-Compliant Data Export** with complete user data export functionality
 
 ### 🎨 **User Interface & Experience**
 
@@ -71,13 +79,15 @@ npm run dev
 ### 🔗 **Integrations**
 
 - **GitHub Integration** with dynamic repository links
+- **Redis Integration** for caching and session management
+- **Resend Email API** for transactional emails
 
 ## 🌐 Multi-language Support
 
 - **English (en)** - Default language
+- **Arabic (ar)** - Complete translation
 - **Spanish (es)** - Complete translation
 - **French (fr)** - Complete translation
-- **Arabic (ar)** - Complete translation
 - **Japanese (jp)** - Complete translation
 
 ## 📚 Documentation
@@ -88,6 +98,7 @@ npm run dev
 - **[Development Guide](documentation/DEVELOPMENT.md)** - Development workflow and scripts
 - **[API Documentation](documentation/API.md)** - API endpoints and usage
 - **[Architecture Overview](documentation/ARCHITECTURE.md)** - Project structure and design decisions
+- **[SOC 2 Readiness Checklist](documentation/SOC2_READINESS.md)** - Comprehensive SOC 2 Type II compliance assessment and roadmap
 - **[Changelog](documentation/CHANGELOG.md)** - Version history and updates
 
 ## 🛠️ Tech Stack
@@ -97,21 +108,23 @@ npm run dev
 - **Styling**: Tailwind CSS with custom design system
 - **Components**: Shadcn/ui component library
 - **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: Passport.js (planned)
+- **Authentication**: Email/Password + OAuth (Google, GitHub, Discord, Facebook, Twitter)
+- **Two-Factor Auth**: Email OTP + TOTP (Authenticator App)
 - **Animations**: Framer Motion
 - **Code Quality**: ESLint + Prettier
 - **Deployment**: Vercel-optimized
 
 ## 🚀 Deployment
 
-Boiler.click is optimized for Vercel deployment with zero configuration required.
+Boiler™ is optimized for Vercel deployment with zero configuration required.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ralphdp/boiler-click)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ralphdp/Boiler)
 
 ## 📋 Prerequisites
 
 - Node.js 18+
 - PostgreSQL (local or cloud)
+- Redis (optional, for production caching)
 - Git
 
 ## 🤝 Contributing
@@ -128,7 +141,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **GitHub Issues**: [Create an issue](https://github.com/ralphdp/boiler-click/issues)
+- **GitHub Issues**: [Create an issue](https://github.com/ralphdp/boiler/issues)
 - **Email**: [hi@boiler.click](mailto:hi@boiler.click)
 - **Documentation**: [Complete Setup Guide](documentation/SETUP.md)
 
@@ -145,4 +158,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## Built with ❤️ by the Boiler.click team
+## Built with ❤️ by the Boiler™ team

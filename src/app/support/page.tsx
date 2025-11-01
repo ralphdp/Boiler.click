@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Github, Mail } from "lucide-react";
 import { getGitHubUrl } from "@/lib/github";
+import { HeroBackground } from "@/components/HeroBackground";
+import { DarkOverlay } from "@/components/DarkOverlay";
 
 export default function SupportPage() {
   const { t } = useLanguage();
@@ -20,6 +22,11 @@ export default function SupportPage() {
       className="min-h-screen font-sans dark:bg-gradient-to-br dark:from-gray-900 dark:to-black"
       role="main"
     >
+      {/* Animated Gradient Background */}
+      <HeroBackground />
+
+      {/* Dark Overlay */}
+      <DarkOverlay />
       <Navigation />
       <main
         className="flex min-h-screen w-full max-w-3xl mx-auto flex-col items-center justify-center py-32 px-16 sm:items-start relative z-10"

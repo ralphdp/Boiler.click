@@ -4,6 +4,7 @@ import { useState } from "react";
 import { getAllSteps } from "@/lib/documentation-steps";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Sheet,
   SheetContent,
@@ -20,6 +21,7 @@ export function DocumentationSidebar({
   currentStepNumber,
 }: DocumentationSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
   const allSteps = getAllSteps();
 
   const SidebarContent = () => (
@@ -37,12 +39,12 @@ export function DocumentationSidebar({
               clipRule="evenodd"
             />
           </svg>
-          Back to Main Site
+          {t("documentation.sidebar.backToMainSite")}
         </a>
       </div>
 
       <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-        Documentation Steps
+        {t("documentation.sidebar.stepsTitle")}
       </h2>
       <nav className="space-y-2">
         {allSteps.map((step) => (
@@ -91,12 +93,12 @@ export function DocumentationSidebar({
               className="fixed top-4 left-4 z-50 lg:hidden"
             >
               <Menu className="w-4 h-4" />
-              <span className="ml-2">Steps</span>
+              <span className="ml-2">{t("documentation.sidebar.steps")}</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-72 md:w-80 p-0">
             <SheetHeader className="p-6 pb-0">
-              <SheetTitle>Documentation Steps</SheetTitle>
+              <SheetTitle>{t("documentation.sidebar.stepsTitle")}</SheetTitle>
             </SheetHeader>
             <div className="flex-1 overflow-y-auto">
               <SidebarContent />

@@ -165,7 +165,7 @@ export default function TechnologyShowcase() {
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-          aria-label="Close technology showcase"
+          aria-label={t("ui.ariaLabels.closeTechnologyShowcase")}
         >
           <X className="h-4 w-4 text-gray-500 dark:text-gray-400" />
         </button>

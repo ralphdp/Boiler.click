@@ -4,7 +4,7 @@ import { getEmailTemplate, EmailTemplateOptions } from "./templates";
  * Email preview utility for development
  * This allows you to preview email templates in the browser
  */
-export function previewEmailTemplate(
+export async function previewEmailTemplate(
   template: "welcome" | "verification" | "reset" | "notification",
   data: any
 ) {
@@ -20,30 +20,30 @@ export function previewEmailTemplate(
     },
   };
 
-  return getEmailTemplate(options);
+  return await getEmailTemplate(options);
 }
 
 /**
  * Generate preview HTML for all email templates
  */
-export function generateEmailPreviews() {
+export async function generateEmailPreviews() {
   const previews = {
-    welcome: previewEmailTemplate("welcome", {
+    welcome: await previewEmailTemplate("welcome", {
       userName: "John Doe",
       buttonText: "Get Started",
       buttonUrl: "https://boiler.click",
     }),
-    verification: previewEmailTemplate("verification", {
+    verification: await previewEmailTemplate("verification", {
       userName: "John Doe",
       buttonText: "Verify Email",
       buttonUrl: "https://boiler.click/verify-email?token=abc123",
     }),
-    reset: previewEmailTemplate("reset", {
+    reset: await previewEmailTemplate("reset", {
       userName: "John Doe",
       buttonText: "Reset Password",
       buttonUrl: "https://boiler.click/reset-password?token=abc123",
     }),
-    notification: previewEmailTemplate("notification", {
+    notification: await previewEmailTemplate("notification", {
       title: "Account Update",
       content:
         "Your account has been updated successfully. Here are the changes that were made.",

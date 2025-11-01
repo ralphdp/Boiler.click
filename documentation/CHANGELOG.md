@@ -5,6 +5,118 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Two-Factor Authentication (2FA)**: Implemented comprehensive 2FA system with support for Email and TOTP (Authenticator App) methods
+  - TOTP setup with QR code generation and manual secret display
+  - Email-based OTP verification with automatic code sending
+  - Backup codes generation and download functionality
+  - Regenerate backup codes feature for enhanced security
+  - 2FA requirement during login flow with proper code verification
+  - Redis-backed OTP storage for serverless environments with in-memory fallback
+  - Secure session handling during 2FA challenge
+- **Redis Integration**: Added comprehensive Redis support for caching and session management
+  - Redis client initialization with automatic reconnection
+  - In-memory fallback for development environments
+  - OTP code storage with automatic expiry
+  - Temporary login session management for 2FA flows
+- **Backup Codes Management**: Created complete backup codes system
+  - Automatic generation of 8 backup codes during 2FA setup
+  - Copy individual code functionality
+  - Download all codes as .txt file
+  - Regenerate codes with old code invalidation
+  - Modal display with security warnings
+- **2FA Login Flow**: Integrated 2FA into authentication system
+  - Temporary session generation for 2FA challenge
+  - Email OTP auto-sending during login
+  - Backup code support during login
+  - Proper session establishment after verification
+- **OAuth Account Linking**: Added ability to link OAuth accounts to existing email/password accounts
+  - Account linking from settings page
+  - Connected accounts display with provider information
+  - Unlink functionality with proper validation
+  - Provider filtering based on environment configuration
+  - Security enforcement preventing auto-linking conflicts
+- **Data Export Functionality**: Implemented GDPR-compliant data export
+  - Complete user data export in JSON format
+  - Includes accounts, sessions, profile information
+  - Proper character encoding handling
+  - Download with timestamped filename
+- **OAuth Security Enhancements**: Improved OAuth flow security
+  - Prevention of auto-linking OAuth to existing email/password accounts
+  - Proper error messaging for OAuth conflicts
+  - Redirect handling for security flow
+  - Translation support for error messages
+- **Translation Infrastructure**: Enhanced internationalization support
+  - Comprehensive translation coverage for 2FA features
+  - OAuth error message translations
+  - Data export translations
+  - Account management translations
+  - Connected accounts translations
+- **Validation Schema Updates**: Updated validation schemas
+  - Translation-aware error messages in Zod schemas
+  - Dynamic translation loading for validation errors
+  - Server-side and client-side translation support
+
+### Changed
+
+- **Authentication Flow**: Enhanced login flow to support 2FA challenges
+  - Password verification before 2FA challenge
+  - Temporary session storage for pending logins
+  - Proper error handling during verification
+  - Session establishment after successful 2FA
+- **Account Settings Page**: Expanded settings functionality
+  - Added 2FA enable/disable controls
+  - Backup codes regeneration button
+  - Connected accounts management
+  - Data export button
+  - Improved visual hierarchy
+- **API Route Structure**: Organized authentication routes
+  - Separated 2FA setup and verification endpoints
+  - Backup codes management endpoint
+  - Regenerate codes endpoint
+  - Proper error handling across all routes
+- **Database Schema**: Extended User model
+  - Added `twoFactorEnabled` boolean field
+  - Added `twoFactorMethod` for "email" or "totp"
+  - Added `totpSecret` for TOTP configuration
+  - Created `BackupCode` model with relationships
+- **Email System**: Enhanced email capabilities
+  - 2FA code email template
+  - Improved template rendering
+  - Proper async/await handling
+  - UTF-8 character support
+- **Component Architecture**: Improved component structure
+  - Created reusable TwoFactorSetupModal component
+  - Backup codes display modal
+  - Connected accounts component
+  - Proper state management
+
+### Fixed
+
+- **OTP Storage**: Fixed in-memory OTP storage issues
+  - Resolved serverless environment OTP persistence
+  - Implemented Redis-backed storage with fallback
+  - Proper async function handling
+- **Email Template Rendering**: Fixed Resend API errors
+  - Added proper async/await to template functions
+  - Corrected HTML string handling
+  - Resolved character encoding issues
+- **Translation Loading**: Fixed blank toast messages
+  - Proper loading state checks
+  - Race condition prevention
+  - Empty string handling during load
+- **Password Tab Display**: Fixed disappearing password tab
+  - Corrected conditional rendering logic
+  - Proper user state refresh after updates
+  - Stable function references
+- **Session Management**: Improved temporary session handling
+  - Proper expiry times
+  - Secure token generation
+  - Cleanup after use
+
 ## [1.0.0] - 2025-01-27
 
 ### Added
@@ -39,9 +151,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Article Status System**: Implemented comprehensive article status management with draft, review, and live states for content workflow control
 - **Homepage Hero Enhancement**: Added Eddie the Elephant image to homepage hero section with Next.js Image optimization, WebP format, and responsive loading states
 - **Advanced Features Documentation**: Added comprehensive documentation for RTL support, GDPR compliance, i18n, enhanced error handling, advanced performance optimizations, Accessibility-First Design, and SOC 2 compliance
+- **SOC 2 Readiness Checklist**: Created comprehensive SOC 2 Type II readiness assessment document with detailed compliance checklist covering Security, Availability, Processing Integrity, Confidentiality, and Privacy criteria, including implementation roadmap and gap analysis
 - **Building & Coding Patterns**: Added new documentation step covering essential building patterns including component architecture, custom hooks, error boundaries, compound components, render props, HOCs, and state management patterns
 - **Error Page System**: Implemented comprehensive error handling with universal ErrorDisplay component supporting 404, 403, 405, 429, 500, 503 errors with internationalization and theme controls
-- **Language File Optimization**: Renamed Japanese language file from ja.json to jp.json and updated all references throughout the codebase for consistency
 - **Prisma Accelerate Integration**: Implemented Prisma Accelerate for serverless-optimized database connections with @prisma/extension-accelerate integration
 - **Remember Me Functionality**: Added persistent login with configurable session expiry (1 day vs 7 days) based on user preference
 - **Account Management Pages**: Created comprehensive account management system with profile, settings, and password change pages under `/account` route
@@ -55,7 +167,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Postinstall Script**: Added `postinstall` script to automatically run `prisma generate --accelerate` on npm install
 - **Proxy Automation**: Updated proxy to automatically protect all `/account/*` and `/admin/*` routes without manual configuration
 - **Reusable Copyright Component**: Created modular Copyright component extracted from Footer for consistent copyright display across authentication pages
-- **Clickable Brand Links**: Made "Boiler.click" text clickable in authentication page subtitles, linking to homepage for better navigation
+- **Clickable Brand Links**: Made "Boiler™" text clickable in authentication page subtitles, linking to homepage for better navigation
 - **Multi-language Authentication Support**: Updated all language files (English, Spanish, French, Arabic, Japanese) to support split subtitle structure for clickable brand links
 - **Account Page Translation Fixes**: Added missing translation keys for account dashboard, profile, and settings pages across all 5 languages (English, Spanish, French, Arabic, Japanese)
 - **Profile Page Translation Updates**: Added missing translation keys for profile management including backToAccount, profileSettings, manageProfileInfo, profileInformation, and andPassword
@@ -66,7 +178,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Button Component Enhancement**: Added cursor pointer styling to all button components for better user experience
 - **Technology Showcase Translation**: Added category translations for technology showcase component supporting all 5 languages with proper internationalization
 - **Auth Routes Reorganization**: Consolidated all authentication pages under `/auth/*` path structure for better organization (login, register, forgot-password, reset-password, verify-email, resend-activation)
-- **Email Template Styling**: Updated email button text colors to ensure proper white text in both "Welcome to Boiler.click" and "Verify Your Email" templates
+- **Email Template Styling**: Updated email button text colors to ensure proper white text in both "Welcome to Boiler™" and "Verify Your Email" templates
 - **Database Configuration**: Updated database and Redis configuration to use separate local and remote environment variables for better environment management
   - `DATABASE_URL` → `DATABASE_LOCAL_URL` and `DATABASE_REMOTE_URL`
   - `REDIS_URL` → `REDIS_LOCAL_URL` and `REDIS_REMOTE_URL`
@@ -77,7 +189,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Article Content**: Updated article content to remove emoji usage, improve readability, and standardize formatting across all articles
 - **Image Management**: Moved and optimized image assets with proper Next.js Image component implementation and WebP format support
 - **Documentation Structure**: Consolidated and reorganized documentation steps for better user experience and logical flow
-- **Articles Description**: Updated articles description across all language files to reference "Boiler" instead of "SaaS development"
+- **Articles Description**: Updated articles description across all language files to reference "Boiler™" instead of "SaaS development"
 - **Documentation Responsive Design**: Fixed responsive issues on documentation pages preventing horizontal scrollbars and improving mobile/tablet experience
 - **Auth Routes Consolidation**: Consolidated all authentication pages under `/auth/*` path structure (login, register, forgot-password, reset-password, verify-email, resend-activation) for better organization
 - **Session Management**: Enhanced session management with dynamic expiry times based on "Remember Me" selection (1 day vs 7 days)

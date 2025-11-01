@@ -12,17 +12,19 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Eye, Mail, Download } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function EmailPreviewPage() {
+  const { t } = useLanguage();
   const [selectedTemplate, setSelectedTemplate] =
     useState<keyof ReturnType<typeof generateEmailPreviews>>("welcome");
   const previews = generateEmailPreviews();
 
   const templateNames = {
-    welcome: "Welcome Email",
-    verification: "Email Verification",
-    reset: "Password Reset",
-    notification: "General Notification",
+    welcome: t("emailPreview.templateNames.welcome"),
+    verification: t("emailPreview.templateNames.verification"),
+    reset: t("emailPreview.templateNames.reset"),
+    notification: t("emailPreview.templateNames.notification"),
   };
 
   const downloadHTML = () => {
@@ -43,11 +45,10 @@ export default function EmailPreviewPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Email Template Preview
+            {t("emailPreview.title")}
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Preview and test all email templates used in the authentication
-            system.
+            {t("emailPreview.description")}
           </p>
         </div>
 
@@ -58,9 +59,11 @@ export default function EmailPreviewPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Mail className="h-5 w-5" />
-                  Templates
+                  {t("emailPreview.templates")}
                 </CardTitle>
-                <CardDescription>Select a template to preview</CardDescription>
+                <CardDescription>
+                  {t("emailPreview.selectTemplate")}
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
                 {Object.entries(templateNames).map(([key, name]) => (
@@ -82,13 +85,13 @@ export default function EmailPreviewPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Download className="h-5 w-5" />
-                  Actions
+                  {t("emailPreview.actions")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <Button onClick={downloadHTML} className="w-full">
                   <Download className="h-4 w-4 mr-2" />
-                  Download HTML
+                  {t("emailPreview.downloadHtml")}
                 </Button>
               </CardContent>
             </Card>
@@ -105,7 +108,7 @@ export default function EmailPreviewPage() {
                       {templateNames[selectedTemplate]}
                     </CardTitle>
                     <CardDescription>
-                      Preview of the{" "}
+                      {t("emailPreview.previewOf")}{" "}
                       {templateNames[selectedTemplate].toLowerCase()}
                     </CardDescription>
                   </div>
@@ -129,37 +132,37 @@ export default function EmailPreviewPage() {
         <div className="mt-8">
           <Card>
             <CardHeader>
-              <CardTitle>Template Information</CardTitle>
+              <CardTitle>{t("emailPreview.templateInfo")}</CardTitle>
               <CardDescription>
-                Details about the selected email template
+                {t("emailPreview.templateDetails")}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Template Features
+                    {t("emailPreview.features")}
                   </h4>
                   <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                    <li>• Responsive design for all devices</li>
-                    <li>• Consistent branding and colors</li>
-                    <li>• Professional typography</li>
-                    <li>• Dark mode support</li>
-                    <li>• Social media links</li>
-                    <li>• Accessibility compliant</li>
+                    <li>• {t("emailPreview.featureList.responsive")}</li>
+                    <li>• {t("emailPreview.featureList.branding")}</li>
+                    <li>• {t("emailPreview.featureList.typography")}</li>
+                    <li>• {t("emailPreview.featureList.darkMode")}</li>
+                    <li>• {t("emailPreview.featureList.socialLinks")}</li>
+                    <li>• {t("emailPreview.featureList.accessibility")}</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Technical Details
+                    {t("emailPreview.technicalDetails")}
                   </h4>
                   <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                    <li>• HTML5 compliant</li>
-                    <li>• CSS3 styling</li>
-                    <li>• Email client compatibility</li>
-                    <li>• Mobile-first responsive</li>
-                    <li>• Inline CSS for compatibility</li>
-                    <li>• Fallback fonts included</li>
+                    <li>• {t("emailPreview.techList.html5")}</li>
+                    <li>• {t("emailPreview.techList.css3")}</li>
+                    <li>• {t("emailPreview.techList.emailClient")}</li>
+                    <li>• {t("emailPreview.techList.mobileFirst")}</li>
+                    <li>• {t("emailPreview.techList.inlineCss")}</li>
+                    <li>• {t("emailPreview.techList.fallbackFonts")}</li>
                   </ul>
                 </div>
               </div>

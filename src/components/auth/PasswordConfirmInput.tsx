@@ -6,12 +6,70 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
-  validatePassword,
-  getPasswordStrengthLabel,
   getPasswordStrengthColor,
-  checkPasswordMatch,
+  getPasswordStrengthTranslationKey,
 } from "@/lib/auth/password";
+
+// Synchronous password validation function
+function validatePasswordSync(password: string) {
+  const errors: string[] = [];
+  let score = 0;
+
+  // Length
+  if (password.length < 8) {
+    errors.push("Password must be at least 8 characters");
+  } else {
+    score++;
+  }
+
+  // Uppercase
+  if (!/[A-Z]/.test(password)) {
+    errors.push("Password must contain at least one uppercase letter");
+  } else {
+    score++;
+  }
+
+  // Lowercase
+  if (!/[a-z]/.test(password)) {
+    errors.push("Password must contain at least one lowercase letter");
+  } else {
+    score++;
+  }
+
+  // Number
+  if (!/[0-9]/.test(password)) {
+    errors.push("Password must contain at least one number");
+  } else {
+    score++;
+  }
+
+  // Special character
+  if (!/[^A-Za-z0-9]/.test(password)) {
+    errors.push("Password must contain at least one special character");
+  } else {
+    score++;
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+    strength: {
+      score: Math.min(score, 4),
+      label: "",
+    },
+  };
+}
+
+// Synchronous password match check
+function checkPasswordMatchSync(password: string, confirmPassword: string) {
+  const isMatch = password === confirmPassword;
+  return {
+    isMatch,
+    error: isMatch ? "" : "Passwords do not match",
+  };
+}
 
 interface PasswordConfirmInputProps {
   password: string;
@@ -36,13 +94,14 @@ export function PasswordConfirmInput({
   placeholder,
   confirmPlaceholder,
 }: PasswordConfirmInputProps) {
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const passwordId = useId();
   const confirmPasswordId = useId();
 
-  const validation = validatePassword(password);
-  const matchValidation = checkPasswordMatch(password, confirmPassword);
+  const validation = password ? validatePasswordSync(password) : null;
+  const matchValidation = password && confirmPassword ? checkPasswordMatchSync(password, confirmPassword) : null;
 
   const getStrengthIcon = () => {
     if (!validation) return null;
@@ -70,7 +129,8 @@ export function PasswordConfirmInput({
           htmlFor={passwordId}
           className="text-gray-700 dark:text-gray-300"
         >
-          Password {required && <span className="text-red-500">*</span>}
+          {t("auth.password.passwordLabel")}{" "}
+          {required && <span className="text-red-500">*</span>}
         </Label>
         <div className="relative">
           <Input
@@ -78,7 +138,7 @@ export function PasswordConfirmInput({
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => onPasswordChange(e.target.value)}
-            placeholder={placeholder || "Enter your password"}
+            placeholder={placeholder || t("auth.password.placeholder")}
             disabled={disabled}
             required={required}
             className={cn(
@@ -106,12 +166,14 @@ export function PasswordConfirmInput({
               <Eye className="h-4 w-4 text-gray-500" />
             )}
             <span className="sr-only">
-              {showPassword ? "Hide password" : "Show password"}
+              {showPassword
+                ? t("auth.password.hidePassword")
+                : t("auth.password.showPassword")}
             </span>
           </Button>
         </div>
 
-        {password.length > 0 && (
+        {password.length > 0 && validation && validation.strength && (
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
@@ -134,11 +196,13 @@ export function PasswordConfirmInput({
                 {getStrengthIcon()}
                 <span
                   className={cn(
-                    "text-sm font-medium",
+                    "text-sm font-medium whitespace-nowrap",
                     getPasswordStrengthColor(validation.strength.score)
                   )}
                 >
-                  {getPasswordStrengthLabel(validation.strength.score)}
+                  {t(
+                    getPasswordStrengthTranslationKey(validation.strength.score)
+                  )}
                 </span>
               </div>
             </div>
@@ -156,7 +220,7 @@ export function PasswordConfirmInput({
               {validation.isValid && (
                 <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
                   <CheckCircle className="h-3 w-3 flex-shrink-0" />
-                  <span>Password meets all requirements</span>
+                  <span>{t("auth.password.meetsRequirements")}</span>
                 </div>
               )}
             </div>
@@ -170,7 +234,8 @@ export function PasswordConfirmInput({
           htmlFor={confirmPasswordId}
           className="text-gray-700 dark:text-gray-300"
         >
-          Confirm Password {required && <span className="text-red-500">*</span>}
+          {t("auth.password.confirmPasswordLabel")}{" "}
+          {required && <span className="text-red-500">*</span>}
         </Label>
         <div className="relative">
           <Input
@@ -178,7 +243,9 @@ export function PasswordConfirmInput({
             type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => onConfirmPasswordChange(e.target.value)}
-            placeholder={confirmPlaceholder || "Confirm your password"}
+            placeholder={
+              confirmPlaceholder || t("auth.password.confirmPlaceholder")
+            }
             disabled={disabled}
             required={required}
             className={cn(
@@ -208,7 +275,9 @@ export function PasswordConfirmInput({
               <Eye className="h-4 w-4 text-gray-500" />
             )}
             <span className="sr-only">
-              {showConfirmPassword ? "Hide password" : "Show password"}
+              {showConfirmPassword
+                ? t("auth.password.hidePassword")
+                : t("auth.password.showPassword")}
             </span>
           </Button>
         </div>
@@ -225,7 +294,7 @@ export function PasswordConfirmInput({
               )}
             >
               {matchValidation.isMatch
-                ? "Passwords match"
+                ? t("auth.password.passwordsMatch")
                 : matchValidation.error}
             </span>
           </div>

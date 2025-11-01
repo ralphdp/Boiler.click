@@ -37,7 +37,7 @@ function useCurrentUrl() {
 
 export function FloatingSocialIcons({
   url,
-  title = "Boiler.click - Next generation full-stack SaaS boilerplate",
+  title = "Boiler™ - Next generation full-stack SaaS boilerplate",
   description = "Next generation full-stack SaaS boilerplate. Powered with Next.js, Prisma, Shadcn, and other performant technologies.",
   className = "",
 }: FloatingSocialIconsProps) {
@@ -158,7 +158,7 @@ export function FloatingSocialIcons({
 // Mobile version for smaller screens
 export function MobileSocialIcons({
   url,
-  title = "Boiler.click - Next generation full-stack SaaS boilerplate",
+  title = "Boiler™ - Next generation full-stack SaaS boilerplate",
   description = "Next generation full-stack SaaS boilerplate. Powered with Next.js, Prisma, Shadcn, and other performant technologies.",
   className = "",
 }: FloatingSocialIconsProps) {

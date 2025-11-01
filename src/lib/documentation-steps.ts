@@ -29,18 +29,18 @@ export const documentationSteps: DocumentationStep[] = [
     slug: "welcome",
     title: "Welcome",
     description:
-      "Get started with Boiler.click and understand what you're building",
+      "Get started with Boiler™ and understand what you're building",
     content: {
       sections: [
         {
-          title: "What is Boiler.click?",
+          title: "What is Boiler™?",
           content:
-            "Boiler.click is a comprehensive, production-ready Next.js boilerplate designed to accelerate your SaaS development. It's more than just a starter template – it's a complete foundation that includes everything you need to build, deploy, and scale modern web applications.",
+            "Boiler™ is a comprehensive, production-ready Next.js boilerplate designed to accelerate your SaaS development. It's more than just a starter template – it's a complete foundation that includes everything you need to build, deploy, and scale modern web applications.",
         },
         {
-          title: "Why Choose Boiler.click?",
+          title: "Why Choose Boiler™?",
           content:
-            "Built with enterprise-grade practices and modern development standards, Boiler.click eliminates the tedious setup process and lets you focus on building your unique features. Whether you're creating a SaaS platform, e-commerce site, or any web application, this boilerplate provides a solid, scalable foundation that grows with your project. The boilerplate is specifically optimized for Vercel deployment but works seamlessly with other hosting platforms. It includes built-in performance optimizations, security best practices, and developer experience enhancements that would typically take weeks to implement from scratch.",
+            "Built with enterprise-grade practices and modern development standards, Boiler™ eliminates the tedious setup process and lets you focus on building your unique features. Whether you're creating a SaaS platform, e-commerce site, or any web application, this boilerplate provides a solid, scalable foundation that grows with your project. The boilerplate is specifically optimized for Vercel deployment but works seamlessly with other hosting platforms. It includes built-in performance optimizations, security best practices, and developer experience enhancements that would typically take weeks to implement from scratch.",
         },
         {
           title: "What's Included",
@@ -80,7 +80,7 @@ export const documentationSteps: DocumentationStep[] = [
         {
           title: "Installation Steps",
           content:
-            "Follow these steps to get Boiler.click running on your machine:",
+            "Follow these steps to get Boiler™ running on your machine:",
           codeBlocks: [
             {
               language: "bash",

@@ -1,6 +1,51 @@
 import { z } from "zod";
+import { getTranslations, getTranslationValue } from "@/lib/utils";
 
-// Contact form validation schema
+// Function to get contact form messages based on language
+async function getContactFormMessages(lang: string = "en") {
+  const messages = await getTranslations(lang);
+  return {
+    nameRequired: getTranslationValue(messages, "validation.form.nameRequired"),
+    nameTooLong: getTranslationValue(messages, "validation.form.nameTooLong"),
+    invalidEmail: getTranslationValue(messages, "validation.form.invalidEmail"),
+    messageRequired: getTranslationValue(
+      messages,
+      "validation.form.messageRequired"
+    ),
+    messageTooLong: getTranslationValue(
+      messages,
+      "validation.form.messageTooLong"
+    ),
+  };
+}
+
+// Contact form validation schema with translations
+export async function getContactFormSchema(lang: string = "en") {
+  const messages = await getContactFormMessages(lang);
+
+  return z.object({
+    name: z
+      .string()
+      .min(1, messages.nameRequired)
+      .max(100, messages.nameTooLong),
+    email: z.string().email(messages.invalidEmail),
+    message: z
+      .string()
+      .min(1, messages.messageRequired)
+      .max(1000, messages.messageTooLong),
+  });
+}
+
+// Newsletter subscription schema with translations
+export async function getNewsletterSchema(lang: string = "en") {
+  const messages = await getContactFormMessages(lang);
+
+  return z.object({
+    email: z.string().email(messages.invalidEmail),
+  });
+}
+
+// Legacy schemas for backward compatibility (using English)
 export const contactFormSchema = z.object({
   name: z
     .string()
@@ -13,13 +58,12 @@ export const contactFormSchema = z.object({
     .max(1000, "Message must be less than 1000 characters"),
 });
 
-// Newsletter subscription schema
 export const newsletterSchema = z.object({
   email: z.string().email("Invalid email address"),
 });
 
 // Language validation schema
-export const languageSchema = z.enum(["en", "es", "fr", "jp"]);
+export const languageSchema = z.enum(["en", "ar"]);
 
 // Input sanitization function
 export const sanitizeInput = (input: string): string => {

@@ -1,10 +1,10 @@
 # Deployment Guide
 
-Complete deployment guide for Boiler.click to various hosting platforms.
+Complete deployment guide for Boiler™ to various hosting platforms.
 
 ## 🚀 Vercel Deployment (Recommended)
 
-Boiler.click is optimized for Vercel deployment with zero configuration required.
+Boiler™ is optimized for Vercel deployment with zero configuration required.
 
 ### Option 1: GitHub Integration (Recommended)
 
@@ -21,7 +21,7 @@ git add .
 git commit -m "Initial commit"
 
 # Add remote origin (replace with your GitHub repo)
-git remote add origin https://github.com/ralphdp/boiler-click.git
+git remote add origin https://github.com/ralphdp/Boiler.git
 
 # Create and push main branch
 git branch -M main
@@ -49,7 +49,7 @@ In Vercel dashboard, go to Project Settings → Environment Variables and add:
 
 ```bash
 # Site Configuration
-NEXT_PUBLIC_SITE_TITLE="Boiler.click"
+NEXT_PUBLIC_SITE_TITLE="Boiler™"
 NEXT_PUBLIC_SITE_URL="https://your-domain.vercel.app"
 NEXT_PUBLIC_SITE_EMAIL_SUPPORT="hi@boiler.click"
 NEXT_PUBLIC_SITE_PHYSICAL_ADDRESS="123 Oak St."
@@ -182,7 +182,7 @@ git add -A && git commit -m "Your commit message" && git push origin staging && 
 
 ### Netlify
 
-Boiler.click is compatible with Netlify deployment:
+Boiler™ is compatible with Netlify deployment:
 
 1. **Connect GitHub repository** to Netlify
 2. **Set build command**: `npm run build`
@@ -236,7 +236,7 @@ Set these in your hosting provider's dashboard:
 
 ```bash
 # Site Configuration
-NEXT_PUBLIC_SITE_TITLE="Boiler.click"
+NEXT_PUBLIC_SITE_TITLE="Boiler™"
 NEXT_PUBLIC_SITE_URL="https://your-domain.com"
 NEXT_PUBLIC_SITE_EMAIL_SUPPORT="hi@boiler.click"
 NEXT_PUBLIC_SITE_PHYSICAL_ADDRESS="123 Oak St."

@@ -71,7 +71,7 @@ export function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
                 onClick={handleCopyOutput}
                 className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-gray-400 hover:text-white hover:bg-gray-700 active:bg-gray-600 rounded-md transition-colors group touch-manipulation relative z-50"
                 title="Copy terminal output"
-                style={{ touchAction: 'manipulation' }}
+                style={{ touchAction: "manipulation" }}
               >
                 <Copy className="w-3 h-3 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform pointer-events-none" />
               </button>
@@ -79,7 +79,7 @@ export function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
                 onClick={onClose}
                 className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-gray-400 hover:text-white hover:bg-gray-700 active:bg-gray-600 rounded-md transition-colors group touch-manipulation relative z-50"
                 title="Close terminal"
-                style={{ touchAction: 'manipulation' }}
+                style={{ touchAction: "manipulation" }}
               >
                 <X className="w-3 h-3 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform pointer-events-none" />
               </button>

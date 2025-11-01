@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { HeroBackground } from "@/components/HeroBackground";
 import { DarkOverlay } from "@/components/DarkOverlay";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Command {
   path: string;
@@ -19,11 +20,11 @@ interface InteractiveTerminalProps {
 }
 
 // Available commands with their code
-const commands: Command[] = [
+const getCommands = (t: (key: string) => string): Command[] => [
   {
     path: "code:login:route",
-    description: "Login API route handler",
-    category: "API Routes",
+    description: t("terminal.routeHandler"),
+    category: t("terminal.categories.apiRoutes"),
     code: `// src/app/api/auth/login/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { loginSchema } from "@/lib/validation/auth";
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
     
     if (!validationResult.success) {
       return NextResponse.json(
-        { error: "Invalid input", details: validationResult.error.errors },
+        { error: "${t("terminal.invalidInput")}", details: validationResult.error.errors },
         { status: 400 }
       );
     }
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
     
     if (!user) {
       return NextResponse.json(
-        { error: "Invalid credentials" },
+        { error: "${t("terminal.invalidCredentials")}" },
         { status: 401 }
       );
     }
@@ -60,7 +61,7 @@ export async function POST(request: NextRequest) {
     // Check if email is verified
     if (!user.emailVerified) {
       return NextResponse.json(
-        { error: "Please verify your email before logging in" },
+        { error: "${t("terminal.codeSnippets.verifyEmail")}" },
         { status: 401 }
       );
     }
@@ -69,7 +70,7 @@ export async function POST(request: NextRequest) {
     const isValidPassword = await comparePassword(password, user.password);
     if (!isValidPassword) {
       return NextResponse.json(
-        { error: "Invalid credentials" },
+        { error: t("terminal.invalidCredentials") },
         { status: 401 }
       );
     }
@@ -78,7 +79,7 @@ export async function POST(request: NextRequest) {
     const session = await createSession(user.id);
     
     return NextResponse.json({
-      message: "Login successful",
+      message: t("api.errors.loginSuccessful"),
       user: {
         id: user.id,
         firstName: user.firstName,
@@ -89,7 +90,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "${t("terminal.codeSnippets.internalServerError")}" },
       { status: 500 }
     );
   }
@@ -97,8 +98,8 @@ export async function POST(request: NextRequest) {
   },
   {
     path: "code:components:button",
-    description: "Button component implementation",
-    category: "UI Components",
+    description: t("terminal.descriptions.buttonComponent"),
+    category: t("terminal.categories.uiComponents"),
     code: `// src/components/ui/button.tsx
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
@@ -155,8 +156,8 @@ export { Button, buttonVariants };`,
   },
   {
     path: "code:auth:context",
-    description: "Authentication context provider",
-    category: "Context Providers",
+    description: t("terminal.descriptions.authContext"),
+    category: t("terminal.categories.contextProviders"),
     code: `// src/contexts/AuthContext.tsx
 "use client";
 
@@ -250,8 +251,8 @@ export function useAuth() {
   },
   {
     path: "code:lib:prisma",
-    description: "Prisma database configuration",
-    category: "Database",
+    description: t("terminal.descriptions.prismaConfig"),
+    category: t("terminal.categories.database"),
     code: `// src/lib/prisma.ts
 import { PrismaClient } from "@prisma/client";
 
@@ -269,25 +270,25 @@ if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;`,
   },
   {
     path: "code:validation:auth",
-    description: "Authentication validation schemas",
-    category: "Validation",
+    description: t("terminal.descriptions.validationSchemas"),
+    category: t("terminal.categories.validation"),
     code: `// src/lib/validation/auth.ts
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  email: z.string().email("${t("terminal.codeSnippets.invalidEmail")}"),
+  password: z.string().min(6, "${t("terminal.codeSnippets.passwordMinLength")}"),
 });
 
 export const registerSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Invalid email address"),
+  firstName: z.string().min(1, "${t("terminal.codeSnippets.firstNameRequired")}"),
+  lastName: z.string().min(1, "${t("terminal.codeSnippets.lastNameRequired")}"),
+  email: z.string().email("${t("terminal.codeSnippets.invalidEmail")}"),
   telephone: z.string().optional(),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  password: z.string().min(8, "${t("terminal.codeSnippets.passwordMin8")}"),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
+  message: "${t("terminal.codeSnippets.passwordsDontMatch")}",
   path: ["confirmPassword"],
 });`,
   },
@@ -298,6 +299,8 @@ export function InteractiveTerminal({
   onClose,
   terminalRef: externalTerminalRef,
 }: InteractiveTerminalProps) {
+  const { t } = useLanguage();
+  const commands = getCommands(t);
   const [currentCommand, setCurrentCommand] = useState("");
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -414,29 +417,30 @@ export function InteractiveTerminal({
       if (trimmedCommand === "help") {
         setTerminalOutput((prev) => [
           ...prev,
-          "Interactive Code Terminal",
+          t("terminal.title"),
           "",
-          "Available commands:",
-          "  help        - Show this help message",
-          "  commands    - List all available code commands",
-          "  clear       - Clear terminal output",
-          "  exit        - Close the terminal",
-          "  code:path   - Show code for specific component/route",
+          t("terminal.availableCommands"),
+          `  help        - ${t("terminal.helpMessage")}`,
+          `  commands    - ${t("terminal.listCommands")}`,
+          `  clear       - ${t("terminal.clearOutput")}`,
+          `  clear-code  - ${t("terminal.clearCode")}`,
+          `  exit        - ${t("terminal.closeTerminal")}`,
+          `  code:path   - ${t("terminal.showCode")}`,
           "",
-          "Examples:",
+          t("terminal.examples"),
           "  code:login:route",
           "  code:components:button",
           "  code:auth:context",
           "",
-          "Use ↑/↓ arrows to navigate command history",
-          "Use Tab for autocomplete suggestions",
+          t("terminal.navigateHistory"),
+          t("terminal.autocomplete"),
         ]);
         return;
       }
 
       if (trimmedCommand === "commands") {
         const categories = [...new Set(commands.map((cmd) => cmd.category))];
-        const output = ["Available Commands:", ""];
+        const output = [t("terminal.availableCommandsTitle"), ""];
 
         categories.forEach((category) => {
           output.push(`${category}:`);
@@ -454,6 +458,15 @@ export function InteractiveTerminal({
 
       if (trimmedCommand === "clear") {
         setTerminalOutput([]);
+        setCurrentCode("");
+        setIsTyping(false);
+        return;
+      }
+
+      if (trimmedCommand === "clear-code") {
+        setCurrentCode("");
+        setIsTyping(false);
+        setTerminalOutput((prev) => [...prev, t("terminal.codeDisplayCleared")]);
         return;
       }
 
@@ -472,16 +485,13 @@ export function InteractiveTerminal({
           setCurrentCode(command.code);
           setIsTyping(true);
 
-          // Stop typing after a delay
-          setTimeout(() => {
-            setIsTyping(false);
-            setCurrentCode("");
-          }, 5000);
+          // Keep code visible - don't auto-hide
+          // Code will be replaced when user runs another code command
         } else {
           setTerminalOutput((prev) => [
             ...prev,
-            `Command not found: ${trimmedCommand}`,
-            "Type 'commands' to see available options",
+            `${t("terminal.commandNotFound")} ${trimmedCommand}`,
+            t("terminal.seeOptions"),
           ]);
         }
         return;
@@ -490,11 +500,11 @@ export function InteractiveTerminal({
       // Unknown command
       setTerminalOutput((prev) => [
         ...prev,
-        `Unknown command: ${trimmedCommand}`,
-        "Type 'help' for available commands",
+        `${t("terminal.unknownCommand")} ${trimmedCommand}`,
+        t("terminal.helpAvailable"),
       ]);
     },
-    [onClose]
+    [onClose, t]
   );
 
   // Handle key press
@@ -641,12 +651,10 @@ export function InteractiveTerminal({
               }}
             />
           )}
-          
+
           {/* Mobile typing indicator */}
           {currentCommand === "" && (
-            <span className="text-gray-500 text-sm ml-2">
-              Tap to type...
-            </span>
+            <span className="text-gray-500 text-sm ml-2">{t("terminal.tapToType")}</span>
           )}
 
           {/* Mobile Input Area - Visible input for mobile typing */}
@@ -707,7 +715,7 @@ export function InteractiveTerminal({
           {showSuggestions && suggestions.length > 0 && !isAnimating && (
             <div className="absolute top-8 left-0 right-0 sm:left-0 sm:right-auto sm:w-80 bg-gray-800/95 backdrop-blur-sm border border-gray-600 rounded-lg shadow-lg z-20 max-h-60 overflow-y-auto">
               <div className="p-2 border-b border-gray-700">
-                <span className="text-xs text-gray-400">Suggestions</span>
+                <span className="text-xs text-gray-400">{t("terminal.suggestions")}</span>
               </div>
               {suggestions.map((suggestion, index) => (
                 <div
@@ -728,7 +736,7 @@ export function InteractiveTerminal({
           {showHistory && commandHistory.length > 0 && !isAnimating && (
             <div className="absolute top-72 left-0 right-0 sm:left-0 sm:right-auto sm:w-80 bg-gray-800/95 backdrop-blur-sm border border-gray-600 rounded-lg shadow-lg z-20 max-h-60 overflow-y-auto">
               <div className="p-2 border-b border-gray-700">
-                <span className="text-xs text-gray-400">Command History</span>
+                <span className="text-xs text-gray-400">{t("terminal.commandHistory")}</span>
               </div>
               {commandHistory.map((command, index) => (
                 <div

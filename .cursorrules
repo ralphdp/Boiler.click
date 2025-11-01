@@ -1,4 +1,4 @@
-# Boiler.click - Production-Ready Next.js Boilerplate
+# Boiler™ - Production-Ready Next.js Boilerplate
 
 ## Project Overview
 
@@ -31,11 +31,11 @@ A comprehensive, production-ready boilerplate built with modern technologies. Pe
 
 ```
 src/
-├── app/                    # Next.js App Router pages
-│   ├── (routes)/          # Route groups
-│   ├── api/               # API routes
-│   └── globals.css        # Global styles
-├── components/            # Reusable UI components
+├── app/                  # Next.js App Router pages
+│   ├── (routes)/         # Route groups
+│   ├── api/              # API routes
+│   └── globals.css       # Global styles
+├── components/           # Reusable UI components
 │   ├── ui/               # Shadcn/ui components
 │   └── [feature].tsx     # Feature-specific components
 ├── contexts/             # React contexts

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface CodeSnippet {
   title: string;
@@ -9,41 +10,56 @@ interface CodeSnippet {
   code: string;
 }
 
-const codeSnippets: CodeSnippet[] = [
-  {
-    title: "API Route",
-    language: "typescript",
-    code: `// src/app/api/auth/login/route.ts
-import { NextResponse } from "next/server";
+interface CodeTypingProps {
+  currentSnippetIndex?: number;
+}
 
-export async function POST(
-  request: Request
-) {
-  const body = await request.json();
-  
-  // Validate credentials
-  const user = await authenticateUser(
-    body.email,
-    body.password
-  );
-  
-  if (!user) {
-    return NextResponse.json(
-      { error: "Invalid credentials" },
-      { status: 401 }
-    );
-  }
-  
-  return NextResponse.json({
-    message: "Login successful",
-    user: { id: user.id, email: user.email }
-  });
-}`,
-  },
-  {
-    title: "Prisma Schema",
-    language: "prisma",
-    code: `// prisma/schema.prisma
+export function CodeTyping({
+  currentSnippetIndex: propSnippetIndex = 0,
+}: CodeTypingProps) {
+  const { t } = useLanguage();
+
+  const getCodeSnippets = (t: (key: string) => string): CodeSnippet[] => [
+    {
+      title: t("documentation.codeSnippets.apiRoute"),
+      language: "typescript",
+      code:
+        "// src/app/api/auth/login/route.ts\n" +
+        'import { NextResponse } from "next/server";\n\n' +
+        "export async function POST(\n" +
+        "  request: Request\n" +
+        ") {\n" +
+        "  const body = await request.json();\n" +
+        "  \n" +
+        "  // " +
+        t("documentation.codeSnippets.comments.validateCredentials") +
+        "\n" +
+        "  const user = await authenticateUser(\n" +
+        "    body.email,\n" +
+        "    body.password\n" +
+        "  );\n" +
+        "  \n" +
+        "  if (!user) {\n" +
+        "    return NextResponse.json(\n" +
+        '      { error: "' +
+        t("terminal.invalidCredentials") +
+        '" },\n' +
+        "      { status: 401 }\n" +
+        "    );\n" +
+        "  }\n" +
+        "  \n" +
+        "  return NextResponse.json({\n" +
+        '    message: "' +
+        t("api.errors.loginSuccessful") +
+        '",\n' +
+        "    user: { id: user.id, email: user.email }\n" +
+        "  });\n" +
+        "}",
+    },
+    {
+      title: t("documentation.codeSnippets.prismaSchema"),
+      language: "prisma",
+      code: `// prisma/schema.prisma
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -61,11 +77,11 @@ enum Role {
   USER
   ADMIN
 }`,
-  },
-  {
-    title: "React Component",
-    language: "tsx",
-    code: `// src/components/Button.tsx
+    },
+    {
+      title: t("documentation.codeSnippets.reactComponent"),
+      language: "tsx",
+      code: `// src/components/Button.tsx
 "use client";
 
 import { ButtonHTMLAttributes } from "react";
@@ -96,11 +112,11 @@ export function Button({
     </button>
   );
 }`,
-  },
-  {
-    title: "Middleware",
-    language: "typescript",
-    code: `// src/middleware.ts
+    },
+    {
+      title: t("documentation.codeSnippets.middleware"),
+      language: "typescript",
+      code: `// src/middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -119,11 +135,11 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/protected/:path*"]
 };`,
-  },
-  {
-    title: "Server Action",
-    language: "typescript",
-    code: `// src/actions/user.ts
+    },
+    {
+      title: t("documentation.codeSnippets.serverAction"),
+      language: "typescript",
+      code: `// src/actions/user.ts
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -142,176 +158,90 @@ export async function updateUserProfile(
   
   return updatedUser;
 }`,
-  },
-];
+    },
+  ];
 
-// Syntax highlighting function
-const highlightCode = (code: string, language: string) => {
-  if (language === "typescript" || language === "tsx") {
-    return code
-      .split("\n")
-      .map((line) => {
-        // Skip empty lines
-        if (!line.trim()) return line;
+  const codeSnippets: CodeSnippet[] = useMemo(() => getCodeSnippets(t), [t]);
 
-        // Handle comments first
-        if (line.trim().startsWith("//")) {
-          return `<span class="text-gray-500 dark:text-gray-400">${line}</span>`;
-        }
-
-        // Handle strings (protect them first)
-        let processedLine = line;
-        const stringMatches: string[] = [];
-
-        processedLine = processedLine.replace(
-          /(['"`][^'"`]*['"`])/g,
-          (match) => {
-            const index = stringMatches.length;
-            stringMatches.push(match);
-            return `__STRING_${index}__`;
-          }
-        );
-
-        // Handle keywords
-        processedLine = processedLine.replace(
-          /\b(import|export|from|const|let|var|function|async|await|return|if|else|for|while|class|interface|type|extends|implements|public|private|protected|static|readonly|abstract|enum|namespace|module|declare|as|is|in|of|typeof|instanceof|new|this|super|void|null|undefined|true|false|break|continue|switch|case|default|try|catch|finally|throw|with|debugger)\b/g,
-          '<span class="text-blue-500 dark:text-blue-400">$1</span>'
-        );
-
-        // Handle numbers
-        processedLine = processedLine.replace(
-          /\b(\d+)\b/g,
-          '<span class="text-orange-500 dark:text-orange-400">$1</span>'
-        );
-
-        // Handle decorators
-        processedLine = processedLine.replace(
-          /@(\w+)/g,
-          '<span class="text-purple-500 dark:text-purple-400">@$1</span>'
-        );
-
-        // Restore strings
-        stringMatches.forEach((match, index) => {
-          processedLine = processedLine.replace(
-            `__STRING_${index}__`,
-            `<span class="text-green-500 dark:text-green-400">${match}</span>`
-          );
-        });
-
-        return processedLine;
-      })
-      .join("\n");
-  }
-
-  if (language === "prisma") {
-    return code
-      .split("\n")
-      .map((line) => {
-        // Skip empty lines
-        if (!line.trim()) return line;
-
-        // Handle comments first
-        if (line.trim().startsWith("//")) {
-          return `<span class="text-gray-500 dark:text-gray-400">${line}</span>`;
-        }
-
-        // Handle strings (protect them first)
-        let processedLine = line;
-        const stringMatches: string[] = [];
-
-        processedLine = processedLine.replace(
-          /(['"`][^'"`]*['"`])/g,
-          (match) => {
-            const index = stringMatches.length;
-            stringMatches.push(match);
-            return `__STRING_${index}__`;
-          }
-        );
-
-        // Handle keywords
-        processedLine = processedLine.replace(
-          /\b(model|enum|String|Int|Float|Boolean|DateTime|Json|Bytes|Decimal|BigInt|Unsupported|@id|@default|@unique|@map|@relation|@index|@@map|@@index|@@unique)\b/g,
-          '<span class="text-blue-500 dark:text-blue-400">$1</span>'
-        );
-
-        // Handle field names
-        processedLine = processedLine.replace(
-          /(\w+)(?=\s*:)/g,
-          '<span class="text-yellow-500 dark:text-yellow-400">$1</span>'
-        );
-
-        // Restore strings
-        stringMatches.forEach((match, index) => {
-          processedLine = processedLine.replace(
-            `__STRING_${index}__`,
-            `<span class="text-green-500 dark:text-green-400">${match}</span>`
-          );
-        });
-
-        return processedLine;
-      })
-      .join("\n");
-  }
-
-  return code;
-};
-
-export function CodeTyping() {
-  const [currentSnippetIndex, setCurrentSnippetIndex] = useState(0);
+  const [currentSnippetIndex, setCurrentSnippetIndex] =
+    useState(propSnippetIndex);
   const [displayedCode, setDisplayedCode] = useState("");
   const [isTyping, setIsTyping] = useState(true);
-  const [currentSnippet, setCurrentSnippet] = useState(codeSnippets[0]);
+  const [currentSnippet, setCurrentSnippet] = useState(
+    codeSnippets[propSnippetIndex]
+  );
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setCurrentSnippet(codeSnippets[currentSnippetIndex]);
     setDisplayedCode("");
     setIsTyping(true);
-  }, [currentSnippetIndex]);
+  }, [currentSnippetIndex, codeSnippets]);
+
+  // ${t("documentation.codeSnippets.comments.updateSnippetWhenPropChanges")}
+  useEffect(() => {
+    if (propSnippetIndex !== currentSnippetIndex) {
+      // ${t("documentation.codeSnippets.comments.clearExistingTimeout")}
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      setCurrentSnippetIndex(propSnippetIndex);
+      setDisplayedCode("");
+      setIsTyping(true);
+    }
+  }, [propSnippetIndex, currentSnippetIndex]);
 
   useEffect(() => {
     if (!isTyping) return;
 
-    const snippet = codeSnippets[currentSnippetIndex];
     let currentIndex = 0;
 
     const typingInterval = setInterval(() => {
-      if (currentIndex < snippet.code.length) {
-        setDisplayedCode(snippet.code.slice(0, currentIndex + 1));
+      if (currentIndex < currentSnippet.code.length) {
+        setDisplayedCode(currentSnippet.code.slice(0, currentIndex + 1));
         currentIndex++;
       } else {
         setIsTyping(false);
         clearInterval(typingInterval);
 
-        // Wait before switching to next snippet
-        setTimeout(() => {
+        // ${t("documentation.codeSnippets.comments.waitBeforeSwitching")}
+        timeoutRef.current = setTimeout(() => {
           setCurrentSnippetIndex((prev) => (prev + 1) % codeSnippets.length);
         }, 10000);
       }
     }, 10);
 
-    return () => clearInterval(typingInterval);
-  }, [currentSnippetIndex, isTyping]);
+    return () => {
+      clearInterval(typingInterval);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, [currentSnippetIndex, isTyping, currentSnippet, codeSnippets.length]);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="p-4"
+      className="p-16 w-full h-full flex items-center justify-start"
+      dir="ltr"
     >
-      <div className="flex border-l border-purple-300/40 dark:border-purple-300/40 pl-4">
+      <div className="flex w-full h-full border-l border-purple-300/40 dark:border-purple-300/40 pl-4 pr-4">
         {/* Line Numbers */}
-        <div className="text-sm font-mono leading-relaxed text-gray-400/30 dark:text-gray-300/30 pr-4 select-none w-12 text-left">
+        <div className="text-sm font-mono leading-relaxed text-gray-400/30 dark:text-gray-300/30 pr-4 select-none w-12 text-left flex-shrink-0">
           {displayedCode.split("\n").map((_, index) => (
             <div key={index}>{index + 1}</div>
           ))}
         </div>
 
         {/* Code Content */}
-        <pre className="text-sm font-mono leading-relaxed text-purple-800 dark:text-purple-100">
-          <code>
+        <pre className="text-sm font-mono leading-relaxed text-purple-800 dark:text-purple-100 text-left flex-1 overflow-x-auto w-full">
+          <code className="block w-full">
             {displayedCode.split("\n").map((line, index) => (
-              <span key={index}>
+              <span key={index} className="block w-full">
                 {line.trim().startsWith("//") ? (
                   <span className="text-gray-500 dark:text-gray-400">
                     {line}

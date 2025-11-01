@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -48,10 +48,10 @@ export default function ProfilePage() {
   const [isSaving, setIsSaving] = useState(false);
   const [activeTab, setActiveTab] = useState<"profile" | "password">("profile");
 
-  // Check if user has OAuth accounts (no password or only OAuth accounts)
+  // Check if user has OAuth accounts and password
   const hasOAuthAccounts = user && user.accounts && user.accounts.length > 0;
   const hasPassword = user && user.password && user.password.length > 0;
-  const shouldShowPasswordTab = hasPassword && !hasOAuthAccounts;
+  const shouldShowPasswordTab = hasPassword;
 
   const [profileData, setProfileData] = useState({
     firstName: "",
@@ -66,35 +66,35 @@ export default function ProfilePage() {
     confirmNewPassword: "",
   });
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch("/api/auth/me");
-        if (!response.ok) {
-          if (response.status === 401) {
-            router.push("/auth/login");
-            return;
-          }
-          throw new Error("Failed to fetch user data");
+  const fetchUser = useCallback(async () => {
+    try {
+      const response = await fetch("/api/auth/me");
+      if (!response.ok) {
+        if (response.status === 401) {
+          router.push("/auth/login");
+          return;
         }
-        const userData = await response.json();
-        setUser(userData.user);
-        setProfileData({
-          firstName: userData.user.firstName,
-          lastName: userData.user.lastName,
-          email: userData.user.email,
-          telephone: userData.user.telephone || "",
-        });
-      } catch (error) {
-        showError("Failed to load user data");
-        console.error("Error fetching user:", error);
-      } finally {
-        setIsLoading(false);
+        throw new Error("Failed to fetch user data");
       }
-    };
+      const userData = await response.json();
+      setUser(userData.user);
+      setProfileData({
+        firstName: userData.user.firstName,
+        lastName: userData.user.lastName,
+        email: userData.user.email,
+        telephone: userData.user.telephone || "",
+      });
+    } catch (error) {
+      showError(t("error.failedToLoadUserData"));
+      console.error("Error fetching user:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [router, showError, t]);
 
+  useEffect(() => {
     fetchUser();
-  }, [router]);
+  }, [fetchUser]);
 
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,12 +114,13 @@ export default function ProfilePage() {
       const data = await response.json();
 
       if (!response.ok) {
-        showError(data.error || t("account.profile.failedToUpdateProfile"));
+        showError(data.error || t("auth.account.profile.failedToUpdateProfile"));
         return;
       }
 
-      showSuccess(t("account.profile.successMessage"));
-      setUser(data.user);
+      showSuccess(t("auth.account.profile.successMessage"));
+      // Refetch full user data to preserve password and accounts
+      await fetchUser();
     } catch (error: unknown) {
       if (error && typeof error === "object" && "errors" in error) {
         showError(
@@ -128,7 +129,7 @@ export default function ProfilePage() {
             .join(", ")
         );
       } else {
-        showError(t("account.profile.failedToUpdateProfile"));
+        showError(t("auth.account.profile.failedToUpdateProfile"));
       }
     } finally {
       setIsSaving(false);
@@ -153,11 +154,11 @@ export default function ProfilePage() {
       const data = await response.json();
 
       if (!response.ok) {
-        showError(data.error || t("account.profile.failedToChangePassword"));
+        showError(data.error || t("auth.account.profile.failedToChangePassword"));
         return;
       }
 
-      showSuccess(t("account.settings.changePassword.successMessage"));
+      showSuccess(t("auth.account.profile.successMessage"));
       setPasswordData({
         currentPassword: "",
         newPassword: "",
@@ -171,7 +172,7 @@ export default function ProfilePage() {
             .join(", ")
         );
       } else {
-        showError(t("account.profile.failedToChangePassword"));
+        showError(t("auth.account.profile.failedToChangePassword"));
       }
     } finally {
       setIsSaving(false);
@@ -191,7 +192,7 @@ export default function ProfilePage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <Card className="w-full max-w-md">
           <CardContent className="pt-6">
-            <p className="text-red-600 dark:text-red-400">User not found</p>
+            <p className="text-red-600 dark:text-red-400">{t("error.userNotFound")}</p>
           </CardContent>
         </Card>
       </div>
@@ -220,14 +221,14 @@ export default function ProfilePage() {
                 className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:underline mb-4"
               >
                 <ArrowLeft className="h-4 w-4" />
-                {t("account.profile.backToAccount")}
+                {t("auth.account.profile.backToAccount")}
               </Link>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                {t("account.profile.profileSettings")}
+                {t("auth.account.profile.profileSettings")}
               </h1>
               <p className="mt-2 text-gray-600 dark:text-gray-400">
-                {t("account.profile.manageProfileInfo")}
-                {shouldShowPasswordTab ? t("account.profile.andPassword") : ""}
+                {t("auth.account.profile.manageProfileInfo")}
+                {shouldShowPasswordTab ? t("auth.account.profile.andPassword") : ""}
               </p>
             </div>
 
@@ -244,7 +245,7 @@ export default function ProfilePage() {
                     }`}
                   >
                     <User className="h-4 w-4 inline mr-2" />
-                    {t("account.profile.profileInformation")}
+                    {t("auth.account.profile.profileInformation")}
                   </button>
                   {shouldShowPasswordTab && (
                     <button
@@ -256,7 +257,7 @@ export default function ProfilePage() {
                       }`}
                     >
                       <Lock className="h-4 w-4 inline mr-2" />
-                      {t("account.settings.changePassword")}
+                      {t("auth.account.profile.changePassword")}
                     </button>
                   )}
                 </nav>
@@ -270,7 +271,7 @@ export default function ProfilePage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="firstName">
-                          {t("account.profile.firstName")} *
+                          {t("auth.account.profile.firstName")} *
                         </Label>
                         <Input
                           id="firstName"
@@ -288,7 +289,7 @@ export default function ProfilePage() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName">
-                          {t("account.profile.lastName")} *
+                          {t("auth.account.profile.lastName")} *
                         </Label>
                         <Input
                           id="lastName"
@@ -308,7 +309,7 @@ export default function ProfilePage() {
 
                     <div className="space-y-2">
                       <Label htmlFor="email">
-                        {t("account.profile.email")} *
+                        {t("auth.account.profile.email")} *
                       </Label>
                       <Input
                         id="email"
@@ -327,7 +328,7 @@ export default function ProfilePage() {
 
                     <div className="space-y-2">
                       <Label htmlFor="telephone">
-                        {t("account.profile.phoneNumber")}
+                        {t("auth.account.profile.phoneNumber")}
                       </Label>
                       <Input
                         id="telephone"
@@ -345,15 +346,15 @@ export default function ProfilePage() {
 
                     <Button type="submit" disabled={isSaving}>
                       {isSaving
-                        ? t("account.profile.saving")
-                        : t("account.profile.saveChanges")}
+                        ? t("auth.account.profile.saving")
+                        : t("auth.account.profile.saveChanges")}
                     </Button>
                   </form>
                 ) : shouldShowPasswordTab ? (
                   <form onSubmit={handlePasswordChange} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="currentPassword">
-                        {t("account.profile.currentPassword")} *
+                        {t("auth.account.profile.currentPassword")} *
                       </Label>
                       <PasswordInput
                         value={passwordData.currentPassword}
@@ -389,8 +390,8 @@ export default function ProfilePage() {
 
                     <Button type="submit" disabled={isSaving}>
                       {isSaving
-                        ? t("account.profile.changing")
-                        : t("account.profile.changePassword")}
+                        ? t("auth.account.profile.changing")
+                        : t("auth.account.profile.changePassword")}
                     </Button>
                   </form>
                 ) : null}

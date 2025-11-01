@@ -63,7 +63,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
   return (
     <>
       <Head>
-        <title>{article.title} - Boiler.click</title>
+        <title>{article.title} - Boiler™</title>
         <meta
           name="description"
           content={article.excerpt || article.description}

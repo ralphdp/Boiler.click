@@ -17,7 +17,8 @@ import {
 } from "@/components/ui/card";
 import { HeroBackground } from "@/components/HeroBackground";
 import { DarkOverlay } from "@/components/DarkOverlay";
-import { TerminalModal } from "@/components/TerminalModal";
+import { CodeTyping } from "@/components/auth/CodeTyping";
+import { CodeOptionsDropdown } from "@/components/CodeOptionsDropdown";
 import {
   TooltipProvider,
   Tooltip,
@@ -49,7 +50,30 @@ export default function RegisterPage() {
   const [success, setSuccess] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [hasImageError, setHasImageError] = useState(false);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [showCodeOptions, setShowCodeOptions] = useState(false);
+  const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (
+        showCodeOptions &&
+        !target.closest("[data-dropdown]") &&
+        !target.closest("[data-eddie]")
+      ) {
+        setShowCodeOptions(false);
+      }
+    };
+
+    if (showCodeOptions) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showCodeOptions]);
 
   // Scroll to top when page loads
   useEffect(() => {
@@ -193,59 +217,8 @@ export default function RegisterPage() {
         <ThemeToggle />
       </div>
 
-      {/* Eddie the Elephant - Bottom Right */}
-      <div className="fixed bottom-10 right-10 z-50">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div
-                className="relative w-64 h-64 lg:w-80 lg:h-80 cursor-pointer"
-                onClick={() => setIsTerminalOpen(true)}
-              >
-                {isImageLoading && !hasImageError && (
-                  <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg flex items-center justify-center">
-                    <div className="text-gray-400 text-sm">Loading...</div>
-                  </div>
-                )}
-                {hasImageError && (
-                  <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-                    <div className="text-gray-400 text-sm">
-                      Image unavailable
-                    </div>
-                  </div>
-                )}
-                <Image
-                  src="/assets/uploads/eddie-the-elephant.webp"
-                  alt="Eddie the Elephant - Boiler.click mascot"
-                  width={320}
-                  height={320}
-                  className={`object-contain w-full h-full transition-opacity duration-300 ${
-                    !isImageLoading ? "opacity-100" : "opacity-0"
-                  }`}
-                  priority
-                  quality={90}
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                  onLoad={() => {
-                    setIsImageLoading(false);
-                    console.log("Eddie image loaded successfully");
-                  }}
-                  onError={(e) => {
-                    setHasImageError(true);
-                    console.error("Eddie image failed to load:", e);
-                  }}
-                />
-              </div>
-            </TooltipTrigger>
-            <TooltipContent side="bottom" className="text-xs">
-              <p>Click me to open the terminal! 🖥️</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </div>
-
       {/* Left Side - Register Form */}
-      <div className="w-full lg:w-1/3 flex items-center justify-center p-8 bg-white dark:bg-gray-900 relative z-10 shadow-lg">
+      <div className="w-full lg:w-1/3 flex items-center justify-center p-8 bg-white dark:bg-gray-900 relative z-20 shadow-lg">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -263,7 +236,7 @@ export default function RegisterPage() {
                 href="/"
                 className="text-purple-600 dark:text-purple-400 hover:underline font-semibold"
               >
-                Boiler.click
+                Boiler™
               </Link>{" "}
               {t("auth.register.subtitleAfter")}
             </p>
@@ -437,58 +410,96 @@ export default function RegisterPage() {
         </motion.div>
       </div>
 
-      {/* Right Side - Animated Background */}
-      <div className="hidden lg:flex lg:w-2/3 relative overflow-hidden">
+      {/* Right Side - Animated Background with Code Typing */}
+      <div
+        className={`hidden lg:flex lg:w-2/3 fixed z-10 ${isRTL ? "left-0" : "right-0"} top-0 h-full overflow-hidden`}
+        dir="ltr"
+      >
         {/* Animated Gradient Background */}
         <div
           className="absolute inset-0 z-0 opacity-20 dark:opacity-30 overflow-hidden"
           aria-hidden="true"
         >
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400"
-            animate={{
-              background: [
-                "linear-gradient(45deg, #8b5cf6, #ec4899, #3b82f6)",
-                "linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899)",
-                "linear-gradient(225deg, #ec4899, #3b82f6, #8b5cf6)",
-                "linear-gradient(315deg, #8b5cf6, #ec4899, #3b82f6)",
-              ],
-              scale: [1, 1.1, 1],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-l from-blue-400 via-green-400 to-purple-400"
-            animate={{
-              background: [
-                "linear-gradient(225deg, #3b82f6, #10b981, #8b5cf6)",
-                "linear-gradient(315deg, #8b5cf6, #3b82f6, #10b981)",
-                "linear-gradient(45deg, #10b981, #8b5cf6, #3b82f6)",
-                "linear-gradient(135deg, #3b82f6, #10b981, #8b5cf6)",
-              ],
-              scale: [1.1, 1, 1.1],
-              opacity: [0.1, 0.4, 0.1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-          />
+          {/* Animated Gradient Background */}
+          <HeroBackground />
+
+          {/* Dark Overlay */}
+          <DarkOverlay />
+        </div>
+
+        {/* Code Typing Component - Shifted left to account for left column */}
+        <div className="relative z-10 w-full h-full">
+          <CodeTyping currentSnippetIndex={currentCodeIndex} />
+        </div>
+
+        {/* Eddie the Elephant - Positioned relative to right column - Visible on large screens */}
+        <div className={`absolute bottom-10 z-50 right-10`}>
+          <TooltipProvider>
+            <Tooltip open={true}>
+              <TooltipTrigger asChild>
+                <div
+                  className="relative w-64 h-64 lg:w-80 lg:h-80 cursor-pointer"
+                  onClick={() => setShowCodeOptions(!showCodeOptions)}
+                  data-eddie
+                >
+                  {isImageLoading && !hasImageError && (
+                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg flex items-center justify-center">
+                      <div className="text-gray-400 text-sm">
+                        {t("auth.messages.loading")}
+                      </div>
+                    </div>
+                  )}
+                  {hasImageError && (
+                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+                      <div className="text-gray-400 text-sm">
+                        {t("auth.messages.imageUnavailable")}
+                      </div>
+                    </div>
+                  )}
+                  <Image
+                    src="/assets/uploads/eddie-the-elephant.webp"
+                    alt="Eddie the Elephant - Boiler™ mascot"
+                    width={320}
+                    height={320}
+                    className={`object-contain w-full h-full transition-opacity duration-300 ${
+                      !isImageLoading ? "opacity-100" : "opacity-0"
+                    }`}
+                    priority
+                    quality={90}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    onLoad={() => {
+                      setIsImageLoading(false);
+                      console.log("Eddie image loaded successfully");
+                    }}
+                    onError={(e) => {
+                      setHasImageError(true);
+                      console.error("Eddie image failed to load:", e);
+                    }}
+                  />
+
+                  {/* Code Options Dropdown - Positioned relative to Eddie */}
+                  <CodeOptionsDropdown
+                    isOpen={showCodeOptions}
+                    currentCodeIndex={currentCodeIndex}
+                    onSelectCode={setCurrentCodeIndex}
+                    onClose={() => setShowCodeOptions(false)}
+                  />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="text-xs">
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      t("documentation.eddie.tooltip") ||
+                      "Hey! I'm Eddie 🐘 - I can show you<br />under the hood code snippets. Click me to<br />explore different code snippets!",
+                  }}
+                />
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
-
-      {/* Terminal Modal */}
-      <TerminalModal
-        isOpen={isTerminalOpen}
-        onClose={() => setIsTerminalOpen(false)}
-      />
     </div>
   );
 }

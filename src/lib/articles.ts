@@ -172,7 +172,7 @@ export function generateStructuredData(article: Article) {
     },
     publisher: {
       "@type": "Organization",
-      name: "Boiler.click",
+      name: "Boiler™",
       logo: {
         "@type": "ImageObject",
         url: `${

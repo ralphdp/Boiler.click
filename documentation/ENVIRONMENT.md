@@ -1,10 +1,10 @@
 # Environment Configuration
 
-Complete guide for configuring environment variables and settings for Boiler.click.
+Complete guide for configuring environment variables and settings for Boiler™.
 
 ## 📋 Environment Variables Overview
 
-Boiler.click uses a flexible environment configuration system that automatically selects the appropriate settings based on your environment (development vs production).
+Boiler™ uses a flexible environment configuration system that automatically selects the appropriate settings based on your environment (development vs production).
 
 ## 🔧 Development Environment (.env)
 
@@ -20,7 +20,7 @@ NEXT_PUBLIC_DEVELOPMENT_SITE_URL="http://localhost:3000"
 NEXT_PUBLIC_PRODUCTION_SITE_URL="https://boiler.click"
 
 # Site Configuration
-NEXT_PUBLIC_SITE_TITLE="Boiler.click"
+NEXT_PUBLIC_SITE_TITLE="Boiler™"
 NEXT_PUBLIC_SITE_URL="https://boiler.click"
 NEXT_PUBLIC_SITE_EMAIL_SUPPORT="hi@boiler.click"
 NEXT_PUBLIC_SITE_PHYSICAL_ADDRESS="123 Oak St."

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { config } from "@/lib/config";
 import { PrismaClient } from "@prisma/client";
 import { hashPassword } from "@/lib/auth/password";
-import { authenticateUser, setSessionCookie } from "@/lib/auth/session";
+import { authenticateUser, getCurrentUser, setSessionCookie } from "@/lib/auth/session";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
@@ -109,28 +109,70 @@ export async function GET(request: NextRequest) {
     // Check if user exists
     let user = await prisma.user.findUnique({ where: { email: userEmail } });
 
-    if (user) {
-      // User exists, check if GitHub account is linked
-      const account = await prisma.account.findUnique({
-        where: {
-          provider_providerId: {
-            provider: "github",
-            providerId: id.toString(),
-          },
-        },
-      });
+    // Check if there's a currently logged-in user
+    const currentUser = await getCurrentUser(request);
 
-      if (!account) {
-        // Link GitHub account to existing user
-        await prisma.account.create({
-          data: {
-            userId: user.id,
-            provider: "github",
-            providerId: id.toString(),
-            accessToken: access_token,
-            refreshToken: tokenData.refresh_token || null,
+    if (user) {
+      // 🔒 SECURITY: Check if this is an email/password account
+      if (user.password) {
+        // User has email/password account - check if GitHub is already linked
+        const account = await prisma.account.findUnique({
+          where: {
+            provider_providerId: {
+              provider: "github",
+              providerId: id.toString(),
+            },
           },
         });
+
+        if (!account) {
+          // Check if user is currently logged in - if so, allow linking
+          if (currentUser && currentUser.id === user.id) {
+            // Link GitHub account to logged-in user
+            await prisma.account.create({
+              data: {
+                userId: user.id,
+                provider: "github",
+                providerId: id.toString(),
+                accessToken: access_token,
+                refreshToken: tokenData.refresh_token || null,
+              },
+            });
+            // Redirect to settings page to show success
+            return NextResponse.redirect(
+              `${config.site.url}/account/settings?linked=github`
+            );
+          } else {
+            // Security risk: Don't allow auto-linking OAuth to email/password account
+            return NextResponse.redirect(
+              `${config.site.url}/auth/login?error=oauth_conflict_existing_account`
+            );
+          }
+        }
+        // If account IS linked, proceed with login
+      } else {
+        // User is OAuth-only - check if GitHub account is linked
+        const account = await prisma.account.findUnique({
+          where: {
+            provider_providerId: {
+              provider: "github",
+              providerId: id.toString(),
+            },
+          },
+        });
+
+        if (!account) {
+          // Link GitHub account to existing OAuth-only user (different OAuth provider)
+          await prisma.account.create({
+            data: {
+              userId: user.id,
+              provider: "github",
+              providerId: id.toString(),
+              accessToken: access_token,
+              refreshToken: tokenData.refresh_token || null,
+            },
+          });
+        }
       }
     } else {
       // Create new user

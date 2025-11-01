@@ -1,7 +1,7 @@
 import { config, features } from "./config";
 
 // Safety check for analytics config
-if (!config.analytics) {
+if (!config || !config.analytics) {
   console.warn("Analytics configuration is missing");
 }
 
@@ -381,6 +381,12 @@ export function monitorCoreWebVitals() {
 
 // Initialize analytics
 export function initializeAnalytics() {
+  // Safety check for config existence first
+  if (!config || typeof config !== "object") {
+    console.warn("Config not available, skipping analytics initialization");
+    return;
+  }
+
   // Safety check for analytics config
   if (!config.analytics) {
     console.warn("Analytics configuration is missing, skipping initialization");

@@ -1,4 +1,4 @@
-# Boiler.click Development Instructions
+# ™ Development Instructions
 
 ## Project Context
 
@@ -8,7 +8,7 @@ This is a production-ready Next.js boilerplate for SaaS applications with:
 - TypeScript with strict typing
 - Tailwind CSS + Shadcn/ui components
 - PostgreSQL + Prisma ORM
-- 5-language i18n support (EN, ES, FR, AR, JP)
+- 5-language i18n support (EN, AR)
 - Vercel-optimized deployment
 
 ## Development Guidelines

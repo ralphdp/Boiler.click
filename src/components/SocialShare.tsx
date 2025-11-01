@@ -28,7 +28,7 @@ interface SocialShareProps {
 
 export function SocialShare({
   url = typeof window !== "undefined" ? window.location.href : "",
-  title = "Boiler.click - Next generation full-stack SaaS boilerplate",
+  title = "Boiler™ - Next generation full-stack SaaS boilerplate",
   description = "Next generation full-stack SaaS boilerplate. Powered with Next.js, Prisma, Shadcn, and other performant technologies.",
   className = "",
 }: SocialShareProps) {
@@ -77,7 +77,7 @@ export function SocialShare({
       <span className="text-sm text-gray-600 dark:text-gray-400">Share:</span>
 
       {/* Native share button for mobile */}
-      {typeof navigator !== 'undefined' && 'share' in navigator && (
+      {typeof navigator !== "undefined" && "share" in navigator && (
         <Button
           variant="outline"
           size="sm"
@@ -166,8 +166,7 @@ export function SocialShareButtons({
 }: SocialShareProps) {
   const shareData = {
     url: url || (typeof window !== "undefined" ? window.location.href : ""),
-    title:
-      title || "Boiler.click - Next generation full-stack SaaS boilerplate",
+    title: title || "Boiler™ - Next generation full-stack SaaS boilerplate",
     text:
       description ||
       "Next generation full-stack SaaS boilerplate. Powered with Next.js, Prisma, Shadcn, and other performant technologies.",
