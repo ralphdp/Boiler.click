@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { generateEmailPreviews } from "@/lib/email/preview";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,11 +14,26 @@ import { Badge } from "@/components/ui/badge";
 import { Eye, Mail, Download } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+type EmailTemplates = {
+  welcome: string;
+  verification: string;
+  reset: string;
+  notification: string;
+};
+
 export default function EmailPreviewPage() {
   const { t } = useLanguage();
   const [selectedTemplate, setSelectedTemplate] =
-    useState<keyof ReturnType<typeof generateEmailPreviews>>("welcome");
-  const previews = generateEmailPreviews();
+    useState<keyof EmailTemplates>("welcome");
+  const [previews, setPreviews] = useState<EmailTemplates | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    generateEmailPreviews().then((data) => {
+      setPreviews(data);
+      setIsLoading(false);
+    });
+  }, []);
 
   const templateNames = {
     welcome: t("emailPreview.templateNames.welcome"),
@@ -28,6 +43,7 @@ export default function EmailPreviewPage() {
   };
 
   const downloadHTML = () => {
+    if (!previews) return;
     const html = previews[selectedTemplate];
     const blob = new Blob([html], { type: "text/html" });
     const url = URL.createObjectURL(blob);
@@ -39,6 +55,14 @@ export default function EmailPreviewPage() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
+  if (isLoading || !previews) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
