@@ -1,8 +1,6 @@
 import bcrypt from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
 import { getTranslations, getTranslationValue } from "@/lib/utils";
-
-const prisma = new PrismaClient();
+import prisma from "@/lib/prisma";
 const SALT_ROUNDS = 12;
 
 export interface PasswordValidationResult {

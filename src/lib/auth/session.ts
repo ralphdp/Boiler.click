@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { serialize, parse } from "cookie";
 import { SignJWT, jwtVerify } from "jose";
 import { config } from "@/lib/config";
-import { PrismaClient, User } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { User } from "@prisma/client";
+import prisma from "@/lib/prisma";
 const SESSION_SECRET = new TextEncoder().encode(config.auth.sessionSecret);
 const SESSION_COOKIE_NAME = "boiler_session";
 const SHORT_SESSION_EXPIRY_SECONDS = 60 * 60 * 24; // 1 day

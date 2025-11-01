@@ -5,7 +5,6 @@ import { Strategy as GitHubStrategy } from "passport-github2";
 import { Strategy as DiscordStrategy } from "passport-discord";
 import { Strategy as FacebookStrategy } from "passport-facebook";
 import { Strategy as TwitterStrategy } from "passport-twitter";
-import { PrismaClient } from "@prisma/client";
 import { VerifyCallback } from "passport-oauth2";
 import {
   comparePassword,
@@ -13,8 +12,7 @@ import {
   savePasswordToHistory,
 } from "./password";
 import { config } from "@/lib/config";
-
-const prisma = new PrismaClient();
+import prisma from "@/lib/prisma";
 
 // Local Strategy for email/password login
 passport.use(
