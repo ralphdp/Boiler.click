@@ -575,7 +575,9 @@ export default function SettingsPage() {
           <Card className="w-full max-w-md">
             <CardHeader>
               <CardTitle>Loading Settings...</CardTitle>
-              <CardDescription>Please wait while we load your settings</CardDescription>
+              <CardDescription>
+                Please wait while we load your settings
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-center text-gray-600 dark:text-gray-400">
