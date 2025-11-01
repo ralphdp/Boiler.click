@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { config } from "@/lib/config";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import { hashPassword } from "@/lib/auth/password";
 import { authenticateUser, getCurrentUser, setSessionCookie } from "@/lib/auth/session";
 import { getTranslations, getTranslationValue } from "@/lib/utils";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
-
-const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
   try {

@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth/session";
 import { getTranslations, createTranslator } from "@/lib/utils";
 import { generateTotpSecret, generateBackupCodes, generateQRCode, generateEmailOTP, storeOTP } from "@/lib/auth/two-factor";
 import { emailService } from "@/lib/email/mailer";
 
 export const runtime = "nodejs";
-
-const prisma = new PrismaClient();
 
 /**
  * POST /api/auth/enable-2fa

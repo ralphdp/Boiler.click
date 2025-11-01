@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth/session";
 import {
   comparePassword,
@@ -12,8 +12,6 @@ import { getTranslations, createTranslator } from "@/lib/utils";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
-
-const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {

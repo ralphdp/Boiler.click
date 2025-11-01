@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import { verifyToken } from "@/lib/auth/tokens";
 import { getTranslations, getTranslationValue } from "@/lib/utils";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
-
-const prisma = new PrismaClient();
 
 async function verifyEmailToken(token: string | null, lang: string = "en") {
   const messages = await getTranslations(lang);

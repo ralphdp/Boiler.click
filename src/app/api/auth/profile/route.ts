@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import { z } from "zod";
 import { profileUpdateSchema } from "@/lib/validation/auth";
 import { getCurrentUser } from "@/lib/auth/session";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = 'nodejs';
-
-const prisma = new PrismaClient();
 
 export async function PUT(request: NextRequest) {
   try {

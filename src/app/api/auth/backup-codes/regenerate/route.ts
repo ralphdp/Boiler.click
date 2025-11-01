@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth/session";
 import { getTranslations, createTranslator } from "@/lib/utils";
 import { generateBackupCodes } from "@/lib/auth/two-factor";
 
 export const runtime = "nodejs";
-
-const prisma = new PrismaClient();
 
 /**
  * POST /api/auth/backup-codes/regenerate

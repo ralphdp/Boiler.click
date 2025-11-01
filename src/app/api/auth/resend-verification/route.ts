@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import { z } from "zod";
 import { resendVerificationSchema } from "@/lib/validation/auth";
 import { generateVerificationToken } from "@/lib/auth/tokens";
@@ -8,8 +8,6 @@ import { config } from "@/lib/config";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
-
-const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {

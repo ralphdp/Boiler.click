@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import { z } from "zod";
 import { getTranslations, createTranslator } from "@/lib/utils";
 import { authenticateUser, setSessionCookie } from "@/lib/auth/session";
@@ -7,8 +7,6 @@ import { verifyTotpCode, getOTP, clearOTP, getAndDelete2FALoginSession } from "@
 import { verifyBackupCode } from "@/lib/auth/backup-codes";
 
 export const runtime = "nodejs";
-
-const prisma = new PrismaClient();
 
 // Validation schema for 2FA verification
 const verify2FASchema = z.object({
