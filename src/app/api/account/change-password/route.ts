@@ -8,7 +8,7 @@ import {
   savePasswordToHistory,
 } from "@/lib/auth/password";
 import { changePasswordSchema } from "@/lib/validation/auth";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { getTranslations, createTranslator } from "@/lib/utils";
 
 // Force Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
@@ -17,12 +17,16 @@ const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {
-    const t = useLanguage();
     const user = await getCurrentUser(request);
+    const lang =
+      request.headers.get("accept-language")?.split(",")[0]?.split("-")[0] ||
+      "en";
+    const messages = await getTranslations(lang);
+    const t = createTranslator(messages);
 
     if (!user) {
       return NextResponse.json(
-        { error: t("auth.messages.notAuthenticated") },
+        { error: t("api.errors.notAuthenticated") },
         { status: 401 }
       );
     }
@@ -34,7 +38,7 @@ export async function POST(request: NextRequest) {
     if (!validationResult.success) {
       return NextResponse.json(
         {
-          error: t("auth.messages.validationFailed"),
+          error: t("api.errors.validationFailed"),
           details: validationResult.error.errors,
         },
         { status: 400 }
@@ -54,7 +58,7 @@ export async function POST(request: NextRequest) {
 
     if (!userWithPassword || !userWithPassword.password) {
       return NextResponse.json(
-        { error: t("auth.messages.userNotFoundOrNoPassword") },
+        { error: t("auth.messages.noPasswordSet") },
         { status: 404 }
       );
     }
@@ -66,7 +70,7 @@ export async function POST(request: NextRequest) {
     );
     if (!isCurrentPasswordValid) {
       return NextResponse.json(
-        { error: t("auth.messages.currentPasswordIncorrect") },
+        { error: t("auth.messages.incorrectPassword") },
         { status: 400 }
       );
     }
@@ -78,7 +82,7 @@ export async function POST(request: NextRequest) {
     );
     if (isSamePassword) {
       return NextResponse.json(
-        { error: t("auth.messages.newPasswordMustBeDifferent") },
+        { error: t("auth.messages.reusePassword") },
         { status: 400 }
       );
     }
@@ -107,13 +111,15 @@ export async function POST(request: NextRequest) {
     await savePasswordToHistory(user.id, hashedNewPassword);
 
     return NextResponse.json(
-      { message: t("auth.messages.passwordChangedSuccessfully") },
+      { message: t("auth.messages.passwordChangedSuccess") },
       { status: 200 }
     );
   } catch (error) {
     console.error("Change password error:", error);
+    const messages = await getTranslations("en");
+    const t = createTranslator(messages);
     return NextResponse.json(
-      { error: t("auth.messages.internalServerError") },
+      { error: t("api.errors.internalServerError") },
       { status: 500 }
     );
   }
