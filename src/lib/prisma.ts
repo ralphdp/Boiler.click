@@ -2,7 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 import { withAccelerate } from "@prisma/extension-accelerate";
 
-const prismaClientSingleton = () => {
+const prismaClientSingleton = (): PrismaClient => {
   const dbUrl = process.env.DATABASE_URL || "";
   
   // Check if using Prisma Accelerate (URL starts with prisma://)
@@ -10,7 +10,7 @@ const prismaClientSingleton = () => {
   
   if (isUsingAccelerate) {
     console.log("Using Prisma Accelerate");
-    return new PrismaClient().$extends(withAccelerate());
+    return new PrismaClient().$extends(withAccelerate()) as unknown as PrismaClient;
   } else {
     console.log("Using direct database connection");
     return new PrismaClient();
@@ -18,7 +18,7 @@ const prismaClientSingleton = () => {
 };
 
 declare global {
-  var prismaGlobal: undefined | ReturnType<typeof prismaClientSingleton>;
+  var prismaGlobal: undefined | PrismaClient;
 }
 
 const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
